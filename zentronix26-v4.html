@@ -1,0 +1,2975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENTRONIX'26 | ECE Symposium</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --omni-green:#00ff41;
+  --omni-dark-green:#00c832;
+  --omni-black:#0a0a0a;
+  --omni-grey:#1a1a1a;
+  --omni-grey2:#222;
+  --omni-white:#e8ffe8;
+  --rath-orange:#ff6600;
+  --rath-dark:#cc4400;
+  --jury-blue:#00aaff;
+  --jury-dark:#0077cc;
+  --upgrade-purple:#aa00ff;
+  --upgrade-dark:#7700cc;
+  --clockwork-gold:#ffaa00;
+  --clockwork-rust:#cc6600;
+  --glow-green:rgba(0,255,65,0.4);
+  --glow-orange:rgba(255,102,0,0.4);
+  --glow-blue:rgba(0,170,255,0.4);
+  --glow-purple:rgba(170,0,255,0.4);
+  --glow-gold:rgba(255,170,0,0.4);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',sans-serif;background:var(--omni-black);color:var(--omni-white);overflow-x:hidden;cursor:none}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:var(--omni-green);border-radius:3px}
+
+/* ═══════════════════════════════════════
+   OMNITRIX LOADER
+═══════════════════════════════════════ */
+#omnitrix-loader{
+  position:fixed;inset:0;z-index:99999;
+  background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.8s ease;
+}
+#omnitrix-loader.hide{opacity:0;pointer-events:none}
+
+.omni-dial-wrap{position:relative;width:260px;height:260px}
+
+/* Outer ring */
+.omni-outer-ring{
+  width:260px;height:260px;border-radius:50%;
+  border:4px solid #333;
+  background:radial-gradient(circle,#1a1a1a 0%,#000 100%);
+  position:absolute;top:0;left:0;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 40px rgba(0,255,65,0.2),inset 0 0 30px rgba(0,0,0,0.8);
+}
+/* Rotating tick marks ring */
+.omni-ticks{
+  position:absolute;width:260px;height:260px;
+  animation:dialSpin 3s linear infinite;
+}
+.omni-ticks svg{width:100%;height:100%}
+
+/* Middle band */
+.omni-band{
+  width:220px;height:220px;border-radius:50%;
+  border:3px solid #444;
+  background:radial-gradient(circle,#111 0%,#0a0a0a 100%);
+  position:absolute;top:16px;left:16px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Inner green hex face */
+.omni-face{
+  width:150px;height:150px;
+  background:radial-gradient(circle,#00ff41 0%,#004414 60%,#001a08 100%);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 60px rgba(0,255,65,0.8),0 0 120px rgba(0,255,65,0.4);
+  animation:facePulse 1.5s ease-in-out infinite;
+  position:relative;overflow:hidden;
+}
+.omni-face::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(transparent 0deg,rgba(255,255,255,0.1) 60deg,transparent 120deg);
+  animation:faceShine 2s linear infinite;
+}
+
+/* Outer dashes animation */
+@keyframes dialSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes facePulse{
+  0%,100%{box-shadow:0 0 60px rgba(0,255,65,0.8),0 0 120px rgba(0,255,65,0.4)}
+  50%{box-shadow:0 0 80px rgba(0,255,65,1),0 0 160px rgba(0,255,65,0.6)}
+}
+@keyframes faceShine{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Side buttons */
+.omni-btn-left,.omni-btn-right{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:18px;height:50px;background:#333;border-radius:3px;
+}
+.omni-btn-left{left:-10px}
+.omni-btn-right{right:-10px}
+
+/* Bottom band */
+.omni-bottom-band{
+  position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+  width:90px;height:18px;background:#222;border-radius:0 0 12px 12px;
+  border:2px solid #333;border-top:none;
+}
+
+/* Loading text */
+.loader-text{
+  margin-top:2.5rem;font-family:'Orbitron',sans-serif;
+  font-size:1.1rem;letter-spacing:6px;text-transform:uppercase;
+  color:var(--omni-green);animation:textBlink 0.8s ease-in-out infinite;
+}
+.loader-sub{
+  margin-top:0.8rem;font-family:'Share Tech Mono',monospace;
+  font-size:0.7rem;letter-spacing:4px;color:#555;text-transform:uppercase;
+}
+.loader-bar-wrap{
+  width:260px;height:3px;background:#111;margin-top:1.5rem;border-radius:2px;overflow:hidden;
+}
+.loader-bar{
+  height:100%;background:linear-gradient(90deg,#00ff41,#00c832);
+  border-radius:2px;width:0%;
+  animation:loadBar 2.5s ease forwards;
+}
+@keyframes loadBar{to{width:100%}}
+@keyframes textBlink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* Transformation flash */
+.transform-flash{
+  position:fixed;inset:0;z-index:99998;
+  background:var(--omni-green);opacity:0;pointer-events:none;
+  animation:transformFlash 0.5s ease 2.8s forwards;
+}
+@keyframes transformFlash{
+  0%{opacity:0}30%{opacity:0.9}100%{opacity:0}
+}
+
+/* ═══════════════════════════════════════
+   OMNITRIX CURSOR
+═══════════════════════════════════════ */
+.omni-cursor{
+  width:20px;height:20px;
+  position:fixed;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+}
+.omni-cursor svg{width:100%;height:100%}
+.omni-cursor-ring{
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(0,255,65,0.4);
+  position:fixed;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:all 0.12s ease;
+}
+
+/* ═══════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  height:68px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,0.9);
+  border-bottom:2px solid rgba(0,255,65,0.2);
+  backdrop-filter:blur(15px);
+  transition:all 0.3s;
+}
+nav.scrolled{border-bottom-color:var(--omni-green);box-shadow:0 4px 30px rgba(0,255,65,0.15)}
+
+/* Omnitrix logo in nav */
+.nav-logo-wrap{display:flex;align-items:center;gap:0.8rem}
+.nav-omni-mini{
+  width:36px;height:36px;border-radius:50%;
+  background:radial-gradient(circle,#00ff41,#004414);
+  border:2px solid var(--omni-green);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 15px var(--omni-green);
+  animation:facePulse 2s ease infinite;
+  flex-shrink:0;
+}
+.nav-omni-mini svg{width:20px;height:20px}
+.nav-title{
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.2rem;
+  letter-spacing:3px;color:var(--omni-green);
+  text-shadow:0 0 20px rgba(0,255,65,0.5);
+}
+
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  color:#bbb;text-decoration:none;font-size:0.85rem;
+  letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  transition:color 0.3s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;
+  width:0;height:2px;background:var(--omni-green);transition:width 0.3s;
+}
+.nav-links a:hover{color:var(--omni-green)}
+.nav-links a:hover::after{width:100%}
+.nav-reg-btn{
+  border:2px solid var(--omni-green) !important;
+  color:var(--omni-green) !important;
+  padding:5px 16px;border-radius:3px;
+}
+.nav-reg-btn:hover{background:var(--omni-green) !important;color:#000 !important}
+.nav-reg-btn::after{display:none !important}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:24px;height:2px;background:var(--omni-green);transition:all 0.3s}
+.mobile-menu{
+  display:none;flex-direction:column;gap:1rem;
+  position:absolute;top:68px;left:0;width:100%;
+  background:rgba(0,0,0,0.97);padding:2rem;
+  border-bottom:2px solid rgba(0,255,65,0.2);
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#888;text-decoration:none;font-size:1rem;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s}
+.mobile-menu a:hover{color:var(--omni-green)}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+#home{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 5%;overflow:hidden;
+  padding-top:68px;
+}
+
+/* Omnitrix hex grid bg */
+.hex-bg{
+  position:absolute;inset:0;opacity:0.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M15 0 L45 0 L60 26 L45 52 L15 52 L0 26Z' fill='none' stroke='%2300ff41' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:60px 52px;
+  animation:hexShift 20s linear infinite;
+}
+@keyframes hexShift{from{background-position:0 0}to{background-position:60px 52px}}
+
+/* Scan line */
+.scan-line{
+  position:absolute;top:0;left:0;width:100%;height:3px;
+  background:linear-gradient(90deg,transparent,var(--omni-green),transparent);
+  opacity:0.5;animation:scanDown 4s ease-in-out infinite;
+}
+@keyframes scanDown{0%{top:-3px}100%{top:100%}}
+
+.hero-alien-bg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0.04;pointer-events:none;
+}
+.hero-alien-bg svg{width:70vmin;height:70vmin}
+
+/* Radial glow */
+.hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,65,0.08) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:heroGlow 4s ease-in-out infinite;
+}
+@keyframes heroGlow{0%,100%{opacity:1;transform:translate(-50%,-50%) scale(1)}50%{opacity:0.6;transform:translate(-50%,-50%) scale(1.2)}}
+
+.hero-badge{
+  font-family:'Share Tech Mono',monospace;
+  font-size:0.75rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--omni-green);border:1px solid rgba(0,255,65,0.3);
+  padding:7px 22px;border-radius:2px;margin-bottom:1.5rem;
+  background:rgba(0,255,65,0.05);
+  animation:fadeInDown 0.8s ease forwards;
+}
+
+.hero-omni-icon{
+  width:100px;height:100px;border-radius:50%;
+  background:radial-gradient(circle,#00ff41 0%,#004414 60%,#001408 100%);
+  border:3px solid var(--omni-green);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  box-shadow:0 0 40px rgba(0,255,65,0.8),0 0 80px rgba(0,255,65,0.4);
+  animation:facePulse 2s ease infinite;
+}
+.hero-omni-icon svg{width:55px;height:55px}
+
+.hero-title{
+  font-family:'Orbitron',sans-serif;font-weight:900;
+  font-size:clamp(3rem,9vw,7rem);letter-spacing:-1px;line-height:1;
+  color:var(--omni-green);
+  text-shadow:0 0 40px rgba(0,255,65,0.6),0 0 80px rgba(0,255,65,0.3);
+  animation:fadeInUp 1s ease 0.2s both;
+}
+.hero-title .apostrophe{color:#fff;font-size:0.7em}
+.hero-sub{
+  font-family:'Orbitron',sans-serif;font-size:clamp(0.8rem,2vw,1.2rem);
+  letter-spacing:8px;color:#555;margin-bottom:1rem;
+  animation:fadeInUp 1s ease 0.3s both;
+}
+.hero-tagline{
+  font-size:clamp(1rem,2.5vw,1.3rem);font-weight:400;
+  color:rgba(232,255,232,0.6);margin-bottom:0.6rem;
+  animation:fadeInUp 1s ease 0.5s both;
+}
+.hero-date{
+  font-family:'Share Tech Mono',monospace;font-size:0.95rem;
+  letter-spacing:3px;color:var(--omni-green);margin-bottom:2.5rem;
+  animation:fadeInUp 1s ease 0.6s both;
+}
+.hero-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp 1s ease 0.8s both}
+
+.btn-omnitrix{
+  font-family:'Orbitron',sans-serif;font-size:0.8rem;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:13px 34px;border:none;cursor:pointer;
+  background:var(--omni-green);color:#000;
+  border-radius:3px;font-weight:700;
+  box-shadow:0 0 30px rgba(0,255,65,0.5);
+  transition:all 0.3s;text-decoration:none;display:inline-block;
+  position:relative;overflow:hidden;
+}
+.btn-omnitrix::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.2),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.btn-omnitrix:hover{box-shadow:0 0 60px rgba(0,255,65,0.9);transform:translateY(-2px)}
+.btn-omnitrix:hover::before{opacity:1}
+.btn-outline{
+  font-family:'Orbitron',sans-serif;font-size:0.8rem;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:12px 34px;cursor:pointer;
+  background:transparent;color:var(--omni-green);
+  border:2px solid var(--omni-green);
+  border-radius:3px;transition:all 0.3s;text-decoration:none;
+}
+.btn-outline:hover{background:rgba(0,255,65,0.1);box-shadow:0 0 20px rgba(0,255,65,0.3)}
+
+/* Countdown */
+.countdown-wrap{
+  margin-top:3.5rem;display:flex;gap:1.5rem;align-items:center;
+  animation:fadeInUp 1s ease 1s both;
+}
+.cd-item{text-align:center}
+.cd-num{
+  font-family:'Orbitron',sans-serif;font-weight:900;
+  font-size:clamp(1.8rem,4vw,3rem);color:var(--omni-green);
+  text-shadow:0 0 20px rgba(0,255,65,0.6);
+  display:block;
+  background:rgba(0,255,65,0.08);
+  border:1px solid rgba(0,255,65,0.2);
+  padding:10px 16px;border-radius:4px;min-width:75px;
+}
+.cd-label{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:3px;color:#555;text-transform:uppercase;margin-top:5px;display:block}
+.cd-sep{font-family:'Orbitron',sans-serif;font-size:2rem;color:var(--omni-green);margin-top:-10px}
+
+.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);animation:bounce 2s infinite}
+.scroll-cue span{display:block;width:18px;height:18px;border-right:2px solid var(--omni-green);border-bottom:2px solid var(--omni-green);transform:rotate(45deg);margin:-5px auto;opacity:0.5}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
+
+/* ═══════════════════════════════════════
+   CANVAS
+═══════════════════════════════════════ */
+#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* ═══════════════════════════════════════
+   COMMON SECTION STYLES
+═══════════════════════════════════════ */
+section{position:relative;z-index:1;padding:100px 5%}
+.sec-label{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--omni-green);margin-bottom:0.8rem}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:400;margin-bottom:3.5rem}
+.sec-title .acc{color:var(--omni-green)}
+.sec-divider{width:60px;height:3px;background:var(--omni-green);margin-bottom:3rem;border-radius:2px;box-shadow:0 0 10px var(--omni-green)}
+.sec-divider.center{margin-left:auto;margin-right:auto}
+
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-in.visible{opacity:1;transform:none}
+.fade-left{opacity:0;transform:translateX(-40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-left.visible{opacity:1;transform:none}
+.fade-right{opacity:0;transform:translateX(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-right.visible{opacity:1;transform:none}
+
+/* ═══════════════════════════════════════
+   ABOUT — REDESIGNED
+═══════════════════════════════════════ */
+#about{
+  background:linear-gradient(180deg,#000 0%,#020d02 60%,#050a05 100%);
+  position:relative;overflow:hidden;
+}
+#about::before{
+  content:'';position:absolute;top:-100px;right:-150px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,65,0.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+/* ── Hero banner strip at top of about ── */
+.about-intro{
+  max-width:900px;margin:0 auto 4rem;text-align:center;
+}
+.about-intro .dept-badge{
+  display:inline-flex;align-items:center;gap:0.8rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.78rem;letter-spacing:2px;
+  border:1px solid rgba(0,255,65,0.4);padding:9px 22px;border-radius:30px;
+  color:var(--omni-green);margin-bottom:2rem;
+  background:rgba(0,255,65,0.06);
+  box-shadow:0 0 20px rgba(0,255,65,0.12),inset 0 0 20px rgba(0,255,65,0.02);
+}
+.about-intro-text{
+  font-size:1.12rem;color:rgba(232,255,232,0.88);line-height:1.95;
+  max-width:780px;margin:0 auto 1.2rem;
+}
+
+/* ── Stats strip ── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;margin:3rem auto 0;max-width:900px;
+  border:1px solid rgba(0,255,65,0.18);border-radius:12px;
+  overflow:hidden;
+  background:rgba(0,255,65,0.02);
+}
+.stat-item{
+  text-align:center;padding:1.6rem 1rem;
+  border-right:1px solid rgba(0,255,65,0.12);
+  position:relative;transition:background 0.3s;
+}
+.stat-item:last-child{border-right:none}
+.stat-item:hover{background:rgba(0,255,65,0.06)}
+.stat-num{
+  font-family:'Orbitron',sans-serif;font-size:2.4rem;font-weight:900;
+  color:var(--omni-green);text-shadow:0 0 20px rgba(0,255,65,0.6);
+  display:block;line-height:1;margin-bottom:0.5rem;
+}
+.stat-label{font-size:0.68rem;letter-spacing:3px;color:#aaa;text-transform:uppercase}
+
+/* ── Coordinator section ── */
+.about-coord-section{
+  max-width:1200px;margin:5rem auto 0;
+}
+.about-coord-header{
+  display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;
+}
+.about-coord-header-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(0,255,65,0.4),transparent)}
+.about-coord-header-title{
+  font-family:'Orbitron',sans-serif;font-size:0.85rem;
+  letter-spacing:4px;text-transform:uppercase;color:var(--omni-green);
+  white-space:nowrap;
+}
+
+/* ── Coordinator grid ── */
+.coord-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
+}
+.coord-grid .coord-item-lead{
+  grid-column:span 3;
+}
+.coord-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 1.2rem;border-radius:10px;
+  background:linear-gradient(135deg,rgba(0,255,65,0.04),rgba(0,255,65,0.01));
+  border:1px solid rgba(0,255,65,0.1);
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.coord-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--omni-green);opacity:0;transition:opacity 0.3s;
+  border-radius:3px 0 0 3px;
+}
+.coord-item:hover{border-color:rgba(0,255,65,0.35);background:rgba(0,255,65,0.07);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.coord-item:hover::before{opacity:1}
+.coord-item-lead .coord-item{
+  background:linear-gradient(135deg,rgba(0,255,65,0.08),rgba(0,255,65,0.02));
+  border-color:rgba(0,255,65,0.25);
+  padding:1.4rem 1.6rem;
+}
+.coord-item-lead .coord-av{
+  width:56px;height:56px;font-size:0.95rem;
+}
+
+.coord-av{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#003318,#001a08);
+  border:2px solid rgba(0,255,65,0.5);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.75rem;
+  color:var(--omni-green);
+  box-shadow:0 0 12px rgba(0,255,65,0.2);
+}
+.coord-name{font-weight:700;font-size:0.95rem;margin-bottom:3px;color:#e8ffe8;line-height:1.2}
+.coord-role{font-size:0.72rem;color:#88bb88;letter-spacing:0.5px;line-height:1.4}
+
+/* Keep old .coord-card for fallback */
+.coord-card{display:none}
+
+/* ── dept-badge (global, used in about-intro now) ── */
+.dept-badge{
+  display:inline-flex;align-items:center;gap:0.8rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.8rem;letter-spacing:2px;
+  border:2px solid var(--omni-green);padding:10px 20px;border-radius:3px;
+  color:var(--omni-green);margin-bottom:2rem;
+  background:rgba(0,255,65,0.05);
+  box-shadow:0 0 20px rgba(0,255,65,0.1);
+}
+
+/* ═══════════════════════════════════════
+   EVENTS — ALIEN CARDS
+═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   EVENTS — OMNITRIX ORBITAL DIAL
+═══════════════════════════════════════ */
+#events{
+  background:radial-gradient(ellipse at center,#030d03 0%,#010801 50%,#000 100%);
+  overflow:hidden;
+}
+.events-head{text-align:center;max-width:700px;margin:0 auto 1rem}
+.events-head p{color:rgba(232,255,232,0.55);line-height:1.8;font-size:1.05rem}
+
+/* ── DIAL ARENA ── */
+.dial-arena{
+  position:relative;
+  width:820px; height:820px;
+  margin:0 auto;
+}
+.dial-svg{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;
+}
+
+/* ── CENTER LOGO ── */
+.dial-center{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+}
+.dial-center-body{
+  position:relative;
+  width:160px;height:160px;
+  display:flex;align-items:center;justify-content:center;
+}
+/* Spinning outer gear ring */
+.dial-gear-ring{
+  position:absolute;inset:-18px;border-radius:50%;
+  border:3px solid var(--omni-green);
+  box-shadow:0 0 20px rgba(0,255,65,0.4),inset 0 0 20px rgba(0,255,65,0.05);
+  animation:dialRingSpin 10s linear infinite;
+}
+/* Gear teeth on ring */
+.dial-gear-ring::before{
+  content:'';position:absolute;
+  inset:-8px;border-radius:50%;
+  border:6px dotted rgba(0,255,65,0.25);
+  animation:dialRingSpin 6s linear infinite reverse;
+}
+@keyframes dialRingSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Middle dashed ring */
+.dial-ring2{
+  position:absolute;inset:-32px;border-radius:50%;
+  border:1.5px dashed rgba(0,255,65,0.2);
+  animation:dialRingSpin 20s linear infinite reverse;
+}
+.dial-logo-img{
+  width:160px;height:160px;border-radius:50%;
+  object-fit:contain;
+  border:3px solid var(--omni-green);
+  background:radial-gradient(circle,#001a06 0%,#000 100%);
+  box-shadow:0 0 0 4px rgba(0,255,65,0.1),0 0 40px rgba(0,255,65,0.7),0 0 90px rgba(0,255,65,0.3);
+  animation:logoPulse 2.5s ease-in-out infinite;
+  position:relative;z-index:2;display:block;
+}
+@keyframes logoPulse{
+  0%,100%{box-shadow:0 0 0 4px rgba(0,255,65,0.1),0 0 40px rgba(0,255,65,0.7),0 0 90px rgba(0,255,65,0.3)}
+  50%  {box-shadow:0 0 0 8px rgba(0,255,65,0.15),0 0 70px rgba(0,255,65,1),0 0 140px rgba(0,255,65,0.5)}
+}
+.dial-logo-fallback{
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,#002010,#000);
+  border:3px solid var(--omni-green);
+  box-shadow:0 0 40px rgba(0,255,65,0.7);
+  display:flex;align-items:center;justify-content:center;
+  animation:logoPulse 2.5s ease-in-out infinite;
+  position:relative;z-index:2;
+}
+.dial-hint{
+  margin-top:1rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.62rem;
+  letter-spacing:3px;color:rgba(0,255,65,0.4);text-transform:uppercase;text-align:center;
+  animation:hintBlink 2s ease-in-out infinite;
+}
+@keyframes hintBlink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── ALIEN ORBIT NODES ── */
+.dial-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  z-index:5;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:0px;
+}
+/* Image circle */
+.dial-node-img-wrap{
+  position:relative;
+  width:140px;height:140px;
+}
+.dial-node-img-wrap::before{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:2px solid var(--node-color,var(--omni-green));
+  opacity:0.4;transition:opacity 0.3s,inset 0.3s;
+}
+.dial-node-img-wrap::after{
+  content:'';position:absolute;inset:-12px;border-radius:50%;
+  border:1px dashed var(--node-color,var(--omni-green));
+  opacity:0;transition:opacity 0.3s;
+  animation:dialRingSpin 4s linear infinite;
+}
+.dial-node:hover .dial-node-img-wrap::before,
+.dial-node.active .dial-node-img-wrap::before{opacity:1;inset:-8px}
+.dial-node:hover .dial-node-img-wrap::after,
+.dial-node.active .dial-node-img-wrap::after{opacity:0.6}
+
+.dial-node-img{
+  width:140px;height:140px;border-radius:50%;
+  object-fit:cover;
+  border:2.5px solid var(--node-color,var(--omni-green));
+  box-shadow:0 0 16px var(--node-color,var(--omni-green));
+  transition:box-shadow 0.3s,transform 0.3s;
+  display:block;
+}
+.dial-node:hover .dial-node-img,
+.dial-node.active .dial-node-img{
+  box-shadow:0 0 30px var(--node-color,var(--omni-green)),0 0 60px rgba(0,255,65,0.3);
+  transform:scale(1.08);
+}
+.dial-node.active .dial-node-img{
+  animation:nodeActivePulse 1s ease-in-out infinite;
+}
+@keyframes nodeActivePulse{
+  0%,100%{box-shadow:0 0 20px var(--node-color,var(--omni-green))}
+  50%    {box-shadow:0 0 45px var(--node-color,var(--omni-green)),0 0 80px rgba(0,255,65,0.4)}
+}
+
+/* Alien name label */
+.dial-node-label{
+  font-family:'Orbitron',sans-serif;font-weight:600;font-size:0.5rem;
+  letter-spacing:1px;text-transform:uppercase;
+  color:var(--node-color,var(--omni-green));
+  text-shadow:0 0 8px var(--node-color,var(--omni-green));
+  text-align:center;line-height:1.8;
+  max-width:90px;
+  background:rgba(0,0,0,0.7);
+  padding:2px 6px;border-radius:15px;
+  border:5px solid rgba(0,255,65,0.15);
+}
+.dial-node-event{
+  font-family:'Share Tech Mono',monospace;font-size:0.9rem;
+  letter-spacing:1px;text-transform:uppercase;
+  color:rgba(200,255,200,0.45);text-align:center;
+  max-width:100px;
+}
+
+/* ── DETAIL PANEL (center popup) ── */
+.dial-detail{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0.85);
+  z-index:20;
+  width:300px;
+  background:linear-gradient(135deg,#001a08 0%,#000f04 100%);
+  border:2px solid var(--omni-green);
+  border-radius:14px;padding:1.4rem 1.5rem 1.2rem;
+  box-shadow:0 0 50px rgba(0,255,65,0.3),0 20px 60px rgba(0,0,0,0.8);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease, transform 0.3s ease;
+  text-align:left;
+}
+.dial-detail.show{
+  opacity:1;pointer-events:auto;
+  transform:translate(-50%,-50%) scale(1);
+}
+.detail-close{
+  position:absolute;top:10px;right:12px;
+  background:none;border:none;
+  color:var(--omni-green);font-size:1.1rem;cursor:pointer;
+  line-height:1;transition:transform 0.2s;
+}
+.detail-close:hover{transform:rotate(90deg)}
+.detail-alien-row{
+  display:flex;align-items:center;gap:0.8rem;margin-bottom:0.9rem;
+}
+.detail-alien-img{
+  width:54px;height:54px;border-radius:50%;object-fit:cover;
+  border:2px solid var(--node-color,var(--omni-green));
+  box-shadow:0 0 14px var(--node-color,var(--omni-green));
+  flex-shrink:0;
+}
+.detail-alien-name{
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:1rem;
+  color:var(--node-color,var(--omni-green));
+  text-shadow:0 0 10px var(--node-color,var(--omni-green));
+}
+.detail-event-title{
+  font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.82rem;
+  letter-spacing:1.5px;color:#e8ffe8;margin-bottom:0.6rem;
+}
+.detail-species{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;
+  letter-spacing:2px;color:rgba(150,200,150,0.5);margin-bottom:0.4rem;
+}
+.detail-desc{
+  font-size:0.82rem;color:rgba(220,255,220,0.85);
+  line-height:1.65;margin-bottom:0.9rem;
+}
+.detail-meta{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.9rem}
+.meta-tag{
+  font-family:'Share Tech Mono',monospace;font-size:0.64rem;
+  letter-spacing:1px;padding:3px 9px;border-radius:2px;border:1px solid;background:transparent;
+}
+.meta-team{color:#aaffaa;border-color:rgba(170,255,170,0.3)}
+.meta-fee {color:#ffaaaa;border-color:rgba(255,170,170,0.3)}
+.meta-prize{color:#ffd700;border-color:rgba(255,215,0,0.3)}
+
+.detail-rules-toggle{
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+  letter-spacing:1px;background:none;border:none;cursor:pointer;
+  color:var(--node-color,var(--omni-green));
+  display:flex;align-items:center;gap:0.4rem;padding:0;
+  transition:color 0.2s;
+}
+.detail-rules{
+  display:none;margin-top:0.7rem;
+  font-size:0.75rem;color:rgba(210,240,210,0.85);
+  line-height:1.7;border-left:2px solid var(--node-color,var(--omni-green));
+  padding-left:0.8rem;
+}
+.detail-rules.open{display:block}
+.detail-rules li{list-style:none;padding:1px 0}
+.detail-rules li::before{content:'▸ ';opacity:0.45}
+
+/* ── TOP strip on detail panel ── */
+.dial-detail::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,var(--node-color,var(--omni-green)),transparent);
+  border-radius:14px 14px 0 0;
+}
+
+/* ── MOBILE: list fallback ── */
+.events-mobile-list{display:none}
+.ev-mob-item{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:1.2rem 0;border-bottom:1px solid rgba(0,255,65,0.08);
+}
+.ev-mob-img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--omni-green);box-shadow:0 0 10px rgba(0,255,65,0.4);flex-shrink:0}
+.ev-mob-alien{font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.85rem;color:var(--omni-green);margin-bottom:2px}
+.ev-mob-event{font-size:0.9rem;font-weight:600;color:#e8ffe8;margin-bottom:3px}
+.ev-mob-desc{font-size:0.8rem;color:rgba(200,240,200,0.5);line-height:1.5}
+
+@media(max-width:860px){
+  .dial-arena{display:none}
+  .events-mobile-list{display:block;max-width:600px;margin:2rem auto 0}
+}
+@media(min-width:861px){.events-mobile-list{display:none}}
+
+/* ═══════════════════════════════════════
+   TIMELINE — ORBITAL CLOCKWORK
+═══════════════════════════════════════ */
+#timeline{
+  background:radial-gradient(ellipse at center,#0d0800 0%,#050300 50%,#000 100%);
+  overflow:hidden;
+}
+.timeline-head{text-align:center;margin-bottom:2rem}
+
+/* ── ORBITAL ARENA ── */
+.orbital-arena{
+  position:relative;
+  width:900px;
+  height:900px;
+  margin:0 auto;
+}
+
+/* SVG layer for orbit rings + connector lines */
+.orbital-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── CLOCKWORK CENTER ── */
+.cw-center{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
+}
+.cw-center-img-wrap{
+  position:relative;
+  width:190px;height:190px;
+  display:flex;align-items:center;justify-content:center;
+}
+/* Rings around center image */
+.cw-ring{
+  position:absolute;border-radius:50%;border-style:solid;
+}
+.cw-ring-1{
+  inset:-10px;
+  border-width:2px;border-color:var(--clockwork-gold);
+  box-shadow:0 0 20px rgba(255,170,0,0.5),inset 0 0 20px rgba(255,170,0,0.1);
+  animation:cwRing1Spin 12s linear infinite;
+}
+.cw-ring-2{
+  inset:-22px;
+  border-width:1px;border-color:rgba(255,170,0,0.35);
+  border-style:dashed;
+  animation:cwRing1Spin 20s linear infinite reverse;
+}
+.cw-ring-3{
+  inset:-36px;
+  border-width:1px;border-color:rgba(255,170,0,0.15);
+  animation:cwRing1Spin 30s linear infinite;
+}
+@keyframes cwRing1Spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* Gear teeth on ring-1 at 4 cardinal points */
+.cw-gear-tooth{
+  position:absolute;
+  width:10px;height:16px;
+  background:var(--clockwork-gold);
+  border-radius:2px;
+}
+.cw-gear-tooth:nth-child(1){top:-18px;left:50%;transform:translateX(-50%)}
+.cw-gear-tooth:nth-child(2){bottom:-18px;left:50%;transform:translateX(-50%)}
+.cw-gear-tooth:nth-child(3){left:-18px;top:50%;transform:translateY(-50%) rotate(90deg)}
+.cw-gear-tooth:nth-child(4){right:-18px;top:50%;transform:translateY(-50%) rotate(90deg)}
+
+.cw-center-img{
+  width:190px;height:190px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid var(--clockwork-gold);
+  box-shadow:
+    0 0 0 2px rgba(255,170,0,0.2),
+    0 0 40px rgba(255,170,0,0.7),
+    0 0 100px rgba(255,170,0,0.3);
+  animation:cwCenterPulse 3s ease-in-out infinite;
+  position:relative;z-index:2;
+  display:block;
+}
+@keyframes cwCenterPulse{
+  0%,100%{box-shadow:0 0 0 2px rgba(255,170,0,0.2),0 0 40px rgba(255,170,0,0.7),0 0 100px rgba(255,170,0,0.3)}
+  50%{box-shadow:0 0 0 4px rgba(255,170,0,0.3),0 0 70px rgba(255,170,0,1),0 0 150px rgba(255,170,0,0.5)}
+}
+/* SVG fallback */
+.cw-center-svg-fallback{
+  display:none;
+  width:190px;height:190px;border-radius:50%;
+  background:radial-gradient(circle,#ffaa00 0%,#4a2200 55%,#1a0800 100%);
+  border:4px solid var(--clockwork-gold);
+  box-shadow:0 0 40px rgba(255,170,0,0.7);
+  align-items:center;justify-content:center;
+  animation:cwCenterPulse 3s ease-in-out infinite;
+  position:relative;z-index:2;
+}
+.cw-center-label{
+  font-family:'Orbitron',sans-serif;font-weight:900;
+  font-size:1rem;letter-spacing:5px;
+  color:var(--clockwork-gold);
+  text-shadow:0 0 16px rgba(255,170,0,0.7);
+  text-align:center;
+  margin-top:0.3rem;
+}
+.cw-center-sub{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;
+  letter-spacing:3px;color:#aa7700;text-transform:uppercase;text-align:center;
+}
+
+/* ── ORBITAL EVENT NODES ── */
+.orb-node{
+  position:absolute;
+  z-index:5;
+  transform:translate(-50%,-50%);
+  cursor:pointer;
+}
+/* The card bubble */
+.orb-card{
+  width:180px;
+  background:linear-gradient(135deg,#1e1000,#120900);
+  border:1px solid rgba(255,170,0,0.35);
+  border-radius:12px;
+  padding:1rem 1.1rem;
+  position:relative;
+  transition:all 0.35s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.7),0 0 0 1px rgba(255,170,0,0.05);
+}
+.orb-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--clockwork-gold),transparent);
+  border-radius:12px 12px 0 0;
+  opacity:0.8;
+}
+.orb-node:hover .orb-card{
+  border-color:var(--clockwork-gold);
+  box-shadow:0 0 30px rgba(255,170,0,0.4),0 8px 30px rgba(0,0,0,0.8);
+  transform:scale(1.06);
+}
+
+/* Dot on the orbit ring */
+.orb-dot{
+  position:absolute;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--clockwork-gold);
+  box-shadow:0 0 10px rgba(255,170,0,0.8),0 0 20px rgba(255,170,0,0.4);
+  z-index:6;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+/* Pulsing ring on dot */
+.orb-dot::after{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid rgba(255,170,0,0.5);
+  animation:dotPulse 1.5s ease-out infinite;
+}
+@keyframes dotPulse{
+  0%{transform:scale(1);opacity:0.8}
+  100%{transform:scale(2.5);opacity:0}
+}
+
+/* Card content */
+.orb-emoji{font-size:1.2rem;margin-bottom:0.3rem;display:block}
+.orb-time{
+  font-family:'Share Tech Mono',monospace;font-size:0.62rem;
+  letter-spacing:1.5px;color:var(--clockwork-gold);margin-bottom:0.3rem;
+  background:rgba(255,170,0,0.08);display:inline-block;padding:2px 6px;border-radius:3px;
+}
+.orb-name{
+  font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.74rem;
+  letter-spacing:0.5px;margin-bottom:0.4rem;color:#ffe8bb;line-height:1.3;
+}
+.orb-desc{
+  font-size:0.72rem;color:rgba(230,200,130,0.88);
+  line-height:1.55;margin-bottom:0.35rem;
+}
+.orb-venue{
+  font-size:0.64rem;color:#dd8844;
+  display:flex;align-items:center;gap:0.3rem;font-family:'Share Tech Mono',monospace;
+}
+
+/* Number badge */
+.orb-num{
+  position:absolute;top:-10px;right:-10px;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--clockwork-gold);color:#000;
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:0.6rem;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 10px rgba(255,170,0,0.6);
+}
+
+/* ── MOBILE FALLBACK — vertical list ── */
+.orb-mobile-list{display:none}
+.orb-mobile-item{
+  display:flex;gap:1rem;align-items:flex-start;
+  padding:1rem 0;border-bottom:1px solid rgba(255,170,0,0.08);
+  position:relative;padding-left:3rem;
+}
+.orb-mobile-num{
+  position:absolute;left:0;top:1rem;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--clockwork-gold);color:#000;
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:0.75rem;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 10px rgba(255,170,0,0.5);flex-shrink:0;
+}
+.orb-mobile-time{font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:1px;color:var(--clockwork-gold);margin-bottom:0.2rem}
+.orb-mobile-name{font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.85rem;margin-bottom:0.3rem}
+.orb-mobile-desc{font-size:0.8rem;color:rgba(230,200,130,0.88);line-height:1.6}
+.orb-mobile-venue{font-size:0.72rem;color:var(--clockwork-rust);margin-top:0.3rem}
+
+@media(max-width:960px){
+  .orbital-arena{display:none}
+  .orb-mobile-list{display:block;max-width:600px;margin:2rem auto 0}
+  .cw-mobile-center{
+    display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin-bottom:2.5rem;
+  }
+  .cw-mobile-img{
+    width:150px;height:150px;border-radius:50%;object-fit:cover;
+    border:3px solid var(--clockwork-gold);
+    box-shadow:0 0 30px rgba(255,170,0,0.6);
+    animation:cwCenterPulse 3s ease-in-out infinite;
+  }
+}
+@media(min-width:961px){.cw-mobile-center{display:none}}
+
+/* ═══════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════ 
+#gallery{background:#000}
+.gallery-head{text-align:center;margin-bottom:3rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;max-width:1200px;margin:0 auto}
+.gal-item{
+  aspect-ratio:4/3;border-radius:8px;overflow:hidden;
+  border:1px solid rgba(0,255,65,0.1);
+  background:#0a0a0a;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;
+  transition:all 0.3s;cursor:pointer;
+}
+.gal-item:hover{border-color:rgba(0,255,65,0.4);box-shadow:0 0 25px rgba(0,255,65,0.15);transform:scale(1.03)}
+.gal-icon{font-size:2.5rem;opacity:0.2;color:var(--omni-green)}
+.gal-label{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:#444;text-transform:uppercase}
+.gal-item:nth-child(4){grid-column:span 2}
+.gal-item:nth-child(1){background:linear-gradient(135deg,#0a1a08,#001008)}
+.gal-item:nth-child(2){background:linear-gradient(135deg,#0d0800,#180c00)}
+.gal-item:nth-child(3){background:linear-gradient(135deg,#00080d,#000d18)}
+.gal-item:nth-child(4){background:linear-gradient(135deg,#0a0015,#05000d)}
+.gal-item:nth-child(5){background:linear-gradient(135deg,#0a0800,#100a00)}
+.gal-item:nth-child(6){background:linear-gradient(135deg,#000a0a,#00080d)}*/
+
+/* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+#contact{background:linear-gradient(180deg,#050a05 0%,#000 100%)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1200px;margin:0 auto;align-items:start}
+.contact-card{
+  background:#0d1a0d;border:1px solid rgba(0,255,65,0.15);
+  border-radius:10px;padding:2rem;position:relative;overflow:hidden;
+}
+.contact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--omni-green);box-shadow:0 0 10px var(--omni-green)}
+.contact-row{display:flex;gap:1rem;margin-bottom:1.5rem}
+.contact-ico{
+  width:44px;height:44px;flex-shrink:0;border-radius:8px;
+  background:rgba(0,255,65,0.08);border:1px solid rgba(0,255,65,0.2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--omni-green);font-size:1rem;
+}
+.contact-lbl{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:#aaa;text-transform:uppercase;margin-bottom:3px}
+.contact-val{font-size:0.9rem}
+.org-section{margin-top:2rem}
+.org-head{font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--omni-green);margin-bottom:1rem}
+.org-item{display:flex;align-items:center;gap:1rem;padding:0.7rem 0;border-bottom:1px solid rgba(0,255,65,0.05)}
+.org-item:last-child{border-bottom:none}
+.org-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--omni-dark-green),#003010);border:1px solid var(--omni-green);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.7rem;color:var(--omni-green);flex-shrink:0}
+.org-name{font-weight:600;font-size:0.9rem;margin-bottom:2px}
+.org-phone{font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:var(--omni-green)}
+
+.map-wrap{border-radius:10px;overflow:hidden;border:1px solid rgba(0,255,65,0.15);height:400px}
+.map-wrap iframe{width:100%;height:100%;border:none;filter:invert(90%) hue-rotate(100deg) saturate(1.2)}
+
+/* ═══════════════════════════════════════
+   REGISTER — ENHANCED
+═══════════════════════════════════════ */
+#register{background:#000;position:relative;overflow:hidden}
+#register::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,65,0.05) 0%,transparent 70%);pointer-events:none;
+}
+.reg-head{text-align:center;margin-bottom:3rem}
+.reg-head p{color:rgba(200,240,200,0.75);max-width:600px;margin:0 auto;font-size:1.05rem}
+.reg-form-box{
+  max-width:780px;margin:0 auto;
+  background:linear-gradient(160deg,#0a1a0a 0%,#061006 100%);
+  border:1px solid rgba(0,255,65,0.22);
+  border-radius:16px;padding:3rem;position:relative;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(0,255,65,0.05);
+}
+.reg-form-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--omni-green),#00ff88,var(--omni-green));background-size:200% 100%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{from{background-position:0 0}to{background-position:200% 0}}
+
+/* Form steps indicator */
+.reg-steps{
+  display:flex;align-items:center;justify-content:center;gap:0;
+  margin-bottom:2.5rem;
+}
+.reg-step{
+  display:flex;align-items:center;gap:0.5rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.65rem;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:#555;transition:color 0.3s;
+}
+.reg-step.active{color:var(--omni-green)}
+.reg-step.done{color:rgba(0,255,65,0.5)}
+.reg-step-num{
+  width:26px;height:26px;border-radius:50%;
+  border:1.5px solid #333;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-size:0.65rem;font-weight:700;
+  transition:all 0.3s;flex-shrink:0;
+}
+.reg-step.active .reg-step-num{
+  border-color:var(--omni-green);background:rgba(0,255,65,0.12);
+  color:var(--omni-green);box-shadow:0 0 12px rgba(0,255,65,0.3);
+}
+.reg-step.done .reg-step-num{
+  border-color:rgba(0,255,65,0.4);background:rgba(0,255,65,0.08);
+  color:rgba(0,255,65,0.6);
+}
+.reg-step-line{
+  width:40px;height:1px;background:#222;margin:0 0.5rem;flex-shrink:0;
+}
+.reg-step.done+.reg-step-line,.reg-step.done+.reg-step{/* connector */}
+
+/* Section headers inside form */
+.form-section-hdr{
+  display:flex;align-items:center;gap:0.8rem;
+  margin:2rem 0 1.2rem;
+  padding-bottom:0.7rem;
+  border-bottom:1px solid rgba(0,255,65,0.1);
+}
+.form-section-hdr:first-child{margin-top:0}
+.form-section-icon{
+  width:30px;height:30px;border-radius:6px;
+  background:rgba(0,255,65,0.1);border:1px solid rgba(0,255,65,0.25);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--omni-green);font-size:0.85rem;flex-shrink:0;
+}
+.form-section-title{
+  font-family:'Orbitron',sans-serif;font-size:0.72rem;
+  letter-spacing:3px;text-transform:uppercase;color:var(--omni-green);
+}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.form-grp{margin-bottom:1.3rem}
+.form-lbl{display:block;font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-bottom:0.5rem}
+.form-inp,.form-sel{
+  width:100%;background:rgba(0,255,65,0.04);
+  border:1px solid rgba(0,255,65,0.15);border-radius:7px;
+  padding:11px 15px;color:var(--omni-white);
+  font-family:'Rajdhani',sans-serif;font-size:0.98rem;
+  outline:none;transition:border-color 0.3s,box-shadow 0.3s,background 0.3s;
+}
+.form-inp:focus,.form-sel:focus{
+  border-color:var(--omni-green);
+  box-shadow:0 0 0 3px rgba(0,255,65,0.08),0 0 15px rgba(0,255,65,0.1);
+  background:rgba(0,255,65,0.06);
+}
+.form-inp::placeholder{color:rgba(100,150,100,0.4)}
+.form-sel{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300ff41' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
+.form-sel option{background:#0d1a0d;color:var(--omni-white)}
+
+/* Team members dynamic section */
+.team-members-wrap{margin-top:0.5rem}
+.team-member-row{
+  display:flex;gap:0.8rem;align-items:flex-start;margin-bottom:0.8rem;
+  padding:0.9rem 1rem;border-radius:8px;
+  background:rgba(0,255,65,0.02);border:1px solid rgba(0,255,65,0.08);
+  position:relative;
+}
+.team-member-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;
+  letter-spacing:1px;color:rgba(0,255,65,0.5);
+  position:absolute;top:-8px;left:12px;
+  background:#061006;padding:0 6px;
+}
+.team-member-row .form-inp{margin-bottom:0}
+.btn-add-member{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+  letter-spacing:1px;text-transform:uppercase;
+  background:none;border:1px dashed rgba(0,255,65,0.3);
+  color:rgba(0,255,65,0.6);padding:7px 14px;border-radius:5px;
+  cursor:pointer;transition:all 0.3s;margin-top:0.3rem;
+}
+.btn-add-member:hover{border-color:var(--omni-green);color:var(--omni-green);background:rgba(0,255,65,0.05)}
+.btn-remove-member{
+  background:none;border:none;color:rgba(255,80,80,0.5);
+  cursor:pointer;font-size:0.9rem;padding:4px;transition:color 0.2s;
+  flex-shrink:0;margin-top:10px;
+}
+.btn-remove-member:hover{color:rgba(255,80,80,0.9)}
+
+/* Event checkboxes */
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+.ev-chk{display:flex;align-items:center;gap:0.8rem;cursor:pointer;
+  padding:0.7rem 0.9rem;border-radius:8px;
+  border:1px solid rgba(0,255,65,0.08);
+  background:rgba(0,255,65,0.02);
+  transition:all 0.25s;
+}
+.ev-chk:hover{border-color:rgba(0,255,65,0.25);background:rgba(0,255,65,0.05)}
+.ev-chk input{display:none}
+.chk-box{
+  width:18px;height:18px;border:2px solid rgba(0,255,65,0.3);
+  border-radius:4px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all 0.3s;
+}
+.ev-chk input:checked~.chk-box{background:var(--omni-green);border-color:var(--omni-green);box-shadow:0 0 8px rgba(0,255,65,0.5)}
+.ev-chk input:checked~.chk-box::after{content:'✓';color:#000;font-size:0.75rem;font-weight:900}
+.ev-chk input:checked~.chk-label{color:#e8ffe8}
+.chk-label{font-size:0.88rem;color:rgba(200,240,200,0.7);transition:color 0.3s;line-height:1.3}
+.chk-label small{display:block;font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:1px;color:rgba(0,255,65,0.4);margin-top:2px}
+
+/* ── UPI PAYMENT BOX ── */
+.upi-pay-box{
+  display:flex;align-items:flex-start;gap:2rem;
+  background:rgba(0,255,65,0.03);
+  border:1px solid rgba(0,255,65,0.15);
+  border-radius:12px;padding:1.8rem;
+  flex-wrap:wrap;
+}
+.upi-qr-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:0.6rem;
+  flex-shrink:0;
+}
+.upi-qr-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(180,240,180,0.6);
+}
+#upiQrCode canvas,#upiQrCode img{
+  border-radius:8px;
+  border:3px solid var(--omni-green);
+  box-shadow:0 0 20px rgba(0,255,65,0.3);
+  display:block;
+}
+.upi-qr-amount{
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.4rem;
+  color:var(--omni-green);text-shadow:0 0 12px rgba(0,255,65,0.5);
+}
+.upi-divider{
+  display:flex;align-items:center;
+  font-family:'Share Tech Mono',monospace;font-size:0.75rem;
+  color:rgba(150,200,150,0.4);letter-spacing:2px;
+  align-self:center;
+}
+.upi-id-wrap{display:flex;flex-direction:column;gap:0.8rem;flex:1;min-width:180px}
+.upi-id-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+  letter-spacing:3px;text-transform:uppercase;color:rgba(180,240,180,0.6);
+}
+.upi-id-display{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,255,65,0.06);
+  border:1px solid rgba(0,255,65,0.25);
+  border-radius:6px;padding:10px 14px;
+  cursor:pointer;transition:all 0.3s;
+  font-family:'Share Tech Mono',monospace;font-size:0.95rem;
+  color:#e8ffe8;letter-spacing:1px;
+}
+.upi-id-display:hover{background:rgba(0,255,65,0.12);border-color:var(--omni-green);box-shadow:0 0 14px rgba(0,255,65,0.2)}
+.upi-copy-icon{color:var(--omni-green);font-size:0.9rem;flex-shrink:0;margin-left:0.5rem}
+.upi-copied-msg{
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+  letter-spacing:2px;color:var(--omni-green);display:none;
+}
+.upi-copied-msg.show{display:block}
+.upi-mobile-btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:linear-gradient(135deg,var(--omni-green),#00cc33);
+  color:#000;font-family:'Orbitron',sans-serif;font-weight:700;
+  font-size:0.78rem;letter-spacing:1.5px;text-transform:uppercase;
+  padding:11px 18px;border-radius:6px;text-decoration:none;
+  box-shadow:0 0 20px rgba(0,255,65,0.4);
+  transition:all 0.3s;
+}
+.upi-mobile-btn:hover{box-shadow:0 0 35px rgba(0,255,65,0.7);transform:translateY(-1px)}
+.upi-apps-row{display:flex;flex-wrap:wrap;gap:0.4rem}
+.upi-app-chip{
+  font-family:'Share Tech Mono',monospace;font-size:0.65rem;
+  letter-spacing:1px;padding:3px 10px;border-radius:20px;
+  border:1px solid rgba(0,255,65,0.2);color:rgba(180,240,180,0.6);
+  background:rgba(0,255,65,0.04);
+}
+
+/* Hide QR on mobile, show mobile button always; hide button on desktop */
+@media(min-width:600px){
+  .upi-mobile-btn{ display:none }
+  .upi-divider{ flex-direction:column }
+}
+@media(max-width:599px){
+  .upi-qr-wrap{ display:none }
+  .upi-divider{ display:none }
+  .upi-pay-box{ flex-direction:column }
+}
+.fee-summary-label{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:#888}
+.fee-summary-amount{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;color:var(--omni-green);text-shadow:0 0 15px rgba(0,255,65,0.4)}
+.fee-summary-note{font-size:0.75rem;color:rgba(200,240,200,0.5);width:100%;padding-top:0.5rem;border-top:1px solid rgba(0,255,65,0.08)}
+
+/* Payment section */
+.payment-section{margin-top:2rem}
+.payment-methods{display:flex;gap:0.8rem;flex-wrap:wrap;margin:1rem 0}
+.pay-method{
+  flex:1;min-width:130px;
+  padding:1rem;border-radius:10px;
+  border:2px solid rgba(0,255,65,0.12);
+  background:rgba(0,255,65,0.03);
+  cursor:pointer;text-align:center;transition:all 0.3s;
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+}
+.pay-method:hover,.pay-method.selected{
+  border-color:var(--omni-green);background:rgba(0,255,65,0.08);
+  box-shadow:0 0 20px rgba(0,255,65,0.15);
+}
+.pay-method input{display:none}
+.pay-method-icon{font-size:1.5rem}
+.pay-method-name{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:#aaa}
+.pay-method.selected .pay-method-name{color:var(--omni-green)}
+
+.upi-detail{
+  margin-top:1rem;padding:1.2rem;border-radius:10px;
+  background:rgba(0,255,65,0.05);border:1px solid rgba(0,255,65,0.2);
+  text-align:center;display:none;
+}
+.upi-detail.show{display:block}
+.upi-id{
+  font-family:'Orbitron',sans-serif;font-size:1rem;
+  letter-spacing:2px;color:var(--omni-green);
+  background:rgba(0,255,65,0.08);padding:10px 20px;border-radius:6px;
+  display:inline-block;margin:0.5rem 0;
+  border:1px solid rgba(0,255,65,0.25);cursor:pointer;transition:all 0.2s;
+}
+.upi-id:hover{background:rgba(0,255,65,0.15);box-shadow:0 0 15px rgba(0,255,65,0.2)}
+.upi-note{font-size:0.8rem;color:rgba(200,240,200,0.6);margin-top:0.5rem}
+.upi-copied{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:var(--omni-green);display:none}
+
+.offline-detail{
+  margin-top:1rem;padding:1.2rem;border-radius:10px;
+  background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.15);
+  display:none;
+}
+.offline-detail.show{display:block}
+.offline-detail p{color:rgba(200,240,200,0.75);font-size:0.9rem;line-height:1.7;margin-bottom:0.5rem}
+.offline-detail p:last-child{margin-bottom:0}
+.offline-detail strong{color:var(--omni-green)}
+
+/* Declaration */
+.reg-declaration{
+  margin-top:1.5rem;padding:1rem 1.2rem;
+  border-radius:8px;background:rgba(0,255,65,0.03);
+  border:1px solid rgba(0,255,65,0.1);
+}
+.decl-chk-label{
+  display:flex;align-items:flex-start;gap:0.8rem;cursor:pointer;
+  font-size:0.85rem;color:rgba(200,240,200,0.75);line-height:1.6;
+}
+.decl-chk-box{
+  width:20px;height:20px;border:2px solid rgba(0,255,65,0.3);
+  border-radius:4px;flex-shrink:0;margin-top:2px;
+  display:flex;align-items:center;justify-content:center;transition:all 0.3s;
+}
+#r-declare:checked~.decl-chk-box{background:var(--omni-green);border-color:var(--omni-green)}
+#r-declare:checked~.decl-chk-box::after{content:'✓';color:#000;font-size:0.75rem;font-weight:900}
+#r-declare{display:none}
+
+.btn-submit{
+  width:100%;font-family:'Orbitron',sans-serif;font-size:0.85rem;
+  letter-spacing:3px;text-transform:uppercase;padding:16px;
+  border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--omni-green),#00cc33);
+  color:#000;border-radius:8px;font-weight:700;
+  box-shadow:0 0 30px rgba(0,255,65,0.4);transition:all 0.3s;margin-top:1.5rem;
+  position:relative;overflow:hidden;
+}
+.btn-submit::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);opacity:0;transition:opacity 0.3s}
+.btn-submit:hover{box-shadow:0 0 60px rgba(0,255,65,0.7);transform:translateY(-2px)}
+.btn-submit:hover::before{opacity:1}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+.success-box{display:none;text-align:center;padding:3rem}
+.success-box.show{display:block}
+.success-omni{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#00ff41,#004414);border:3px solid var(--omni-green);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;box-shadow:0 0 40px rgba(0,255,65,0.8);animation:facePulse 1.5s ease infinite}
+.success-omni svg{width:50px;height:50px}
+.success-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;color:var(--omni-green);margin-bottom:1rem}
+.success-msg{color:rgba(200,240,200,0.75);line-height:1.8;font-size:1.05rem}
+.success-summary{
+  margin:1.5rem auto;max-width:420px;text-align:left;
+  background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.15);
+  border-radius:10px;padding:1.2rem 1.5rem;
+}
+.success-summary-row{
+  display:flex;justify-content:space-between;padding:0.4rem 0;
+  border-bottom:1px solid rgba(0,255,65,0.06);font-size:0.9rem;
+}
+.success-summary-row:last-child{border-bottom:none}
+.ss-key{color:#888;font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase}
+.ss-val{color:#e8ffe8;font-weight:600;text-align:right;max-width:60%}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{position:relative;z-index:1;background:#000;border-top:2px solid rgba(0,255,65,0.1);padding:4rem 5% 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto 3rem}
+.footer-brand-title{font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.4rem;color:var(--omni-green);text-shadow:0 0 15px rgba(0,255,65,0.4);display:block;margin-bottom:1rem}
+.footer-brand p{font-size:0.9rem;color:#888;line-height:1.7;margin-bottom:1.5rem}
+.social-links{display:flex;gap:0.8rem}
+.soc-link{width:40px;height:40px;border-radius:8px;background:rgba(0,255,65,0.06);border:1px solid rgba(0,255,65,0.15);display:flex;align-items:center;justify-content:center;color:#555;font-size:1rem;text-decoration:none;transition:all 0.3s}
+.soc-link:hover{background:rgba(0,255,65,0.15);color:var(--omni-green);border-color:var(--omni-green);box-shadow:0 0 15px rgba(0,255,65,0.3)}
+.footer-col h4{font-family:'Orbitron',sans-serif;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--omni-green);margin-bottom:1.2rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:0.6rem}
+.footer-col ul li a{color:#444;text-decoration:none;font-size:0.85rem;transition:color 0.3s}
+.footer-col ul li a:hover{color:var(--omni-green)}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(0,255,65,0.06);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:1px;color:#333}
+.footer-copy .heart{color:var(--rath-orange)}
+.footer-right{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:1px;color:#333;text-align:right}
+
+/* ═══════════════════════════════════════
+   KEYFRAMES COMMON
+═══════════════════════════════════════ */
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:900px){
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .coord-grid{grid-template-columns:1fr 1fr}
+  .coord-grid .coord-item-lead{grid-column:span 2}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .tl-track::before{left:20px}
+  .tl-item,.tl-item:nth-child(even){flex-direction:column;padding-left:50px}
+  .tl-gear{position:absolute;left:4px;top:1rem}
+  .tl-item{position:relative}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-title{font-size:clamp(2.5rem,13vw,5rem)}
+  .countdown-wrap{gap:0.6rem}
+  .cd-num{font-size:1.6rem;min-width:55px;padding:8px 10px}
+  .events-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  section{padding:70px 5%}
+  .chk-grid,.form-row{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(0,255,65,0.12)}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(0,255,65,0.12)}
+  .stat-item:nth-last-child(-n+2){border-bottom:none}
+  .coord-grid{grid-template-columns:1fr}
+  .coord-grid .coord-item-lead{grid-column:span 1}
+  .clockwork-banner{flex-direction:column;text-align:center}
+  .about-coord-section{margin-top:3rem}
+}
+
+/* Scanline overlay */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.03) 0,rgba(0,0,0,0.03) 1px,transparent 1px,transparent 2px)}
+</style>
+</head>
+<body>
+
+<!-- ═══ OMNITRIX LOADER ═══ -->
+<div id="omnitrix-loader">
+  <div class="omni-dial-wrap">
+    <!-- Rotating ticks -->
+    <div class="omni-ticks">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <g id="ticks">
+          <!-- 24 tick marks around the ring -->
+          <script type="application/json" id="tick-data">24</script>
+        </g>
+        <!-- Dynamically added by JS -->
+      </svg>
+    </div>
+    <div class="omni-outer-ring">
+      <div class="omni-band">
+        <div class="omni-face">
+          <img src="logo.png" alt="Logo" style="width:100%; height:100%; border-radius:50%;">
+        </div>
+      </div>
+    </div>
+    <!-- Side buttons -->
+    <div class="omni-btn-left"></div>
+    <div class="omni-btn-right"></div>
+    <div class="omni-bottom-band"></div>
+  </div>
+  <div class="loader-text" id="loaderText">INITIALIZING</div>
+  <div class="loader-sub">ZENTRONIX '26 — ECE SYMPOSIUM</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+<div class="transform-flash"></div>
+
+<!-- Custom cursor -->
+<div class="omni-cursor" id="oCursor">
+ <img src="logo.png" alt="Logo" style="width:100%; height:100%; border-radius:50%;">
+</div>
+<div class="omni-cursor-ring" id="oCursorRing"></div>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <div class="nav-logo-wrap">
+    <div class="nav-omni-mini">
+      <img src="logo.png" alt="Logo" style="width:100%; height:100%; border-radius:50%;">
+    </div>
+    <div class="nav-title">ZENTRONIX'26</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#register" class="nav-reg-btn">Register</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMob()">Home</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#events" onclick="closeMob()">Events</a>
+  <a href="#timeline" onclick="closeMob()">Timeline</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="#register" onclick="closeMob()">Register</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="home">
+  <div class="hex-bg"></div>
+  <div class="scan-line"></div>
+  <div class="hero-glow"></div>
+
+  <!-- Large Omnitrix in background -->
+  <div class="hero-alien-bg">
+   <img src="background.png" alt="Logo" style="width:100%; height:100%; border-radius:100%;">
+  </div>
+
+  <div class="hero-badge">⬡ ECE Department Presents · National Tech Symposium</div>
+  <div class="hero-omni-icon">
+     <img src="logo.png" alt="Logo" style="width:100%; height:100%; border-radius:50%;">  
+  </div>
+  <h1 class="hero-title">ZENTRONIX<span class="apostrophe">'</span>26</h1>
+  <div class="hero-sub">ECE SYMPOSIUM · 2026</div>
+  <div class="hero-tagline">It's Hero Time — The Future of Tech Begins Here</div>
+  <div class="hero-date"><i class="fas fa-calendar-alt"></i> &nbsp;APRIL 10, 2026 &nbsp;|&nbsp; 9:00 AM ONWARDS</div>
+  <div class="hero-buttons">
+    <a href="#register" class="btn-omnitrix">Register Now</a>
+    <a href="#events" class="btn-outline">Select Alien &rsaquo;</a>
+  </div>
+  <div class="countdown-wrap">
+    <div class="cd-item"><span class="cd-num" id="cd-d">00</span><span class="cd-label">Days</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Hours</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Minutes</span></div>
+    <div class="cd-sep">:</div>
+    <div class="cd-item"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Seconds</span></div>
+  </div>
+  <div class="scroll-cue"><span></span><span></span><span></span></div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <!-- Header -->
+  <div class="about-intro fade-in">
+    <div class="sec-label">// About the Symposium</div>
+    <h2 class="sec-title">About <span class="acc">Zentronix</span></h2>
+    <div class="sec-divider center"></div>
+    <div class="dept-badge"><i class="fas fa-microchip"></i> Department of Electronics &amp; Communication Engineering</div>
+    <p class="about-intro-text">ZENTRONIX'26 is the annual national-level technical symposium organized by the Department of ECE. Like the Omnitrix unlocks alien abilities, this symposium unlocks the genius in every engineering mind — bringing together top talent from colleges across the nation.</p>
+    <p class="about-intro-text">Themed around the universe of Ben 10 this year, every event channels the power and personality of a unique alien — testing your intellect, creativity, and technical mastery in ways you've never experienced before.</p>
+    <p class="about-intro-text" style="color:var(--omni-green);font-weight:600">Go hero. Compete across 7 power-packed events and prove your worth in the technological galaxy!</p>
+    <!-- Stats strip -->
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-num">7+</span><div class="stat-label">Events</div></div>
+      <div class="stat-item"><span class="stat-num">200+</span><div class="stat-label">Participants</div></div>
+      <div class="stat-item"><span class="stat-num">50+</span><div class="stat-label">Colleges</div></div>
+      <div class="stat-item"><span class="stat-num">₹15K+</span><div class="stat-label">Prize Pool</div></div>
+    </div>
+  </div>
+
+  <!-- Coordinator Grid -->
+  <div class="about-coord-section fade-in">
+    <div class="about-coord-header">
+      <div class="about-coord-header-line"></div>
+      <div class="about-coord-header-title"><i class="fas fa-users"></i> &nbsp;Staff Coordinators</div>
+      <div class="about-coord-header-line"></div>
+    </div>
+    <div class="coord-grid">
+      <!-- Lead — HOD spans full row -->
+      <div class="coord-item-lead">
+        <div class="coord-item">
+          <div class="coord-av">DR</div>
+          <div>
+            <div class="coord-name">Dr. R. Elangovan</div>
+            <div class="coord-role">Head of Department — Electronics &amp; Communication Engineering</div>
+          </div>
+        </div>
+      </div>
+      <!-- Others in 3-col grid -->
+      <div class="coord-item">
+        <div class="coord-av">RR</div>
+        <div><div class="coord-name">Dr. R. Ranjith</div><div class="coord-role">Asst. Professor - Symposium Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">MS</div>
+        <div><div class="coord-name">Dr. M. Senthilkumar</div><div class="coord-role">Assoc. Professor — Symposium Coordinator</div></div>
+      </div>      
+      <div class="coord-item">
+        <div class="coord-av">KB</div>
+        <div><div class="coord-name">Dr. K. Bommuraju</div><div class="coord-role">Asst. Professor — PPT presentation Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">MR</div>
+        <div><div class="coord-name">Dr. M. Rajavelu</div><div class="coord-role">Assoc. Professor — PPT presentation Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">GS</div>
+        <div><div class="coord-name">Dr. G. Sheeba</div><div class="coord-role">Asst. Professor — Project Expo Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">DK</div>
+        <div><div class="coord-name">Dr. D. Kalaiyarasan</div><div class="coord-role">Asst. Professor — Blind link Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">TM</div>
+        <div><div class="coord-name">Dr. T.S Murugesh</div><div class="coord-role">Assoc. Professor — Registration In-charge</div></div>
+      </div>
+
+      <div class="coord-item">
+        <div class="coord-av">TS</div>
+        <div><div class="coord-name">Dr. T. Shankar</div><div class="coord-role">Asst. Professor — Registration In-charge</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">RD</div>
+        <div><div class="coord-name">Dr. R. Durga</div><div class="coord-role">Asst. Professor — Tech Quiz Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">PV</div>
+        <div><div class="coord-name">Mr. P. Vijayanand</div><div class="coord-role">Asst. Professor — Tech Auction Coordinator</div></div>
+      </div>
+      <div class="coord-item">
+        <div class="coord-av">MD</div>
+        <div><div class="coord-name">Mr. M. Dinesh</div><div class="coord-role">Asst. Professor — Circuit Debugging Coordinator</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVENTS ═══ -->
+<section id="events">
+  <div class="events-head fade-in">
+    <div class="sec-label">// Choose Your Alien</div>
+    <h2 class="sec-title">Select <span class="acc">Events</span></h2>
+    <div class="sec-divider center"></div>
+    <p>Spin the Omnitrix dial — click an alien to reveal their event challenge!</p>
+  </div>
+
+  <!-- ── DESKTOP ORBITAL DIAL ── -->
+  <div class="dial-arena" id="dialArena">
+
+    <!-- SVG rings + connector lines -->
+    <svg class="dial-svg" id="dialSvg" viewBox="0 0 820 820" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="evGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="lineGlowEv" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="2.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Outer orbit ring with slow animation -->
+      <circle cx="410" cy="410" r="320"
+        fill="none" stroke="rgba(0,255,65,0.10)" stroke-width="1.5"
+        stroke-dasharray="10 7">
+        <animateTransform attributeName="transform" type="rotate"
+          from="0 410 410" to="360 410 410" dur="60s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Static guide ring -->
+      <circle cx="410" cy="410" r="320"
+        fill="none" stroke="rgba(0,255,65,0.05)" stroke-width="1"/>
+      <!-- Inner ring -->
+      <circle cx="410" cy="410" r="220"
+        fill="none" stroke="rgba(0,255,65,0.04)" stroke-width="1"
+        stroke-dasharray="4 8">
+        <animateTransform attributeName="transform" type="rotate"
+          from="360 410 410" to="0 410 410" dur="35s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- Radial spoke lines + orbit dots — drawn by JS -->
+      <g id="dialSpokes"></g>
+      <g id="dialDots"></g>
+
+      <!-- Animated travelling particles -->
+      <g id="dialParticles"></g>
+    </svg>
+
+    <!-- CENTER: logo.png inside Omnitrix dial -->
+    <div class="dial-center">
+      <div class="dial-center-body">
+        <div class="dial-gear-ring"></div>
+        <div class="dial-ring2"></div>
+        <img src="logo.png" alt="Zentronix Logo" class="dial-logo-img" id="dialLogoImg"
+          onerror="this.style.display='none';document.getElementById('dialLogoFallback').style.display='flex'">
+        <div id="dialLogoFallback" class="dial-logo-fallback" style="display:none">
+          <svg viewBox="0 0 80 80" width="80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="36" fill="none" stroke="#00ff41" stroke-width="2.5"/>
+            <path d="M15 30 L65 30 L65 36 L50 50 L50 50 L65 65 L65 70 L15 70 L15 65 L30 50 L30 36 Z"
+                  fill="none" stroke="#00ff41" stroke-width="2"/>
+            <circle cx="40" cy="40" r="6" fill="#00ff41"/>
+          </svg>
+        </div>
+      </div>
+      <div class="dial-hint">▸ CLICK AN ALIEN ◂</div>
+    </div>
+
+    <!-- Event detail popup (shown on click) -->
+    <div class="dial-detail" id="dialDetail">
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+      <div class="detail-alien-row">
+        <img src="" alt="" class="detail-alien-img" id="detailImg">
+        <div>
+          <div class="detail-species" id="detailSpecies"></div>
+          <div class="detail-alien-name" id="detailAlienName"></div>
+        </div>
+      </div>
+      <div class="detail-event-title" id="detailEventTitle"></div>
+      <div class="detail-desc" id="detailDesc"></div>
+      <div class="detail-meta" id="detailMeta"></div>
+      <button class="detail-rules-toggle" id="detailRulesBtn" onclick="toggleDetailRules()">
+        <i class="fas fa-chevron-right" id="detailRulesIcon"></i> View Rules
+      </button>
+      <div class="detail-rules" id="detailRules"></div>
+    </div>
+
+    <!-- Alien nodes injected by JS -->
+  </div>
+
+  <!-- ── MOBILE LIST ── -->
+  <div class="events-mobile-list">
+    <div class="ev-mob-item">
+      <img src="rath.png" class="ev-mob-img" onerror="this.style.background='#1a0800'">
+      <div><div class="ev-mob-alien">RATH</div><div class="ev-mob-event">PPT Presentation</div><div class="ev-mob-desc">Present ideas, showcase innovation through impactful Paper Presentation. Team: 1–2 | ₹100 | Prize: ₹5K+₹3K</div></div>
+    </div>
+    <div class="ev-mob-item">
+      <img src="juryrigg.png" class="ev-mob-img" onerror="this.style.background='#00080f'">
+      <div><div class="ev-mob-alien">JURY RIGG</div><div class="ev-mob-event">Project Expo</div><div class="ev-mob-desc">Showcase working models, prototypes, hardware & software projects. Team: 2–4 | ₹200 | Prize: ₹8K+₹5K</div></div>
+    </div>
+    <div class="ev-mob-item">
+      <img src="upgrade.png" class="ev-mob-img" onerror="this.style.background='#0a0018'">
+      <div><div class="ev-mob-alien">UPGRADE</div><div class="ev-mob-event">Tech Quiz</div><div class="ev-mob-desc">Balloon-burst Q&A challenge across ECE domain. Team: 2 | ₹50 | Prize: ₹3K+₹2K</div></div>
+    </div>
+    <div class="ev-mob-item">
+      <img src="graymatter.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
+      <div><div class="ev-mob-alien">GREY MATTER</div><div class="ev-mob-event">Circuit Debugging</div><div class="ev-mob-desc">Analyze and fix faulty circuit diagrams with paper and pen. Team: 1–2 | ₹100 | Prize: ₹5K+₹3K</div></div>
+    </div>
+    <div class="ev-mob-item">
+      <img src="xlr8.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
+      <div><div class="ev-mob-alien">XLR8</div><div class="ev-mob-event">Tech Auction</div><div class="ev-mob-desc">Speed-bid for tech components, outsmart rivals in final challenge. Team: 3–5 | ₹150 | Prize: ₹4K+₹2K</div></div>
+    </div>
+    <div class="ev-mob-item">
+      <img src="ditto.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
+      <div><div class="ev-mob-alien">DITTO</div><div class="ev-mob-event">Blind Link</div><div class="ev-mob-desc">See it, Say it, Build it — one teammate describes the circuit, others build it. | ₹75 | Prize: ₹4K+₹2.5K</div></div>
+    </div>
+    <div class="ev-mob-item">
+      <img src="benwolf-removebg-preview.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
+      <div><div class="ev-mob-alien">BLUTZ WOLFER</div><div class="ev-mob-event">WolfHunt</div><div class="ev-mob-desc">Decode campus-wide clues, race to the hidden treasure first. Team: 3–5 | ₹200 | Prize: ₹6K+₹4K</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TIMELINE — ORBITAL CLOCKWORK ═══ -->
+<section id="timeline">
+  <div class="timeline-head fade-in">
+    <div class="sec-label">// Event Schedule · April 10, 2026</div>
+    <h2 class="sec-title">Schedule <span class="acc">Timeline</span></h2>
+    <div class="sec-divider center"></div>
+  </div>
+
+  <!-- Mobile: image + vertical list -->
+  <div class="cw-mobile-center">
+    <img src="clockwork.png" alt="Clockwork" class="cw-mobile-img"
+      onerror="this.style.display='none'">
+    <div class="cw-center-label" style="margin-top:0.5rem">CLOCKWORK</div>
+    <div class="cw-center-sub">Chronosapien · Master of Time</div>
+  </div>
+
+  <!-- Desktop: orbital radial layout (built by JS) -->
+  <div class="orbital-arena" id="orbitalArena">
+
+    <!-- SVG for orbit rings + connector lines -->
+    <svg class="orbital-svg" id="orbitalSvg" viewBox="0 0 900 900"
+         xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Outer orbit ring (animated) -->
+      <circle cx="450" cy="450" r="350"
+        fill="none" stroke="rgba(255,170,0,0.12)" stroke-width="1.5"
+        stroke-dasharray="12 8">
+        <animateTransform attributeName="transform" type="rotate"
+          from="0 450 450" to="360 450 450" dur="60s" repeatCount="indefinite"/>
+      </circle>
+      <!-- Middle orbit ring -->
+      <circle cx="450" cy="450" r="350"
+        fill="none" stroke="rgba(255,170,0,0.06)" stroke-width="1"/>
+      <!-- Inner orbit ring (counter) -->
+      <circle cx="450" cy="450" r="280"
+        fill="none" stroke="rgba(255,170,0,0.04)" stroke-width="1"
+        stroke-dasharray="4 6">
+        <animateTransform attributeName="transform" type="rotate"
+          from="360 450 450" to="0 450 450" dur="40s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- 10 tick marks at event positions — drawn by JS into group #orbTicks -->
+      <g id="orbTicks"></g>
+      <!-- Connector lines — drawn by JS into group #orbLines -->
+      <g id="orbLines"></g>
+      <!-- Particle dots on orbit — drawn by JS -->
+      <g id="orbParticles"></g>
+    </svg>
+
+    <!-- Clockwork center image -->
+    <div class="cw-center">
+      <div class="cw-center-img-wrap">
+        <div class="cw-ring cw-ring-1">
+          <div class="cw-gear-tooth"></div>
+          <div class="cw-gear-tooth"></div>
+          <div class="cw-gear-tooth"></div>
+          <div class="cw-gear-tooth"></div>
+        </div>
+        <div class="cw-ring cw-ring-2"></div>
+        <div class="cw-ring cw-ring-3"></div>
+        <img src="clockwork.png" alt="Clockwork Alien" class="cw-center-img" id="cwMainImg"
+          onerror="this.style.display='none';document.getElementById('cwFallback').style.display='flex'">
+        <!-- SVG fallback -->
+        <div id="cwFallback" class="cw-center-svg-fallback">
+          <svg viewBox="0 0 100 100" width="120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#ffaa00" stroke-width="3"/>
+            <rect x="47" y="3"  width="6" height="12" rx="1" fill="#ffaa00"/>
+            <rect x="47" y="85" width="6" height="12" rx="1" fill="#ffaa00"/>
+            <rect x="3"  y="47" width="12" height="6" rx="1" fill="#ffaa00"/>
+            <rect x="85" y="47" width="12" height="6" rx="1" fill="#ffaa00"/>
+            <circle cx="50" cy="50" r="32" fill="#1a0800"/>
+            <line x1="50" y1="22" x2="50" y2="27" stroke="#ffaa00" stroke-width="2"/>
+            <line x1="50" y1="73" x2="50" y2="78" stroke="#ffaa00" stroke-width="2"/>
+            <line x1="22" y1="50" x2="27" y2="50" stroke="#ffaa00" stroke-width="2"/>
+            <line x1="73" y1="50" x2="78" y2="50" stroke="#ffaa00" stroke-width="2"/>
+            <line id="cwFbHour" x1="50" y1="50" x2="50" y2="33" stroke="#ffaa00" stroke-width="3" stroke-linecap="round"/>
+            <line id="cwFbMin"  x1="50" y1="50" x2="67" y2="50" stroke="#cc6600" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="3.5" fill="#ffaa00"/>
+            <ellipse cx="50" cy="38" rx="5" ry="3.5" fill="rgba(255,170,0,0.4)"/>
+            <circle  cx="50" cy="38" r="2" fill="#ff6600"/>
+          </svg>
+        </div>
+      </div>
+      <div class="cw-center-label">CLOCKWORK</div>
+      <div class="cw-center-sub">Chronosapien · Master of Time</div>
+    </div>
+
+    <!-- Orbital event nodes injected by JS -->
+  </div><!-- end orbital-arena -->
+
+  <!-- Mobile list -->
+  <div class="orb-mobile-list">
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">1</div>
+      <div><div class="orb-mobile-time">09:15 — 10:00 AM</div><div class="orb-mobile-name">⚙️ Inauguration &amp; Welcome</div><div class="orb-mobile-desc">Grand opening with chief guests, lamp lighting, HOD &amp; Principal address.</div><div class="orb-mobile-venue">📍 Main Auditorium</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">2</div>
+      <div><div class="orb-mobile-time">10:00 — 1:00 AM</div><div class="orb-mobile-name">PPT Presentation</div><div class="orb-mobile-desc">Prelim round. Top teams advance to afternoon finals.</div><div class="orb-mobile-venue">📍 Seminar Hall A</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">7</div>
+      <div><div class="orb-mobile-time">10:00 — 1:00 PM</div><div class="orb-mobile-name">Project Expo</div><div class="orb-mobile-desc">Live prototype demo. Break it, build it, impress judges.</div><div class="orb-mobile-venue">📍 Exhibition Hall</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">8</div>
+      <div><div class="orb-mobile-time">10:00 — 11:30 PM</div><div class="orb-mobile-name">Tech Auction</div><div class="orb-mobile-desc">Speed-bid for tech components, then face the final challenge.</div><div class="orb-mobile-venue">📍 Seminar Hall B</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">4</div>
+      <div><div class="orb-mobile-time">11:30 AM — 12:30 PM</div><div class="orb-mobile-name"> Circuit Debug</div><div class="orb-mobile-desc">Find and fix faults in real circuit boards. Two levels.</div><div class="orb-mobile-venue">📍 Electronics Lab</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">6</div>
+      <div><div class="orb-mobile-time">12:30 — 1:30 PM</div><div class="orb-mobile-name"> Lunch Break</div><div class="orb-mobile-desc">Clockwork pauses time! Lunch for all participants.</div><div class="orb-mobile-venue">📍 College Canteen</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">3</div>
+      <div><div class="orb-mobile-time">1:30 AM — 3:00 PM</div><div class="orb-mobile-name"> Tech Quiz</div><div class="orb-mobile-desc">30-Q MCQ blitz. Top 6 teams into rapid-fire finale.</div><div class="orb-mobile-venue">📍 Lab Block Room 201</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">5</div>
+      <div><div class="orb-mobile-time">1:30 AM — 3:00 PM</div><div class="orb-mobile-name"> Blind link</div><div class="orb-mobile-desc">Screen off, logic on. Code without seeing your output.</div><div class="orb-mobile-venue">📍 CS Lab Block C</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">9</div>
+      <div><div class="orb-mobile-time">3:00 — 4:00 PM</div><div class="orb-mobile-name"> Treasure Hunt</div><div class="orb-mobile-desc">Decode campus-wide tech clues. First team wins!</div><div class="orb-mobile-venue">📍 Entire Campus</div></div>
+    </div>
+    <div class="orb-mobile-item">
+      <div class="orb-mobile-num">10</div>
+      <div><div class="orb-mobile-time">After 4:00 PMS</div><div class="orb-mobile-name">Rewinds — Valediction</div><div class="orb-mobile-desc">Winners announced, prizes distributed. Legends are made!</div><div class="orb-mobile-venue">📍 Main Auditorium</div></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══ GALLERY ═══ 
+<section id="gallery">
+  <div class="gallery-head fade-in">
+    <div class="sec-label">// Past Highlights</div>
+    <h2 class="sec-title">Gallery <span class="acc">Flashback</span></h2>
+    <div class="sec-divider center"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gal-item fade-in"><i class="fas fa-image gal-icon"></i><span class="gal-label">Project Expo '25</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.05s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Inauguration</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.1s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Circuit Debug</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.15s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Prize Distribution</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.2s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Blind Coding</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.25s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Tech Quiz Finals</span></div>
+  </div>
+</section>-->
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="fade-in" style="text-align:center;margin-bottom:3rem">
+    <div class="sec-label">// Get In Touch</div>
+    <h2 class="sec-title">Contact <span class="acc">Us</span></h2>
+    <div class="sec-divider center"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="fade-left">
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-ico"><i class="fas fa-location-dot"></i></div>
+          <div><div class="contact-lbl">Venue</div><div class="contact-val">ECE Department, Government College of Engineering <br>Trichy - Madurai Hwy, Sethurapatti, Tamil Nadu 620012</div></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-ico"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="contact-lbl">Email</div>
+            <div class="contact-val">
+              <a href="mailto:zentronix26@gcetrichy.ac.in" style="color:var(--omni-green);text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">zentronix26&#64;gcetrichy.ac.in</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-ico"><i class="fas fa-clock"></i></div>
+          <div><div class="contact-lbl">Date &amp; Time</div><div class="contact-val">April 10, 2026 — 9:00 AM to 5:30 PM</div></div>
+        </div>
+        <div class="org-section">
+          <div class="org-head"><i class="fas fa-id-badge"></i> Event Organizers</div>
+          <div class="org-item"><div class="org-av">AJ</div><div><div class="org-name">Akif Mohamed J (Student Coordinator)</div><div class="org-phone"><i class="fas fa-phone"></i> +91 9965498980</div></div></div>
+          <div class="org-item"><div class="org-av">KA</div><div><div class="org-name">Kishore Kumar A (Co-Coordinator)</div><div class="org-phone"><i class="fas fa-phone"></i> +91 9361707745</div></div></div>
+          <div class="org-item"><div class="org-av">AA</div><div><div class="org-name">Ananthi A (Student Coordinator)</div><div class="org-phone"><i class="fas fa-phone"></i> +91 9025505423</div></div></div>
+        </div>
+
+        <!-- ── BUS TIMINGS ── -->
+        <div class="org-section">
+          <div class="org-head"><i class="fas fa-bus"></i> How to Reach — Bus Timings</div>
+
+          <div style="margin-bottom:1.2rem">
+            <div style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--omni-green);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.5rem;">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--omni-green);display:inline-block;box-shadow:0 0 6px var(--omni-green)"></span>
+              From Central Bus Stand, Trichy
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.4rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.1);border-radius:6px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--omni-green)">1A / 1B</strong></span>
+                <span style="font-size:0.78rem;color:#aaa;">Every 20 min &nbsp;·&nbsp; ~35 min ride</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.1);border-radius:6px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--omni-green)">59 / 59A</strong></span>
+                <span style="font-size:0.78rem;color:#aaa;">Every 30 min &nbsp;·&nbsp; ~40 min ride</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.1);border-radius:6px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;"><strong style="color:var(--omni-green)">First bus</strong> from Central</span>
+                <span style="font-size:0.78rem;color:#aaa;">5:30 AM &nbsp;&nbsp;<strong style="color:var(--omni-green)">Last</strong>&nbsp; 10:00 PM</span>
+              </div>
+              <div style="font-size:0.75rem;color:rgba(200,240,200,0.55);padding:0.3rem 0.5rem;">
+                📍 Alight at <strong style="color:#e8ffe8">GCE Trichy / Sethurapatti</strong> stop
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--clockwork-gold);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.5rem;">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--clockwork-gold);display:inline-block;box-shadow:0 0 6px var(--clockwork-gold)"></span>
+              From Panjapur, Trichy
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.4rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(255,170,0,0.04);border:1px solid rgba(255,170,0,0.12);border-radius:6px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--clockwork-gold)">99 / 99A</strong></span>
+                <span style="font-size:0.78rem;color:#aaa;">Every 25 min &nbsp;·&nbsp; ~20 min ride</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(255,170,0,0.04);border:1px solid rgba(255,170,0,0.12);border-radius:6px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--clockwork-gold)">74 / 74C</strong></span>
+                <span style="font-size:0.78rem;color:#aaa;">Every 30 min &nbsp;·&nbsp; ~25 min ride</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(255,170,0,0.04);border:1px solid rgba(255,170,0,0.12);border-radius:6px;">
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;"><strong style="color:var(--clockwork-gold)">First bus</strong> from Panjapur</span>
+                <span style="font-size:0.78rem;color:#aaa;">6:00 AM &nbsp;&nbsp;<strong style="color:var(--clockwork-gold)">Last</strong>&nbsp; 9:30 PM</span>
+              </div>
+              <div style="font-size:0.75rem;color:rgba(200,240,200,0.55);padding:0.3rem 0.5rem;">
+                📍 Alight at <strong style="color:#e8ffe8">GCE Trichy Main Gate</strong> stop
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;padding:0.7rem 0.9rem;background:rgba(0,170,255,0.05);border:1px solid rgba(0,170,255,0.15);border-radius:8px;font-size:0.78rem;color:rgba(200,230,255,0.75);line-height:1.6;">
+            <i class="fas fa-info-circle" style="color:#00aaff;margin-right:6px"></i>
+            Plan to arrive by <strong style="color:#e8ffe8">8:30 AM</strong>. Registration desk opens at 8:30 AM at the ECE Department entrance. Bring your college ID card.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-right">
+      <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7228.491586914224!2d78.59478010096025!3d10.678767656905551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baa63d82dd6a5e3%3A0x38be13a41bef7d48!2sGovernment%20College%20of%20Engineering%20-!5e0!3m2!1sen!2sin!4v1774587703870!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REGISTER ═══ -->
+<section id="register">
+  <div class="reg-head fade-in">
+    <div class="sec-label">// It's Hero Time!</div>
+    <h2 class="sec-title">Register <span class="acc">Now</span></h2>
+    <div class="sec-divider center"></div>
+    <p>Slap the Omnitrix and transform into a hero! Fill in your details and select your alien events below.</p>
+  </div>
+  <div class="reg-form-box fade-in">
+    <div id="regForm">
+
+      <!-- Progress Steps -->
+      <div class="reg-steps">
+        <div class="reg-step active" id="step1-ind">
+          <div class="reg-step-num">1</div>
+          <span>Hero Info</span>
+        </div>
+        <div class="reg-step-line"></div>
+        <div class="reg-step" id="step2-ind">
+          <div class="reg-step-num">2</div>
+          <span>Events</span>
+        </div>
+        <div class="reg-step-line"></div>
+        <div class="reg-step" id="step3-ind">
+          <div class="reg-step-num">3</div>
+          <span>Payment</span>
+        </div>
+      </div>
+
+      <!-- ── STEP 1: Personal Info ── -->
+      <div id="regStep1">
+        <div class="form-section-hdr">
+          <div class="form-section-icon"><i class="fas fa-user"></i></div>
+          <div class="form-section-title">Personal Information</div>
+        </div>
+        <div class="form-row">
+          <div class="form-grp">
+            <label class="form-lbl">Full Name *</label>
+            <input type="text" class="form-inp" id="r-name" placeholder="Your full name">
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">Roll Number *</label>
+            <input type="text" class="form-inp" id="r-roll" placeholder="e.g. 23ECE001">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-grp">
+            <label class="form-lbl">College Name *</label>
+            <input type="text" class="form-inp" id="r-college" placeholder="Your college name">
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">Department *</label>
+            <select class="form-sel form-inp" id="r-dept">
+              <option value="">Select Department</option>
+              <option>Electronics &amp; Communication Engineering</option>
+              <option>Electrical Engineering</option>
+              <option>Computer Science Engineering</option>
+              <option>Information Technology</option>
+              <option>Mechanical Engineering</option>
+              <option>Civil Engineering</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-grp">
+            <label class="form-lbl">Year of Study *</label>
+            <select class="form-sel form-inp" id="r-year">
+              <option value="">Select Year</option>
+              <option>I Year</option><option>II Year</option><option>III Year</option><option>IV Year</option>
+            </select>
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">Gender</label>
+            <select class="form-sel form-inp" id="r-gender">
+              <option value="">Select</option>
+              <option>Male</option><option>Female</option><option>Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-grp">
+            <label class="form-lbl">Phone Number *</label>
+            <input type="tel" class="form-inp" id="r-phone" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">Email Address *</label>
+            <input type="email" class="form-inp" id="r-email" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="form-grp">
+          <label class="form-lbl">WhatsApp Number (if different)</label>
+          <input type="tel" class="form-inp" id="r-whatsapp" placeholder="+91 XXXXX XXXXX (optional)">
+        </div>
+        <button class="btn-submit" onclick="goStep2()" style="margin-top:0.5rem">
+          Next — Choose Events &nbsp;→
+        </button>
+      </div>
+
+      <!-- ── STEP 2: Events ── -->
+      <div id="regStep2" style="display:none">
+        <div class="form-section-hdr">
+          <div class="form-section-icon"><i class="fas fa-alien"></i></div>
+          <div class="form-section-title">Choose Alien Events *</div>
+        </div>
+        <div class="chk-grid">
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="PPT Presentation (Rath)">
+            <span class="chk-box"></span>
+            <span class="chk-label">🦁 PPT Presentation <small>Rath</small></span>
+          </label>
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="Project Expo (Jury Rigg)">
+            <span class="chk-box"></span>
+            <span class="chk-label">🔧 Project Expo <small>Jury Rigg</small></span>
+          </label>
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="Tech Auction (XLR8)">
+            <span class="chk-box"></span>
+            <span class="chk-label">💨 Tech Auction <small>XLR8</small></span>
+          </label>
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="Circuit Debugging (Grey Matter)">
+            <span class="chk-box"></span>
+            <span class="chk-label">🧠 Circuit Debugging <small>Grey Matter</small></span>
+          </label>
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="Tech Quiz (Upgrade)">
+            <span class="chk-box"></span>
+            <span class="chk-label">⚡ Tech Quiz <small>Upgrade</small></span>
+          </label>
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="Blind Link (Ditto)">
+            <span class="chk-box"></span>
+            <span class="chk-label">🌀 Blind Link <small>Ditto</small></span>
+          </label>
+          <label class="ev-chk">
+            <input type="checkbox" name="ev" value="WolfHunt (Blutzwolfer)">
+            <span class="chk-box"></span>
+            <span class="chk-label">🐺 WolfHunt <small>Blutzwolfer</small></span>
+          </label>
+        </div>
+
+        <!-- Fee note — flat ₹200 per person -->
+        <div class="fee-summary" id="feeSummary" style="margin-top:1.2rem">
+          <div>
+            <div class="fee-summary-label">Registration Fee</div>
+            <div style="color:#e8ffe8;font-size:0.9rem;margin-top:4px" id="feeEventList">Select events above</div>
+          </div>
+          <div style="text-align:right">
+            <div class="fee-summary-label">Amount</div>
+            <div class="fee-summary-amount">₹200 <span style="font-size:0.6rem;font-family:'Share Tech Mono',monospace;color:rgba(200,240,200,0.5)">/person</span></div>
+          </div>
+          <div class="fee-summary-note">
+            <i class="fas fa-info-circle" style="color:var(--omni-green);margin-right:6px"></i>
+            Flat ₹200 registration fee per person — covers all selected events.
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;margin-top:1rem">
+          <button class="btn-outline" onclick="goStep1()" style="flex:1;padding:13px;font-family:'Orbitron',sans-serif;font-size:0.78rem;letter-spacing:2px;border-radius:8px">
+            ← Back
+          </button>
+          <button class="btn-submit" onclick="goStep3()" style="flex:2;margin-top:0">
+            Next — Payment &nbsp;→
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Payment & Submit ── -->
+      <div id="regStep3" style="display:none">
+        <div class="form-section-hdr">
+          <div class="form-section-icon">📱</div>
+          <div class="form-section-title">Pay via UPI — ₹200 per person</div>
+        </div>
+
+        <!-- Payment box -->
+        <div class="upi-pay-box">
+
+          <!-- QR code (shown on desktop, hidden on mobile) -->
+          <div class="upi-qr-wrap" id="upiQrWrap">
+            <div class="upi-qr-label">Scan with any UPI app</div>
+            <!-- QR generated by JS using qrcode.min.js -->
+            <div id="upiQrCode"></div>
+            <div class="upi-qr-amount">₹200</div>
+          </div>
+
+          <!-- Divider -->
+          <div class="upi-divider" id="upiDivider">
+            <span>or</span>
+          </div>
+
+          <!-- UPI ID + mobile pay button -->
+          <div class="upi-id-wrap">
+            <div class="upi-id-label">UPI ID</div>
+            <div class="upi-id-display" id="upiIdDisplay" onclick="copyUpiId()">
+              <span id="upiIdText">rishirishi1962005@oksbi</span>
+              <i class="fas fa-copy upi-copy-icon"></i>
+            </div>
+            <div class="upi-copied-msg" id="upiCopiedMsg">✓ Copied to clipboard!</div>
+
+            <!-- Mobile: open UPI app directly -->
+            <a class="upi-mobile-btn" id="upiMobileBtn"
+               href="upi://pay?pa=rishirishi1962005@oksbi&pn=ZENTRONIX26&am=200&cu=INR&tn=ZENTRONIX26 Registration">
+              <i class="fas fa-mobile-alt"></i> Pay ₹200 — Open UPI App
+            </a>
+
+            <div class="upi-apps-row">
+              <span class="upi-app-chip">GPay</span>
+              <span class="upi-app-chip">PhonePe</span>
+              <span class="upi-app-chip">Paytm</span>
+              <span class="upi-app-chip">BHIM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transaction ID input -->
+        <div class="form-grp" style="margin-top:1.5rem">
+          <label class="form-lbl">UPI Transaction ID / UTR Number *</label>
+          <input type="text" class="form-inp" id="r-txnid"
+            placeholder="e.g. UPI123456789012"
+            style="letter-spacing:1px;font-family:'Share Tech Mono',monospace">
+          <div style="font-size:0.75rem;color:rgba(200,240,200,0.5);margin-top:0.4rem">
+            Find this in your UPI app under payment history after successful payment.
+          </div>
+        </div>
+
+        <!-- Amount recap -->
+        <div class="fee-summary" style="margin-top:1.2rem">
+          <div>
+            <div class="fee-summary-label">Registrant</div>
+            <div style="color:#e8ffe8;font-size:0.9rem;margin-top:4px" id="payEventList2">—</div>
+          </div>
+          <div style="text-align:right">
+            <div class="fee-summary-label">Amount Payable</div>
+            <div class="fee-summary-amount">₹200</div>
+          </div>
+        </div>
+
+        <!-- Declaration -->
+        <div class="reg-declaration">
+          <label class="decl-chk-label">
+            <input type="checkbox" id="r-declare">
+            <span class="decl-chk-box"></span>
+            <span>I confirm that all information is accurate, I have completed the ₹200 UPI payment, and I agree to abide by the rules and regulations of ZENTRONIX'26.</span>
+          </label>
+        </div>
+
+        <div style="display:flex;gap:1rem;margin-top:1rem">
+          <button class="btn-outline" onclick="goStep2()" style="flex:1;padding:13px;font-family:'Orbitron',sans-serif;font-size:0.78rem;letter-spacing:2px;border-radius:8px">
+            ← Back
+          </button>
+          <button class="btn-submit" onclick="doRegister()" id="submitBtn" style="flex:2;margin-top:0">
+            🟢 SLAP THE OMNITRIX — REGISTER
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end regForm -->
+
+    <!-- Success Box -->
+    <div class="success-box" id="successBox">
+      <div class="success-omni">
+        <img src="logo.png" alt="Logo" style="width:100%;height:100%;border-radius:50%;" onerror="this.style.display='none'">
+      </div>
+      <div class="success-title">OMNITRIX ACTIVATED!</div>
+      <div class="success-msg">Registration successful, Hero!<br>Welcome to <strong style="color:var(--omni-green)">ZENTRONIX'26</strong>!</div>
+      <div class="success-summary" id="successSummary"></div>
+      <div class="success-msg" style="margin-top:1rem">A confirmation will be sent to your email. It's Hero Time on <strong>April 10, 2026</strong>! 🚀</div>
+      <br><a href="#events" class="btn-outline" style="display:inline-block;margin-top:1.5rem">← Back to Aliens</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-brand-title">ZENTRONIX'26</span>
+      <p>Annual national-level technical symposium — Department of Electronics &amp; Communication Engineering. It's Hero Time. Every year.</p>
+      <div class="social-links">
+        <a href="#" class="soc-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="soc-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#events">Events</a></li><li><a href="#timeline">Schedule</a></li><li><a href="#register">Register</a></li></ul></div><div></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="/cdn-cgi/l/email-protection#3b415e554f4954555243090d155c585e487b5c565a525715585456">Email us</a></li><li><a href="tel:+919965498980">+91 9965498980(Akif)</a><li><a href="tel:+919361707745">+91 9361707745(Kishore)</a><li><a href="tel:+91 9025505423">+91 9025505423(Ananthi)</a></li><li><a href="#contact">Location</a></li><li><a href="#about">Coordinators</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 ZENTRONIX. Made with <span class="heart">♥</span> by ECE Students.</div>
+    <div class="footer-right">Dept. of ECE · Government College Of Engineering , Srirangam</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══ OMNITRIX LOADER ═══ */
+const loaderTexts = ['INITIALIZING...','SCANNING DNA...','ALIEN FOUND...','TRANSFORMING...','HERO TIME!'];
+let lt = 0;
+const ltEl = document.getElementById('loaderText');
+const ltInterval = setInterval(() => {
+  lt++; if (lt >= loaderTexts.length) { clearInterval(ltInterval); return; }
+  ltEl.textContent = loaderTexts[lt];
+}, 560);
+
+// Draw tick marks on loader SVG
+const loaderSvg = document.querySelector('.omni-ticks svg');
+const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+for (let i = 0; i < 36; i++) {
+  const angle = (i * 10) * Math.PI / 180;
+  const r1 = 118, r2 = i % 3 === 0 ? 108 : 112;
+  const x1 = 130 + r1 * Math.cos(angle), y1 = 130 + r1 * Math.sin(angle);
+  const x2 = 130 + r2 * Math.cos(angle), y2 = 130 + r2 * Math.sin(angle);
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+  line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+  line.setAttribute('stroke', i % 3 === 0 ? '#00ff41' : 'rgba(0,255,65,0.3)');
+  line.setAttribute('stroke-width', i % 3 === 0 ? '2' : '1');
+  g.appendChild(line);
+}
+loaderSvg.setAttribute('viewBox','0 0 260 260');
+loaderSvg.appendChild(g);
+
+// Hide loader after animation
+setTimeout(() => {
+  const loader = document.getElementById('omnitrix-loader');
+  loader.classList.add('hide');
+  setTimeout(() => { loader.style.display = 'none'; }, 900);
+}, 3200);
+
+/* ═══ CURSOR ═══ */
+const oCur = document.getElementById('oCursor');
+const oCurRing = document.getElementById('oCursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  oCur.style.left = mx + 'px'; oCur.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+  oCurRing.style.left = rx + 'px'; oCurRing.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.event-card,.coord-item,.gal-item').forEach(el => {
+  el.addEventListener('mouseenter', () => { oCurRing.style.width = '56px'; oCurRing.style.height = '56px'; oCurRing.style.borderColor = 'rgba(0,255,65,0.8)'; });
+  el.addEventListener('mouseleave', () => { oCurRing.style.width = '36px'; oCurRing.style.height = '36px'; oCurRing.style.borderColor = 'rgba(0,255,65,0.4)'; });
+});
+
+/* ═══ BG CANVAS ═══ */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize(); window.addEventListener('resize', resize);
+
+// Hex grid particles
+const particles = [];
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+    size: Math.random() * 1.5 + 0.5,
+    alpha: Math.random() * 0.4 + 0.05,
+    color: Math.random() > 0.7 ? '255,102,0' : Math.random() > 0.5 ? '0,170,255' : '0,255,65'
+  });
+}
+function bgLoop() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > W) p.vx *= -1;
+    if (p.y < 0 || p.y > H) p.vy *= -1;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.color},${p.alpha})`; ctx.fill();
+  });
+  // Connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const d = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+      if (d < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,255,65,${0.04 * (1 - d / 100)})`;
+        ctx.lineWidth = 0.5; ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(bgLoop);
+}
+bgLoop();
+
+/* ═══ NAVBAR ═══ */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 80);
+});
+
+/* ═══ MOBILE MENU ═══ */
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+function closeMob() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+/* ═══ COUNTDOWN ═══ */
+function tick() {
+  const diff = new Date('2026-04-10T09:00:00').getTime() - Date.now();
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-d').textContent = String(d).padStart(2, '0');
+  document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+}
+setInterval(tick, 1000); tick();
+
+/* ═══ ORBITAL TIMELINE BUILDER ═══ */
+(function buildOrbital() {
+  const arena  = document.getElementById('orbitalArena');
+  const svg    = document.getElementById('orbitalSvg');
+  const linesG = document.getElementById('orbLines');
+  const ticksG = document.getElementById('orbTicks');
+  const partG  = document.getElementById('orbParticles');
+  if (!arena || !svg) return;
+
+  const NS   = 'http://www.w3.org/2000/svg';
+  const CX   = 450, CY = 450;   // center of 900×900 viewBox
+  const R    = 350;              // orbit radius (viewBox units)
+  const GOLD = '#ffaa00';
+
+  /* ── Event data ── */
+  const events = [
+    { emoji:'', time:'09:15–10:00 AM', name:'Inauguration & Welcome',      desc:'Grand opening, lamp lighting, HOD address.',          venue:'Main Auditorium' },
+    { emoji:'', time:'10:00–1:00 AM', name:' PPT Presentation',     desc:'Prelim round. Top teams advance to finals.',          venue:'Seminar Hall A' },
+    { emoji:'', time:'10:00–1:00 PM',  name:'Project Expo',     desc:'Live prototype demo. Break it, build it!',            venue:'Exhibition Hall' },
+    { emoji:'', time:'10:00–11:30 PM',  name:'Tech Auction',          desc:'Speed-bid for tech, then face the final challenge.',  venue:'Seminar Hall B' }, 
+    { emoji:'', time:'11:30 AM–12:30', name:' Circuit Debug',    desc:'Find and fix faults in real PCBs. Two levels.',       venue:'Electronics Lab' },
+    { emoji:'', time:'12:30–1:30 PM', name:' Lunch Break',      desc:'Clockwork pauses time! Fuel up & network.',           venue:'College Canteen' },
+    { emoji:'', time:'1:30 AM–3 PM', name:' Tech Quiz',          desc:'30-Q MCQ blitz. Top 6 into rapid-fire finale.',       venue:'Lab Block Rm 201' },
+    { emoji:'', time:'10:30 AM–3 PM', name:' Blind Coding',  desc:'Screen off, pure logic. Code without seeing.',        venue:'CS Lab Block C' },
+    { emoji:'', time:'3:00–4:00 PM',  name:'Treasure Hunt',     desc:'Decode campus-wide clues. First team wins!',          venue:'Entire Campus' },
+    { emoji:'', time:'After 4:00 PM',  name:'Clockwork Rewinds — Valediction', desc:'Winners crowned, prizes distributed. Hero time!', venue:'Main Auditorium' },
+  ];
+
+  const N = events.length;
+
+  /* ── Draw 10 tick marks on orbit ring (SVG viewBox coords) ── */
+  events.forEach((_, i) => {
+    const a = (i / N) * Math.PI * 2 - Math.PI / 2;
+    const ox = CX + R * Math.cos(a);
+    const oy = CY + R * Math.sin(a);
+    // outer tick
+    const t1x = CX + (R + 18) * Math.cos(a), t1y = CY + (R + 18) * Math.sin(a);
+    const t2x = CX + (R - 6)  * Math.cos(a), t2y = CY + (R - 6)  * Math.sin(a);
+    const tick = document.createElementNS(NS, 'line');
+    tick.setAttribute('x1', t1x); tick.setAttribute('y1', t1y);
+    tick.setAttribute('x2', t2x); tick.setAttribute('y2', t2y);
+    tick.setAttribute('stroke', GOLD); tick.setAttribute('stroke-width', '2');
+    ticksG.appendChild(tick);
+
+    // glowing dot on ring
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', ox); dot.setAttribute('cy', oy); dot.setAttribute('r', '7');
+    dot.setAttribute('fill', GOLD);
+    dot.setAttribute('filter', 'url(#goldGlow)');
+    ticksG.appendChild(dot);
+
+    const dotInner = document.createElementNS(NS, 'circle');
+    dotInner.setAttribute('cx', ox); dotInner.setAttribute('cy', oy); dotInner.setAttribute('r', '3.5');
+    dotInner.setAttribute('fill', '#fff8e0');
+    ticksG.appendChild(dotInner);
+  });
+
+  /* ── Glow filter ── */
+  const defs = document.createElementNS(NS, 'defs');
+  defs.innerHTML = `
+    <filter id="goldGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="lineGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>`;
+  svg.insertBefore(defs, svg.firstChild);
+
+  /* ── Draw connector lines from center to each dot (SVG coords) ── */
+  events.forEach((_, i) => {
+    const a  = (i / N) * Math.PI * 2 - Math.PI / 2;
+    const ox = CX + R * Math.cos(a);
+    const oy = CY + R * Math.sin(a);
+    // line from center to ring dot
+    const line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', CX); line.setAttribute('y1', CY);
+    line.setAttribute('x2', ox); line.setAttribute('y2', oy);
+    line.setAttribute('stroke', GOLD);
+    line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-dasharray', '6 5');
+    line.setAttribute('opacity', '0.25');
+    line.setAttribute('filter', 'url(#lineGlow)');
+    linesG.appendChild(line);
+  });
+
+  /* ── Animated particles travelling along orbit ── */
+  for (let p = 0; p < 4; p++) {
+    const circle = document.createElementNS(NS, 'circle');
+    circle.setAttribute('r', '4');
+    circle.setAttribute('fill', GOLD);
+    circle.setAttribute('opacity', '0.7');
+    const dur = 18 + p * 6;
+    const begin = -(p * dur / 4);
+    circle.innerHTML = `
+      <animateMotion dur="${dur}s" repeatCount="indefinite" begin="${begin}s">
+        <mpath href="#orbitPath"/>
+      </animateMotion>`;
+    partG.appendChild(circle);
+  }
+  // Define orbit path
+  const orbitPath = document.createElementNS(NS, 'path');
+  orbitPath.setAttribute('id', 'orbitPath');
+  orbitPath.setAttribute('d',
+    `M ${CX} ${CY - R} A ${R} ${R} 0 1 1 ${CX - 0.001} ${CY - R} Z`);
+  orbitPath.setAttribute('fill', 'none');
+  defs.appendChild(orbitPath);
+
+  /* ── Place HTML event cards using actual DOM pixel positions ── */
+  /* We map SVG viewBox (900×900) to arena element size */
+  function placeCards() {
+    const arenaRect = arena.getBoundingClientRect();
+    const W = arena.offsetWidth;
+    const H = arena.offsetHeight;
+    const scale = W / 900;  // viewBox is 900px wide
+    const pxCX = CX * scale;
+    const pxCY = CY * scale;
+    const pxR  = R  * scale;
+
+    // Remove old nodes
+    arena.querySelectorAll('.orb-node').forEach(n => n.remove());
+
+    events.forEach((ev, i) => {
+      const a   = (i / N) * Math.PI * 2 - Math.PI / 2;
+      const nx  = pxCX + pxR * Math.cos(a);
+      const ny  = pxCY + pxR * Math.sin(a);
+
+      /* Card: push outward so it doesn't overlap the ring */
+      const PUSH = 100 * scale;   // extra push beyond the ring
+      const cardX = pxCX + (pxR + PUSH) * Math.cos(a);
+      const cardY = pxCY + (pxR + PUSH) * Math.sin(a);
+
+      /* Node wrapper */
+      const node = document.createElement('div');
+      node.className = 'orb-node';
+      node.style.left = cardX + 'px';
+      node.style.top  = cardY + 'px';
+
+      /* Animated delay */
+      node.style.opacity = '0';
+      node.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.35s ease`;
+
+      /* Card HTML */
+      node.innerHTML = `
+        <div class="orb-card">
+          <div class="orb-num">${i + 1}</div>
+          <span class="orb-emoji">${ev.emoji}</span>
+          <div class="orb-time">${ev.time}</div>
+          <div class="orb-name">${ev.name}</div>
+          <div class="orb-desc">${ev.desc}</div>
+          <div class="orb-venue"><i class="fas fa-location-dot"></i>${ev.venue}</div>
+        </div>`;
+
+      arena.appendChild(node);
+
+      /* Fade in after short delay */
+      requestAnimationFrame(() => {
+        setTimeout(() => { node.style.opacity = '1'; }, 200 + i * 80);
+      });
+    });
+  }
+
+  placeCards();
+  window.addEventListener('resize', placeCards);
+
+  /* ── Fallback clock hands ── */
+  function syncFallbackHands() {
+    const now = new Date();
+    const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
+    const hAngle = ((h * 30 + m * 0.5) - 90) * Math.PI / 180;
+    const mAngle = ((m * 6 + s * 0.1) - 90) * Math.PI / 180;
+    [['cwFbHour', 16], ['cwFbMin', 22]].forEach(([id, len]) => {
+      const el = document.getElementById(id);
+      if (el) {
+        const angle = id === 'cwFbHour' ? hAngle : mAngle;
+        el.setAttribute('x2', 50 + len * Math.cos(angle));
+        el.setAttribute('y2', 50 + len * Math.sin(angle));
+      }
+    });
+  }
+  setInterval(syncFallbackHands, 1000);
+  syncFallbackHands();
+
+})();
+
+/* ═══ SCROLL FADE ═══ */
+const fadeEls = document.querySelectorAll('.fade-in,.fade-left,.fade-right');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+fadeEls.forEach(el => obs.observe(el));
+
+/* ═══ OMNITRIX DIAL EVENTS BUILDER ═══ */
+(function buildDial(){
+  const arena = document.getElementById('dialArena');
+  const svg   = document.getElementById('dialSvg');
+  if (!arena || !svg) return;
+
+  const NS  = 'http://www.w3.org/2000/svg';
+  const CX  = 410, CY = 410, R = 320;   // SVG viewBox 820×820
+
+  /* ── Event data ── */
+  const EVENTS = [
+    {
+      alien:'RATH', species:'Appoplexian · Omnitrix Alien',
+      img:'rath.png', color:'#ff6600',
+      event:'PPT Presentation',
+      desc:'Innovate. Present. Inspire. Showcase your ideas and explore the power of technology through impactful Paper Presentation.',
+      team:'1–2 Members'
+    },
+    {
+      alien:'JURY RIGG', species:'Planchaküle · Omnitrix Alien',
+      img:'juryrigg.png', color:'#00aaff',
+      event:'Project Expo',
+      desc:'Students showcase innovative ideas through working models, prototypes, and hardware/software projects.',
+      team:'2–4 Members'
+    },
+    {
+      alien:'UPGRADE', species:'Galvanic Mechamorph · Omnitrix Alien',
+      img:'upgrade.png', color:'#aa00ff',
+      event:'Tech Quiz',
+      desc:'Each team gets 10 balloons — burst 6 to reveal ECE questions, answer them to advance, then pick special-effect cards. Top teams burst remaining 4 balloons.',
+      team:'2 Members'
+    },
+    {
+      alien:'GREY MATTER', species:'Galvan · Omnitrix Alien',
+      img:'graymatter.png', color:'#00ff41',
+      event:'Circuit Debugging',
+      desc:'Test your problem-solving skill by analyzing and fixing faulty circuit diagrams with only paper and pen within the time limit.',
+      team:'1–2 Members'
+    },
+    {
+      alien:'XLR8', species:'Kineceleran · Omnitrix Alien',
+      img:'xlr8.png', color:'#00aaff',
+      event:'Tech Auction',
+      desc:'Speed-bid for tech components and outsmart your rivals! Lightning-fast decisions and smart strategy win the day.',
+      team:'3–5 Members'
+    },
+    {
+      alien:'DITTO', species:'Splixson · Omnitrix Alien',
+      img:'ditto.png', color:'#00ff41',
+      event:'Blind Link',
+      desc:'See it. Say it. Build it! One teammate describes the circuit diagram while the others build it from scratch — no peeking!',
+      team:'2–3 Members'
+    },
+    {
+      alien:'BLUTZWOLFER', species:'Loboan · Omnitrix Alien',
+      img:'benwolf-removebg-preview.png', color:'#00ff41',
+      event:'WolfHunt',
+      desc:'Decode technical clues spread across campus and race to find the hidden treasure before rival teams!',
+      team:'3–5 Members'
+    },
+  ];
+
+  const N = EVENTS.length;
+  let activeNode = null;
+
+  /* ── Draw SVG spokes and orbit dots ── */
+  const spokesG   = document.getElementById('dialSpokes');
+  const dotsG     = document.getElementById('dialDots');
+  const particlesG= document.getElementById('dialParticles');
+
+  // Glow filter
+  const defs = svg.querySelector('defs');
+
+  EVENTS.forEach((ev, i) => {
+    const a  = (i / N) * Math.PI * 2 - Math.PI / 2;
+    const ox = CX + R * Math.cos(a);
+    const oy = CY + R * Math.sin(a);
+
+    // Spoke line
+    const line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', CX); line.setAttribute('y1', CY);
+    line.setAttribute('x2', ox); line.setAttribute('y2', oy);
+    line.setAttribute('stroke', ev.color);
+    line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-dasharray', '5 6');
+    line.setAttribute('opacity', '0.2');
+    spokesG.appendChild(line);
+
+    // Outer dot on orbit ring
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', ox); dot.setAttribute('cy', oy); dot.setAttribute('r', '8');
+    dot.setAttribute('fill', ev.color); dot.setAttribute('filter', 'url(#evGlow)');
+    dotsG.appendChild(dot);
+    const dotInner = document.createElementNS(NS, 'circle');
+    dotInner.setAttribute('cx', ox); dotInner.setAttribute('cy', oy); dotInner.setAttribute('r', '3.5');
+    dotInner.setAttribute('fill', '#fff'); dotInner.setAttribute('opacity', '0.9');
+    dotsG.appendChild(dotInner);
+  });
+
+  // Travelling particles on orbit
+  ['18s','26s','34s','42s'].forEach((dur, p) => {
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('r', '4');
+    c.setAttribute('fill', '#00ff41');
+    c.setAttribute('opacity', '0.55');
+    const begin = -(p * parseFloat(dur) / 4);
+    c.innerHTML = `<animateMotion dur="${dur}" repeatCount="indefinite" begin="${begin}s">
+      <mpath href="#dialOrbitPath"/></animateMotion>`;
+    particlesG.appendChild(c);
+  });
+  // Orbit path definition
+  const orbitPath = document.createElementNS(NS, 'path');
+  orbitPath.setAttribute('id', 'dialOrbitPath');
+  orbitPath.setAttribute('d', `M ${CX} ${CY-R} A ${R} ${R} 0 1 1 ${CX-0.01} ${CY-R} Z`);
+  orbitPath.setAttribute('fill', 'none');
+  defs.appendChild(orbitPath);
+
+  /* ── Place HTML alien nodes ── */
+  function placeNodes() {
+    arena.querySelectorAll('.dial-node').forEach(n => n.remove());
+    const W   = arena.offsetWidth;
+    const scale = W / 820;
+    const pxCX = CX * scale, pxCY = CY * scale, pxR = R * scale;
+
+    EVENTS.forEach((ev, i) => {
+      const a   = (i / N) * Math.PI * 2 - Math.PI / 2;
+      const nx  = pxCX + pxR * Math.cos(a);
+      const ny  = pxCY + pxR * Math.sin(a);
+
+      const node = document.createElement('div');
+      node.className = 'dial-node';
+      node.style.cssText = `left:${nx}px;top:${ny}px;--node-color:${ev.color};opacity:0;transition:opacity 0.5s ease ${i*0.08}s`;
+      node.dataset.idx = i;
+
+      node.innerHTML = `
+        <div class="dial-node-img-wrap">
+          <img src="${ev.img}" class="dial-node-img"
+            onerror="this.style.background='${ev.color}22';this.src=''">
+        </div>
+        <div class="dial-node-label">${ev.alien}</div>
+        <div class="dial-node-event">${ev.event}</div>`;
+
+      node.addEventListener('click', () => openDetail(i, node));
+      arena.appendChild(node);
+      requestAnimationFrame(() => { setTimeout(() => node.style.opacity = '1', 100 + i*80); });
+    });
+  }
+  placeNodes();
+  window.addEventListener('resize', placeNodes);
+
+  /* ── Detail panel ── */
+  window.openDetail = function(i, node) {
+    const ev = EVENTS[i];
+
+    if (activeNode) activeNode.classList.remove('active');
+    activeNode = node;
+    node.classList.add('active');
+
+    const panel = document.getElementById('dialDetail');
+    panel.style.setProperty('--node-color', ev.color);
+
+    document.getElementById('detailImg').src = ev.img;
+    document.getElementById('detailImg').onerror = function(){ this.style.background = ev.color+'33'; this.src=''; };
+    document.getElementById('detailSpecies').textContent = ev.species;
+    document.getElementById('detailAlienName').textContent = ev.alien;
+    document.getElementById('detailEventTitle').textContent = '⚡ ' + ev.event;
+    document.getElementById('detailDesc').textContent = ev.desc;
+    document.getElementById('detailMeta').innerHTML = `
+      <span class="meta-tag meta-team"><i class="fas fa-users"></i> ${ev.team}</span>`;
+
+    // Hide rules section entirely
+    const rulesBtn = document.getElementById('detailRulesBtn');
+    const rulesEl  = document.getElementById('detailRules');
+    if (rulesBtn) rulesBtn.style.display = 'none';
+    if (rulesEl)  { rulesEl.innerHTML = ''; rulesEl.classList.remove('open'); }
+
+    panel.classList.add('show');
+  };
+
+  window.closeDetail = function() {
+    document.getElementById('dialDetail').classList.remove('show');
+    if (activeNode) { activeNode.classList.remove('active'); activeNode = null; }
+  };
+
+  window.toggleDetailRules = function() {
+    const rules = document.getElementById('detailRules');
+    const icon  = document.getElementById('detailRulesIcon');
+    rules.classList.toggle('open');
+    icon.style.transform = rules.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0deg)';
+    icon.style.transition = 'transform 0.3s';
+  };
+
+  // Close on outside click
+  arena.addEventListener('click', e => {
+    if (!e.target.closest('.dial-node') && !e.target.closest('.dial-detail')) closeDetail();
+  });
+})();
+
+/* ═══ RULES TOGGLE (kept for other sections) ═══ */
+function toggleRules(btn) {
+  const rules = btn.nextElementSibling;
+  rules.classList.toggle('open');
+  const icon = btn.querySelector('i');
+  icon.style.transform = rules.classList.contains('open') ? 'rotate(90deg)' : 'rotate(0)';
+  icon.style.transition = 'transform 0.3s';
+  btn.childNodes[1].textContent = rules.classList.contains('open') ? ' Hide Rules' : ' View Rules';
+}
+
+/* ═══ REGISTRATION — MULTI-STEP ═══ */
+let currentStep = 1;
+let teamMemberCount = 1;
+let selectedPayment = '';
+
+function setStep(n) {
+  currentStep = n;
+  document.getElementById('regStep1').style.display = n === 1 ? 'block' : 'none';
+  document.getElementById('regStep2').style.display = n === 2 ? 'block' : 'none';
+  document.getElementById('regStep3').style.display = n === 3 ? 'block' : 'none';
+  [1,2,3].forEach(i => {
+    const el = document.getElementById('step'+i+'-ind');
+    if (i < n) { el.className = 'reg-step done'; el.querySelector('.reg-step-num').textContent = '✓'; }
+    else if (i === n) { el.className = 'reg-step active'; el.querySelector('.reg-step-num').textContent = i; }
+    else { el.className = 'reg-step'; el.querySelector('.reg-step-num').textContent = i; }
+  });
+}
+
+function goStep1() { setStep(1); }
+
+function goStep2() {
+  const name    = document.getElementById('r-name').value.trim();
+  const college = document.getElementById('r-college').value.trim();
+  const dept    = document.getElementById('r-dept').value;
+  const phone   = document.getElementById('r-phone').value.trim();
+  const email   = document.getElementById('r-email').value.trim();
+  const roll    = document.getElementById('r-roll').value.trim();
+  if (!name || !college || !dept || !phone || !email || !roll) {
+    alert('⚠️ Please fill all required fields!'); return;
+  }
+  if (!/^\S+@\S+\.\S+$/.test(email)) { alert('⚠️ Invalid email address!'); return; }
+  if (!/^[0-9]{10}$/.test(phone.replace(/[\s\+\-]/g,''))) { alert('⚠️ Enter a valid 10-digit phone number!'); return; }
+  setStep(2);
+  updateSelectedEvents();
+}
+
+function goStep3() {
+  const evs = [...document.querySelectorAll('input[name="ev"]:checked')];
+  if (evs.length === 0) { alert('⚠️ Please select at least one alien event!'); return; }
+  setStep(3);
+
+  // Show selected events in step 3 recap
+  const names = evs.map(c => c.value.split('(')[0].trim()).join(', ');
+  const nameEl = document.getElementById('r-name');
+  document.getElementById('payEventList2').textContent = (nameEl ? nameEl.value.trim() : '') + ' — ' + names;
+
+  // Generate QR only once
+  const qrDiv = document.getElementById('upiQrCode');
+  if (qrDiv && !qrDiv._generated) {
+    qrDiv._generated = true;
+    const upiString = 'upi://pay?pa=rishirishi1962005@oksbi&pn=ZENTRONIX26&am=200&cu=INR&tn=ZENTRONIX26 Registration';
+    try {
+      new QRCode(qrDiv, {
+        text: upiString,
+        width: 180, height: 180,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    } catch(e) {
+      qrDiv.innerHTML = `<div style="width:180px;height:180px;background:#001a06;border:2px dashed rgba(0,255,65,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:rgba(0,255,65,0.5);text-align:center;padding:1rem;font-family:Share Tech Mono,monospace">QR loads after<br>network access</div>`;
+    }
+  }
+}
+
+function updateSelectedEvents() {
+  const checked = [...document.querySelectorAll('input[name="ev"]:checked')];
+  const names = checked.map(c => c.value.split('(')[0].trim());
+  const el = document.getElementById('feeEventList');
+  if (el) el.textContent = names.length ? names.join(', ') : 'Select events above';
+}
+document.querySelectorAll('input[name="ev"]').forEach(cb => cb.addEventListener('change', updateSelectedEvents));
+
+function addTeamMember() {
+  if (teamMemberCount >= 4) { alert('Maximum 4 team members allowed!'); return; }
+  teamMemberCount++;
+  const wrap = document.getElementById('teamMembersWrap');
+  const div  = document.createElement('div');
+  div.className = 'team-member-row'; div.id = 'tm-' + teamMemberCount;
+  div.innerHTML = `<span class="team-member-label">Member ${teamMemberCount+1}</span>
+    <input type="text" class="form-inp" placeholder="Full name" style="flex:1">
+    <input type="text" class="form-inp" placeholder="Roll number" style="flex:1">
+    <button class="btn-remove-member" onclick="removeTeamMember(${teamMemberCount})" title="Remove"><i class="fas fa-times"></i></button>`;
+  wrap.appendChild(div);
+  if (teamMemberCount >= 4) document.getElementById('addMemberBtn').style.display = 'none';
+}
+
+function removeTeamMember(id) {
+  const el = document.getElementById('tm-' + id);
+  if (el) el.remove();
+  teamMemberCount = Math.max(1, teamMemberCount - 1);
+  document.getElementById('addMemberBtn').style.display = '';
+}
+
+function copyUpiId() {
+  const upiId = 'rishirishi1962005@oksbi';
+  navigator.clipboard.writeText(upiId).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = upiId; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+  });
+  const msg = document.getElementById('upiCopiedMsg');
+  if (msg) { msg.classList.add('show'); setTimeout(() => msg.classList.remove('show'), 2500); }
+}
+
+function doRegister() {
+  const declared = document.getElementById('r-declare').checked;
+  if (!declared) { alert('⚠️ Please accept the declaration to proceed!'); return; }
+  const txn = document.getElementById('r-txnid').value.trim();
+  if (!txn) { alert('⚠️ Please enter your UPI Transaction ID after completing payment!'); return; }
+
+  const name    = document.getElementById('r-name').value.trim();
+  const college = document.getElementById('r-college').value.trim();
+  const email   = document.getElementById('r-email').value.trim();
+  const evs     = [...document.querySelectorAll('input[name="ev"]:checked')].map(c => c.value.split('(')[0].trim());
+
+  document.getElementById('successSummary').innerHTML = `
+    <div class="success-summary-row"><span class="ss-key">Name</span><span class="ss-val">${name}</span></div>
+    <div class="success-summary-row"><span class="ss-key">College</span><span class="ss-val">${college}</span></div>
+    <div class="success-summary-row"><span class="ss-key">Email</span><span class="ss-val">${email}</span></div>
+    <div class="success-summary-row"><span class="ss-key">Events</span><span class="ss-val">${evs.join(', ')}</span></div>
+    <div class="success-summary-row"><span class="ss-key">Amount Paid</span><span class="ss-val" style="color:var(--omni-green)">₹200</span></div>
+    <div class="success-summary-row"><span class="ss-key">Txn ID</span><span class="ss-val" style="font-family:Share Tech Mono,monospace;font-size:0.85em">${txn}</span></div>`;
+
+  document.getElementById('regForm').style.display = 'none';
+  const sb = document.getElementById('successBox');
+  sb.classList.add('show'); sb.style.display = 'block';
+}
+
+/* ═══ SMOOTH SCROLL ═══ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    const t = document.querySelector(id);
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 68, behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
