@@ -1438,6 +1438,34 @@ footer{position:relative;z-index:1;background:#000;border-top:2px solid rgba(0,2
   .about-coord-section{margin-top:3rem}
 }
 
+/* ═══ REGISTRATION SPINNER ═══ */
+.reg-spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: regSpin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+@keyframes regSpin { to { transform: rotate(360deg); } }
+
+/* ═══ SYNC BADGE ═══ */
+.sync-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'Share Tech Mono', monospace; font-size: 0.7rem;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 0.55rem 0.9rem; border-radius: 6px; margin-top: 0.8rem;
+  width: 100%;
+}
+.sync-badge.synced  { background: rgba(0,255,65,0.08);  border: 1px solid rgba(0,255,65,0.3);  color: var(--omni-green); }
+.sync-badge.offline { background: rgba(255,170,0,0.07); border: 1px solid rgba(255,170,0,0.25); color: #ffaa00; }
+.sync-badge.error   { background: rgba(255,60,60,0.06);  border: 1px solid rgba(255,60,60,0.2);  color: #ff6666; }
+
+/* ═══ REG-ID row highlight ═══ */
+.reg-id-row { background: rgba(0,255,65,0.05); border-radius: 6px; padding: 0.5rem 0.6rem !important; margin-bottom: 0.3rem; }
+
 /* Scanline overlay */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.03) 0,rgba(0,0,0,0.03) 1px,transparent 1px,transparent 2px)}
 
@@ -3156,11 +3184,63 @@ function copyUpiId() {
   if (msg) { msg.classList.add('show'); setTimeout(() => msg.classList.remove('show'), 2500); }
 }
 
-function doRegister() {
+/* ── GOOGLE SHEETS WEB APP URL ──────────────────────────────────────────
+   HOW TO SET UP (one-time, free):
+   1. Open your Google Sheet → Extensions → Apps Script
+   2. Paste the Apps Script code shown in the SETUP GUIDE comment below
+   3. Click Deploy → New Deployment → Web App
+      • Execute as: Me  |  Who has access: Anyone
+   4. Copy the Web App URL and paste it below replacing the placeholder
+   ──────────────────────────────────────────────────────────────────── */
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyL8N7ymzC4abzBZyi5CBJfdQTncY0fkglXhr4DSLDvDoUw5sHPVCdArc3ElGyrEUYM/exec';
+
+/* ── APPS SCRIPT CODE (paste into your Google Apps Script editor) ──────
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data  = JSON.parse(e.postData.contents);
+    // Write header row if sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Reg ID','Name','College','Email','Phone','Dept','Year',
+        'Gender','Team Size','Member 2','Member 3','Member 4','Member 5',
+        'Events','Amount (₹)','Txn ID','Timestamp']);
+    }
+    sheet.appendRow([
+      data.regId, data.name, data.college, data.email, data.phone,
+      data.dept, data.year, data.gender, data.teamSize,
+      data.m2||'', data.m3||'', data.m4||'', data.m5||'',
+      data.events, data.amount, data.txnId, data.timestamp
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({status:'error',msg:err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+   ─────────────────────────────────────────────────────────────────── */
+
+function generateRegId() {
+  // Format: ZTX26-XXXX where XXXX = padded counter stored in localStorage
+  try {
+    let counter = parseInt(localStorage.getItem('ztx26_counter') || '0') + 1;
+    localStorage.setItem('ztx26_counter', counter);
+    return 'ZTX26-' + String(counter).padStart(4, '0');
+  } catch(e) {
+    // Fallback: timestamp-based if localStorage blocked
+    return 'ZTX26-' + Date.now().toString(36).toUpperCase().slice(-5);
+  }
+}
+
+async function doRegister() {
   const declared = document.getElementById('r-declare').checked;
   if (!declared) { alert('⚠️ Please accept the declaration to proceed!'); return; }
   const txn = document.getElementById('r-txnid').value.trim();
   if (!txn) { alert('⚠️ Please enter your UPI Transaction ID after completing payment!'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="reg-spinner"></span> Registering...';
 
   const name    = document.getElementById('r-name').value.trim();
   const college = document.getElementById('r-college').value.trim();
@@ -3174,23 +3254,58 @@ function doRegister() {
   const evs     = [...document.querySelectorAll('input[name="ev"]:checked')].map(c => c.value.split('(')[0].trim());
   const members = getTeamData();
   const ts      = new Date().toLocaleString('en-IN');
+  const regId   = generateRegId();
 
-  const record = { name, college, email, phone, dept, year, gender, teamSize: size, members, events: evs.join('; '), amount, txnId: txn, timestamp: ts };
+  // Build flat member columns for sheet (up to 4 extra members)
+  const mCols = {};
+  members.forEach((m, i) => { mCols['m' + (i+2)] = m.name + (m.dept ? ' (' + m.dept + ')' : ''); });
 
-  // Save to localStorage for export
+  const record = {
+    regId, name, college, email, phone, dept, year, gender,
+    teamSize: size, events: evs.join('; '), amount, txnId: txn, timestamp: ts,
+    ...mCols
+  };
+
+  // 1. Save locally first (always works)
   try {
     const existing = JSON.parse(localStorage.getItem('zentronix26_registrations') || '[]');
     existing.push(record);
     localStorage.setItem('zentronix26_registrations', JSON.stringify(existing));
   } catch(e) {}
 
-  // Build member rows for summary
+  // 2. Push to Google Sheet
+  let sheetStatus = 'offline';
+  if (SHEET_URL && SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+    try {
+      const res = await fetch(SHEET_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(record)
+      });
+      const json = await res.json();
+      sheetStatus = json.status === 'ok' ? 'synced' : 'error';
+    } catch(e) {
+      sheetStatus = 'offline';
+    }
+  }
+
+  // 3. Build member rows for success summary
   let memberRows = '';
   if (members.length > 0) {
     memberRows = members.map((m, i) => `<div class="success-summary-row"><span class="ss-key">Member ${i+2}</span><span class="ss-val">${m.name}${m.dept ? ' — ' + m.dept : ''}</span></div>`).join('');
   }
 
+  const syncBadge = sheetStatus === 'synced'
+    ? `<div class="sync-badge synced"><i class="fas fa-check-circle"></i> Saved to Google Sheets</div>`
+    : sheetStatus === 'offline'
+    ? `<div class="sync-badge offline"><i class="fas fa-save"></i> Saved locally — will sync when Sheet URL is configured</div>`
+    : `<div class="sync-badge error"><i class="fas fa-exclamation-circle"></i> Sheet sync failed — saved locally. Contact organizer with Txn ID.</div>`;
+
   document.getElementById('successSummary').innerHTML = `
+    <div class="success-summary-row reg-id-row">
+      <span class="ss-key">Registration ID</span>
+      <span class="ss-val" style="color:var(--omni-green);font-family:'Orbitron',sans-serif;letter-spacing:2px;font-size:1rem">${regId}</span>
+    </div>
     <div class="success-summary-row"><span class="ss-key">Name</span><span class="ss-val">${name}</span></div>
     <div class="success-summary-row"><span class="ss-key">College</span><span class="ss-val">${college}</span></div>
     <div class="success-summary-row"><span class="ss-key">Email</span><span class="ss-val">${email}</span></div>
@@ -3198,7 +3313,8 @@ function doRegister() {
     ${memberRows}
     <div class="success-summary-row"><span class="ss-key">Events</span><span class="ss-val">${evs.join(', ')}</span></div>
     <div class="success-summary-row"><span class="ss-key">Amount Paid</span><span class="ss-val" style="color:var(--omni-green)">₹${amount}</span></div>
-    <div class="success-summary-row"><span class="ss-key">Txn ID</span><span class="ss-val" style="font-family:Share Tech Mono,monospace;font-size:0.85em">${txn}</span></div>`;
+    <div class="success-summary-row"><span class="ss-key">Txn ID</span><span class="ss-val" style="font-family:Share Tech Mono,monospace;font-size:0.85em">${txn}</span></div>
+    ${syncBadge}`;
 
   document.getElementById('regForm').style.display = 'none';
   const sb = document.getElementById('successBox');
@@ -3210,14 +3326,14 @@ function exportRegistrations() {
   try {
     const data = JSON.parse(localStorage.getItem('zentronix26_registrations') || '[]');
     if (!data.length) { alert('No registrations saved yet.'); return; }
-    const headers = ['Name','College','Email','Phone','Dept','Year','Gender','Team Size','Team Members','Events','Amount','Txn ID','Timestamp'];
+    const headers = ['Reg ID','Name','College','Email','Phone','Dept','Year','Gender','Team Size','Member 2','Member 3','Member 4','Member 5','Events','Amount (₹)','Txn ID','Timestamp'];
     const rows = data.map(r => [
-      r.name, r.college, r.email, r.phone, r.dept, r.year, r.gender, r.teamSize,
-      (r.members||[]).map(m=>m.name+(m.dept?' ('+m.dept+')':'')).join(' | '),
+      r.regId||'',r.name, r.college, r.email, r.phone, r.dept, r.year, r.gender, r.teamSize,
+      r.m2||'', r.m3||'', r.m4||'', r.m5||'',
       r.events, r.amount, r.txnId, r.timestamp
     ].map(v => '"'+(v||'').toString().replace(/"/g,'""')+'"').join(','));
     const csv = [headers.join(','), ...rows].join('\n');
-    const blob = new Blob([csv], {type:'text/csv'});
+    const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'zentronix26_registrations.csv';
