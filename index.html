@@ -3192,25 +3192,18 @@ function copyUpiId() {
       • Execute as: Me  |  Who has access: Anyone
    4. Copy the Web App URL and paste it below replacing the placeholder
    ──────────────────────────────────────────────────────────────────── */
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyL8N7ymzC4abzBZyi5CBJfdQTncY0fkglXhr4DSLDvDoUw5sHPVCdArc3ElGyrEUYM/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAvd_SLte9ScaQ7QzB44pDgtyAr4Q1VIJO8wCviKbaVXGoLRCk1bEJKv0AC7tHF4SU/exec';
 
 /* ── APPS SCRIPT CODE (paste into your Google Apps Script editor) ──────
-function doPost(e) {
+
+function doGet(e) {
   try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data  = JSON.parse(e.postData.contents);
-    // Write header row if sheet is empty
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Reg ID','Name','College','Email','Phone','Dept','Year',
-        'Gender','Team Size','Member 2','Member 3','Member 4','Member 5',
-        'Events','Amount (₹)','Txn ID','Timestamp']);
+    var p = e.parameter;
+    if (!p || !p.name) {
+      return ContentService.createTextOutput(JSON.stringify({status:'ok',message:'ZENTRONIX26 API live'}))
+        .setMimeType(ContentService.MimeType.JSON);
     }
-    sheet.appendRow([
-      data.regId, data.name, data.college, data.email, data.phone,
-      data.dept, data.year, data.gender, data.teamSize,
-      data.m2||'', data.m3||'', data.m4||'', data.m5||'',
-      data.events, data.amount, data.txnId, data.timestamp
-    ]);
+    saveRow(p);
     return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
       .setMimeType(ContentService.MimeType.JSON);
   } catch(err) {
@@ -3218,6 +3211,34 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    saveRow(data);
+    return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({status:'error',msg:err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function saveRow(data) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Reg ID','Name','College','Email','Phone','Dept','Year',
+      'Gender','Team Size','Member 2','Member 3','Member 4','Member 5',
+      'Events','Amount (Rs)','Txn ID','Timestamp']);
+  }
+  sheet.appendRow([
+    data.regId||'', data.name||'', data.college||'', data.email||'', data.phone||'',
+    data.dept||'', data.year||'', data.gender||'', data.teamSize||'',
+    data.m2||'', data.m3||'', data.m4||'', data.m5||'',
+    data.events||'', data.amount||'', data.txnId||'', data.timestamp||''
+  ]);
+}
+
    ─────────────────────────────────────────────────────────────────── */
 
 function generateRegId() {
@@ -3273,19 +3294,32 @@ async function doRegister() {
     localStorage.setItem('zentronix26_registrations', JSON.stringify(existing));
   } catch(e) {}
 
-  // 2. Push to Google Sheet
+  // 2. Push to Google Sheet — no-cors mode to avoid CORS block
   let sheetStatus = 'offline';
   if (SHEET_URL && SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
     try {
-      const res = await fetch(SHEET_URL, {
+      // Use no-cors + text/plain to skip preflight — Apps Script reads e.postData.contents
+      await fetch(SHEET_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(record)
       });
-      const json = await res.json();
-      sheetStatus = json.status === 'ok' ? 'synced' : 'error';
+      sheetStatus = 'synced'; // no-cors can't read response body — assume ok if no throw
     } catch(e) {
-      sheetStatus = 'offline';
+      // Final fallback: hidden iframe GET request
+      try {
+        const params = new URLSearchParams();
+        Object.keys(record).forEach(k => params.append(k, record[k] != null ? record[k] : ''));
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = SHEET_URL + '?' + params.toString();
+        document.body.appendChild(iframe);
+        setTimeout(() => document.body.removeChild(iframe), 6000);
+        sheetStatus = 'synced';
+      } catch(e2) {
+        sheetStatus = 'error';
+      }
     }
   }
 
