@@ -1440,6 +1440,152 @@ footer{position:relative;z-index:1;background:#000;border-top:2px solid rgba(0,2
 
 /* Scanline overlay */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.03) 0,rgba(0,0,0,0.03) 1px,transparent 1px,transparent 2px)}
+
+/* ═══ TEAM AMOUNT BADGE ═══ */
+.team-amount-badge{
+  display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;
+  font-family:'Orbitron',sans-serif;font-size:0.82rem;font-weight:700;
+  color:var(--omni-green);
+  background:rgba(0,255,65,0.06);border:1px solid rgba(0,255,65,0.25);
+  border-radius:8px;padding:0.7rem 1rem;margin-bottom:1rem;
+  box-shadow:0 0 12px rgba(0,255,65,0.1);
+  animation:amountPop 0.4s ease;
+}
+@keyframes amountPop{from{transform:scale(0.95);opacity:0}to{transform:scale(1);opacity:1}}
+.team-amount-note{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:rgba(0,255,65,0.55);letter-spacing:1px}
+
+/* ═══ MOBILE OVERHAUL ═══ */
+@media(max-width:600px){
+  /* Nav */
+  .nav-links{display:none}
+  .hamburger{display:flex}
+
+  /* Hero */
+  .hero-title{font-size:clamp(2.5rem,13vw,5rem)}
+  .hero-badge{font-size:0.65rem;letter-spacing:3px;padding:6px 14px}
+  .hero-sub{letter-spacing:4px}
+  .hero-tagline{font-size:0.95rem}
+  .hero-date{font-size:0.8rem}
+  .hero-buttons{gap:0.8rem}
+  .btn-omnitrix,.btn-outline{font-size:0.72rem;padding:11px 20px;letter-spacing:2px}
+  .countdown-wrap{gap:0.5rem;margin-top:2.5rem}
+  .cd-num{font-size:1.5rem;min-width:52px;padding:7px 8px}
+  .cd-sep{font-size:1.5rem;margin-top:-8px}
+  .cd-label{font-size:0.55rem;letter-spacing:2px}
+
+  /* Sections */
+  section{padding:65px 4%}
+  .sec-title{font-size:clamp(1.6rem,7vw,2.4rem);margin-bottom:2rem}
+  .sec-label{font-size:0.65rem;letter-spacing:3px}
+
+  /* About */
+  .about-intro{margin-bottom:2.5rem}
+  .about-intro-text{font-size:0.92rem;line-height:1.7}
+  .dept-badge{font-size:0.7rem;padding:8px 14px;letter-spacing:1px}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .stat-num{font-size:2rem}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(0,255,65,0.12);padding:1rem 0.5rem}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(0,255,65,0.12)}
+  .stat-item:nth-last-child(-n+2){border-bottom:none}
+  .coord-grid{grid-template-columns:1fr}
+  .coord-grid .coord-item-lead{grid-column:span 1}
+  .coord-item{padding:0.7rem 0.8rem;gap:0.6rem}
+  .coord-name{font-size:0.88rem}
+  .coord-role{font-size:0.68rem}
+  .about-coord-section{margin-top:2.5rem}
+
+  /* Events mobile */
+  .events-mobile-list{padding:0 0.5rem}
+  .ev-mob-item{gap:0.8rem;padding:1rem 0}
+  .ev-mob-img{width:50px;height:50px}
+  .ev-mob-alien{font-size:0.78rem}
+  .ev-mob-event{font-size:0.85rem}
+  .ev-mob-desc{font-size:0.75rem}
+
+  /* Timeline mobile */
+  .orb-mobile-list{padding:0 0.5rem}
+  .orb-mobile-item{padding:0.85rem 0 0.85rem 2.6rem}
+  .orb-mobile-num{width:26px;height:26px;font-size:0.68rem}
+  .orb-mobile-time{font-size:0.63rem}
+  .orb-mobile-name{font-size:0.8rem}
+  .orb-mobile-desc{font-size:0.75rem}
+  .cw-mobile-img{width:120px;height:120px}
+
+  /* Contact */
+  .contact-grid{grid-template-columns:1fr;gap:1.5rem}
+  .contact-card{padding:1.4rem}
+  .map-wrap{height:280px}
+  .contact-row{gap:0.7rem;margin-bottom:1.2rem}
+  .org-item{gap:0.7rem;padding:0.6rem 0}
+  .org-name{font-size:0.82rem}
+  .org-phone{font-size:0.7rem}
+
+  /* Register */
+  .reg-form-box{padding:1.5rem 1rem;border-radius:10px}
+  .reg-steps{gap:0;margin-bottom:2rem}
+  .reg-step{gap:0.3rem;font-size:0.58rem}
+  .reg-step span{display:none}
+  .reg-step.active span{display:block}
+  .reg-step-line{width:24px}
+  .form-row,.chk-grid{grid-template-columns:1fr}
+  .form-grp{margin-bottom:1rem}
+  .form-inp,.form-sel{padding:10px 12px;font-size:0.9rem}
+  .team-member-row{flex-direction:column;gap:0.5rem;padding:1rem 0.8rem}
+  .upi-pay-box{padding:1.2rem;gap:1rem}
+  .fee-summary{flex-direction:column;gap:0.5rem;text-align:left}
+  .fee-summary>div:last-of-type{text-align:left}
+  .btn-submit{font-size:0.72rem;letter-spacing:2px;padding:14px}
+  .success-box{padding:1.8rem 1rem}
+  .success-title{font-size:1.1rem}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  footer{padding:3rem 4% 1.5rem}
+  .footer-bottom{flex-direction:column;text-align:center;gap:0.5rem}
+
+  /* Bus timing cards */
+  [style*="justify-content:space-between"][style*="padding:0.45rem"]{flex-direction:column;gap:0.3rem;align-items:flex-start !important}
+}
+
+@media(max-width:400px){
+  .hero-title{font-size:2.2rem}
+  .reg-form-box{padding:1.2rem 0.8rem}
+  .countdown-wrap{gap:0.3rem}
+  .cd-num{min-width:44px;padding:6px 6px;font-size:1.3rem}
+  .cd-sep{font-size:1.2rem}
+}
+
+/* ═══ MOBILE ANIMATIONS (match desktop) ═══ */
+@media(max-width:860px){
+  /* Events list items animate in */
+  .ev-mob-item{
+    opacity:0;transform:translateX(-30px);
+    transition:opacity 0.5s ease, transform 0.5s ease;
+  }
+  .ev-mob-item.mob-visible{opacity:1;transform:none}
+
+  /* Timeline items animate in */
+  .orb-mobile-item{
+    opacity:0;transform:translateY(20px);
+    transition:opacity 0.5s ease, transform 0.5s ease;
+  }
+  .orb-mobile-item.mob-visible{opacity:1;transform:none}
+
+  /* Mobile images pulse like desktop */
+  .ev-mob-img{animation:facePulse 3s ease-in-out infinite}
+  .cw-mobile-img{
+    border:3px solid var(--clockwork-gold);
+    box-shadow:0 0 30px rgba(255,170,0,0.6);
+    animation:cwCenterPulse 3s ease-in-out infinite;
+  }
+
+  /* Coord items slide in */
+  .coord-item{
+    opacity:0;transform:translateY(15px);
+    transition:opacity 0.4s ease, transform 0.4s ease;
+  }
+  .coord-item.mob-visible{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
@@ -1594,40 +1740,40 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
       </div>      
       <div class="coord-item">
         <div class="coord-av">KB</div>
-        <div><div class="coord-name">Dr. K. Bommuraju</div><div class="coord-role">Asst. Professor — PPT presentation Coordinator</div></div>
+        <div><div class="coord-name">Dr. K. Bommuraju</div><div class="coord-role">Asst. Professor — RATHX PRASENTA Coordinator</div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">MR</div>
-        <div><div class="coord-name">Dr. M. Rajavelu</div><div class="coord-role">Assoc. Professor — PPT presentation Coordinator</div></div>
+        <div><div class="coord-name">Dr. M. Rajavelu</div><div class="coord-role">Assoc. Professor — RATHX PRASENTA Coordinator</div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">GS</div>
-        <div><div class="coord-name">Dr. G. Sheeba</div><div class="coord-role">Asst. Professor — Project Expo Coordinator</div></div>
+        <div><div class="coord-name">Dr. G. Sheeba</div><div class="coord-role">Asst. Professor —JURYRIGG EXPO  Coordinator</div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">DK</div>
-        <div><div class="coord-name">Dr. D. Kalaiyarasan</div><div class="coord-role">Asst. Professor — Blind link Coordinator</div></div>
+        <div><div class="coord-name">Dr. D. Kalaiyarasan</div><div class="coord-role">Asst. Professor — DITTO TECH RUSH Coordinator</div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">TM</div>
-        <div><div class="coord-name">Dr. T.S Murugesh</div><div class="coord-role">Assoc. Professor — Registration In-charge</div></div>
+        <div><div class="coord-name">Dr. T.S Murugesh</div><div class="coord-role">Assoc. Professor </div></div>
       </div>
 
       <div class="coord-item">
         <div class="coord-av">TS</div>
-        <div><div class="coord-name">Dr. T. Shankar</div><div class="coord-role">Asst. Professor — Registration In-charge</div></div>
+        <div><div class="coord-name">Dr. T. Shankar</div><div class="coord-role">Asst. Professor  </div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">RD</div>
-        <div><div class="coord-name">Dr. R. Durga</div><div class="coord-role">Asst. Professor — Tech Quiz Coordinator</div></div>
+        <div><div class="coord-name">Dr. R. Durga</div><div class="coord-role">Asst. Professor — UPGRAGE QUIZ Coordinator</div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">PV</div>
-        <div><div class="coord-name">Mr. P. Vijayanand</div><div class="coord-role">Asst. Professor — Tech Auction Coordinator</div></div>
+        <div><div class="coord-name">Mr. P. Vijayanand</div><div class="coord-role">Asst. Professor — XLR8 AUCTION Coordinator</div></div>
       </div>
       <div class="coord-item">
         <div class="coord-av">MD</div>
-        <div><div class="coord-name">Mr. M. Dinesh</div><div class="coord-role">Asst. Professor — Circuit Debugging Coordinator</div></div>
+        <div><div class="coord-name">Mr. M. Dinesh</div><div class="coord-role">Asst. Professor — GALVANIC DEBUG Coordinator</div></div>
       </div>
     </div>
   </div>
@@ -1729,31 +1875,31 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
   <div class="events-mobile-list">
     <div class="ev-mob-item">
       <img src="rath.png" class="ev-mob-img" onerror="this.style.background='#1a0800'">
-      <div><div class="ev-mob-alien">RATH</div><div class="ev-mob-event">PPT Presentation</div><div class="ev-mob-desc">Present ideas, showcase innovation through impactful Paper Presentation. Team: 1–2 | ₹100 | Prize: ₹5K+₹3K</div></div>
+      <div><div class="ev-mob-alien">RATH</div><div class="ev-mob-event">RATHX PRASENTA</div><div class="ev-mob-desc">Present ideas, showcase innovation through impactful Paper Presentation. Team: 1–2 | ₹100 | Prize: ₹5K+₹3K</div></div>
     </div>
     <div class="ev-mob-item">
       <img src="juryrigg.png" class="ev-mob-img" onerror="this.style.background='#00080f'">
-      <div><div class="ev-mob-alien">JURY RIGG</div><div class="ev-mob-event">Project Expo</div><div class="ev-mob-desc">Showcase working models, prototypes, hardware & software projects. Team: 2–4 | ₹200 | Prize: ₹8K+₹5K</div></div>
+      <div><div class="ev-mob-alien">JURY RIGG</div><div class="ev-mob-event">JURYRIGG EXPO</div><div class="ev-mob-desc">Showcase working models, prototypes, hardware & software projects. Team: 2–4 | ₹200 | Prize: ₹8K+₹5K</div></div>
     </div>
     <div class="ev-mob-item">
       <img src="upgrade.png" class="ev-mob-img" onerror="this.style.background='#0a0018'">
-      <div><div class="ev-mob-alien">UPGRADE</div><div class="ev-mob-event">Tech Quiz</div><div class="ev-mob-desc">Balloon-burst Q&A challenge across ECE domain. Team: 2 | ₹50 | Prize: ₹3K+₹2K</div></div>
+      <div><div class="ev-mob-alien">UPGRADE</div><div class="ev-mob-event">UPGRAGE QUIZ</div><div class="ev-mob-desc">Balloon-burst Q&A challenge across ECE domain. Team: 2 | ₹50 | Prize: ₹3K+₹2K</div></div>
     </div>
     <div class="ev-mob-item">
       <img src="graymatter.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
-      <div><div class="ev-mob-alien">GREY MATTER</div><div class="ev-mob-event">Circuit Debugging</div><div class="ev-mob-desc">Analyze and fix faulty circuit diagrams with paper and pen. Team: 1–2 | ₹100 | Prize: ₹5K+₹3K</div></div>
+      <div><div class="ev-mob-alien">GREY MATTER</div><div class="ev-mob-event">GALVANIC DEBUG</div><div class="ev-mob-desc">Analyze and fix faulty circuit diagrams with paper and pen. Team: 1–2 | ₹100 | Prize: ₹5K+₹3K</div></div>
     </div>
     <div class="ev-mob-item">
       <img src="xlr8.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
-      <div><div class="ev-mob-alien">XLR8</div><div class="ev-mob-event">Tech Auction</div><div class="ev-mob-desc">Speed-bid for tech components, outsmart rivals in final challenge. Team: 3–5 | ₹150 | Prize: ₹4K+₹2K</div></div>
+      <div><div class="ev-mob-alien">XLR8</div><div class="ev-mob-event">XLR8 AUCTION</div><div class="ev-mob-desc">Speed-bid for tech components, outsmart rivals in final challenge. Team: 3–5 | ₹150 | Prize: ₹4K+₹2K</div></div>
     </div>
     <div class="ev-mob-item">
       <img src="ditto.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
-      <div><div class="ev-mob-alien">DITTO</div><div class="ev-mob-event">Blind Link</div><div class="ev-mob-desc">See it, Say it, Build it — one teammate describes the circuit, others build it. | ₹75 | Prize: ₹4K+₹2.5K</div></div>
+      <div><div class="ev-mob-alien">DITTO</div><div class="ev-mob-event">DITTO TECH RUSH</div><div class="ev-mob-desc">See it, Say it, Build it — one teammate describes the circuit, others build it. | ₹75 | Prize: ₹4K+₹2.5K</div></div>
     </div>
     <div class="ev-mob-item">
       <img src="benwolf-removebg-preview.png" class="ev-mob-img" onerror="this.style.background='#001a08'">
-      <div><div class="ev-mob-alien">BLUTZ WOLFER</div><div class="ev-mob-event">WolfHunt</div><div class="ev-mob-desc">Decode campus-wide clues, race to the hidden treasure first. Team: 3–5 | ₹200 | Prize: ₹6K+₹4K</div></div>
+      <div><div class="ev-mob-alien">BLUTZWOLFER</div><div class="ev-mob-event">WOLFHUNT</div><div class="ev-mob-desc">Decode campus-wide clues, race to the hidden treasure first. Team: 3–5 | ₹200 | Prize: ₹6K+₹4K</div></div>
     </div>
   </div>
 </section>
@@ -1856,35 +2002,35 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">2</div>
-      <div><div class="orb-mobile-time">10:00 — 1:00 AM</div><div class="orb-mobile-name">PPT Presentation</div><div class="orb-mobile-desc">Prelim round. Top teams advance to afternoon finals.</div><div class="orb-mobile-venue">📍 Seminar Hall A</div></div>
+      <div><div class="orb-mobile-time">10:00 — 1:00 AM</div><div class="orb-mobile-name">RATHX PRASENTA</div><div class="orb-mobile-desc">Prelim round. Top teams advance to afternoon finals.</div><div class="orb-mobile-venue">📍 Conference Hall A</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">7</div>
-      <div><div class="orb-mobile-time">10:00 — 1:00 PM</div><div class="orb-mobile-name">Project Expo</div><div class="orb-mobile-desc">Live prototype demo. Break it, build it, impress judges.</div><div class="orb-mobile-venue">📍 Exhibition Hall</div></div>
+      <div><div class="orb-mobile-time">10:00 — 1:00 PM</div><div class="orb-mobile-name">JURYRIGG EXPO</div><div class="orb-mobile-desc">Live prototype demo. Break it, build it, impress judges.</div><div class="orb-mobile-venue">📍 Drawing Hall</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">8</div>
-      <div><div class="orb-mobile-time">10:00 — 11:30 PM</div><div class="orb-mobile-name">Tech Auction</div><div class="orb-mobile-desc">Speed-bid for tech components, then face the final challenge.</div><div class="orb-mobile-venue">📍 Seminar Hall B</div></div>
+      <div><div class="orb-mobile-time">10:00 — 11:30 PM</div><div class="orb-mobile-name">XLR8 AUCTION</div><div class="orb-mobile-desc">Speed-bid for tech components, then face the final challenge.</div><div class="orb-mobile-venue">📍 Electronics Lab</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">4</div>
-      <div><div class="orb-mobile-time">11:30 AM — 12:30 PM</div><div class="orb-mobile-name"> Circuit Debug</div><div class="orb-mobile-desc">Find and fix faults in real circuit boards. Two levels.</div><div class="orb-mobile-venue">📍 Electronics Lab</div></div>
+      <div><div class="orb-mobile-time">11:30 AM — 12:30 PM</div><div class="orb-mobile-name"> GALVANIC DEBUG</div><div class="orb-mobile-desc">Find and fix faults in real circuit boards. Two levels.</div><div class="orb-mobile-venue">📍 IV Year Classroom </div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">6</div>
-      <div><div class="orb-mobile-time">12:30 — 1:30 PM</div><div class="orb-mobile-name"> Lunch Break</div><div class="orb-mobile-desc">Clockwork pauses time! Lunch for all participants.</div><div class="orb-mobile-venue">📍 College Canteen</div></div>
+      <div><div class="orb-mobile-time">12:30 — 1:30 PM</div><div class="orb-mobile-name"> LUNCH BREAK</div><div class="orb-mobile-desc">Clockwork pauses time! Lunch for all participants.</div><div class="orb-mobile-venue">📍 College Canteen</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">3</div>
-      <div><div class="orb-mobile-time">1:30 AM — 3:00 PM</div><div class="orb-mobile-name"> Tech Quiz</div><div class="orb-mobile-desc">30-Q MCQ blitz. Top 6 teams into rapid-fire finale.</div><div class="orb-mobile-venue">📍 Lab Block Room 201</div></div>
+      <div><div class="orb-mobile-time">1:30 AM — 3:00 PM</div><div class="orb-mobile-name"> UPGRAGE QUIZ</div><div class="orb-mobile-desc">30-Q MCQ blitz. Top 6 teams into rapid-fire finale.</div><div class="orb-mobile-venue">📍 DSP/VLSI Lab</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">5</div>
-      <div><div class="orb-mobile-time">1:30 AM — 3:00 PM</div><div class="orb-mobile-name"> Blind link</div><div class="orb-mobile-desc">Screen off, logic on. Code without seeing your output.</div><div class="orb-mobile-venue">📍 CS Lab Block C</div></div>
+      <div><div class="orb-mobile-time">1:30 AM — 3:00 PM</div><div class="orb-mobile-name"> DITTO TECH RUSH</div><div class="orb-mobile-desc">Screen off, logic on. Code without seeing your output.</div><div class="orb-mobile-venue">📍 Electronics Lab</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">9</div>
-      <div><div class="orb-mobile-time">3:00 — 4:00 PM</div><div class="orb-mobile-name"> Treasure Hunt</div><div class="orb-mobile-desc">Decode campus-wide tech clues. First team wins!</div><div class="orb-mobile-venue">📍 Entire Campus</div></div>
+      <div><div class="orb-mobile-time">3:00 — 4:00 PM</div><div class="orb-mobile-name"> WOLFHUNT</div><div class="orb-mobile-desc">Decode campus-wide tech clues. First team wins!</div><div class="orb-mobile-venue">📍 Entire Campus</div></div>
     </div>
     <div class="orb-mobile-item">
       <div class="orb-mobile-num">10</div>
@@ -1902,12 +2048,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
     <div class="sec-divider center"></div>
   </div>
   <div class="gallery-grid">
-    <div class="gal-item fade-in"><i class="fas fa-image gal-icon"></i><span class="gal-label">Project Expo '25</span></div>
+    <div class="gal-item fade-in"><i class="fas fa-image gal-icon"></i><span class="gal-label">JURYRIGG EXPO '25</span></div>
     <div class="gal-item fade-in" style="transition-delay:0.05s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Inauguration</span></div>
-    <div class="gal-item fade-in" style="transition-delay:0.1s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Circuit Debug</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.1s"><i class="fas fa-image gal-icon"></i><span class="gal-label">GALVANIC DEBUG</span></div>
     <div class="gal-item fade-in" style="transition-delay:0.15s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Prize Distribution</span></div>
-    <div class="gal-item fade-in" style="transition-delay:0.2s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Blind Coding</span></div>
-    <div class="gal-item fade-in" style="transition-delay:0.25s"><i class="fas fa-image gal-icon"></i><span class="gal-label">Tech Quiz Finals</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.2s"><i class="fas fa-image gal-icon"></i><span class="gal-label">DITTO TECH RUSH</span></div>
+    <div class="gal-item fade-in" style="transition-delay:0.25s"><i class="fas fa-image gal-icon"></i><span class="gal-label">UPGRAGE QUIZ Finals</span></div>
   </div>
 </section>-->
 
@@ -1930,7 +2076,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           <div>
             <div class="contact-lbl">Email</div>
             <div class="contact-val">
-              <a href="mailto:zentronix26@gcetrichy.ac.in" style="color:var(--omni-green);text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">zentronix26&#64;gcetrichy.ac.in</a>
+              <a href="/cdn-cgi/l/email-protection#9fe5faf1ebedf0f1f6e7ada9dff8fcfaebedf6fcf7e6b1fefcb1f6f1" style="color:var(--omni-green);text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.75'" onmouseout="this.style.opacity='1'">zentronix26&#64;gcetrichy.ac.in</a>
             </div>
           </div>
         </div>
@@ -1944,7 +2090,26 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           <div class="org-item"><div class="org-av">KA</div><div><div class="org-name">Kishore Kumar A (Co-Coordinator)</div><div class="org-phone"><i class="fas fa-phone"></i> +91 9361707745</div></div></div>
           <div class="org-item"><div class="org-av">AA</div><div><div class="org-name">Ananthi A (Student Coordinator)</div><div class="org-phone"><i class="fas fa-phone"></i> +91 9025505423</div></div></div>
         </div>
-
+      </div>
+    </div>
+    <div class="fade-right">
+      <div class="contact-card">
+        <div class="org-head"><i class="fas fa-bus"></i> Event Map</div>
+       <div class="map-wrap"><img src="GCES-ECE.svg"  style="width:100%; height:100%;">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ bus timing ═══ -->
+<section id="contact">
+  <div class="fade-in" style="text-align:center;margin-bottom:3rem">
+    <div class="sec-label">// TO Get us</div>
+    <h2 class="sec-title">Bus  <span class="acc">Timings</span></h2>
+    <div class="sec-divider center"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="fade-left">
+      <div class="contact-card">
         <!-- ── BUS TIMINGS ── -->
         <div class="org-section">
           <div class="org-head"><i class="fas fa-bus"></i> How to Reach — Bus Timings</div>
@@ -1956,19 +2121,16 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
             </div>
             <div style="display:flex;flex-direction:column;gap:0.4rem;">
               <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.1);border-radius:6px;">
-                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--omni-green)">1A / 1B</strong></span>
-                <span style="font-size:0.78rem;color:#aaa;">Every 20 min &nbsp;·&nbsp; ~35 min ride</span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--omni-green)">45H/45G/13J</strong></span>
+                <span style="font-size:0.78rem;color:#aaa;">Every 35 min &nbsp;·&nbsp; ~45 min ride</span>
               </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.1);border-radius:6px;">
-                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--omni-green)">59 / 59A</strong></span>
-                <span style="font-size:0.78rem;color:#aaa;">Every 30 min &nbsp;·&nbsp; ~40 min ride</span>
-              </div>
+              
               <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(0,255,65,0.04);border:1px solid rgba(0,255,65,0.1);border-radius:6px;">
                 <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;"><strong style="color:var(--omni-green)">First bus</strong> from Central</span>
-                <span style="font-size:0.78rem;color:#aaa;">5:30 AM &nbsp;&nbsp;<strong style="color:var(--omni-green)">Last</strong>&nbsp; 10:00 PM</span>
+                <span style="font-size:0.78rem;color:#aaa;">5:30 AM &nbsp;
               </div>
               <div style="font-size:0.75rem;color:rgba(200,240,200,0.55);padding:0.3rem 0.5rem;">
-                📍 Alight at <strong style="color:#e8ffe8">GCE Trichy / Sethurapatti</strong> stop
+                📍 Alight at <strong style="color:#e8ffe8"> Sethurapatti Road</strong> stop
               </div>
             </div>
           </div>
@@ -1980,34 +2142,32 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
             </div>
             <div style="display:flex;flex-direction:column;gap:0.4rem;">
               <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(255,170,0,0.04);border:1px solid rgba(255,170,0,0.12);border-radius:6px;">
-                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--clockwork-gold)">99 / 99A</strong></span>
+                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--clockwork-gold)">45H/45G/13J</strong></span>
                 <span style="font-size:0.78rem;color:#aaa;">Every 25 min &nbsp;·&nbsp; ~20 min ride</span>
               </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(255,170,0,0.04);border:1px solid rgba(255,170,0,0.12);border-radius:6px;">
-                <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;">Bus No. <strong style="color:var(--clockwork-gold)">74 / 74C</strong></span>
-                <span style="font-size:0.78rem;color:#aaa;">Every 30 min &nbsp;·&nbsp; ~25 min ride</span>
-              </div>
+             
               <div style="display:flex;justify-content:space-between;align-items:center;padding:0.45rem 0.8rem;background:rgba(255,170,0,0.04);border:1px solid rgba(255,170,0,0.12);border-radius:6px;">
                 <span style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:#e8ffe8;"><strong style="color:var(--clockwork-gold)">First bus</strong> from Panjapur</span>
-                <span style="font-size:0.78rem;color:#aaa;">6:00 AM &nbsp;&nbsp;<strong style="color:var(--clockwork-gold)">Last</strong>&nbsp; 9:30 PM</span>
+                <span style="font-size:0.78rem;color:#aaa;">6:00 AM &nbsp;
               </div>
               <div style="font-size:0.75rem;color:rgba(200,240,200,0.55);padding:0.3rem 0.5rem;">
-                📍 Alight at <strong style="color:#e8ffe8">GCE Trichy Main Gate</strong> stop
+                📍 Alight at <strong style="color:#e8ffe8">Sethurapatti road</strong> stop
               </div>
             </div>
           </div>
 
           <div style="margin-top:1rem;padding:0.7rem 0.9rem;background:rgba(0,170,255,0.05);border:1px solid rgba(0,170,255,0.15);border-radius:8px;font-size:0.78rem;color:rgba(200,230,255,0.75);line-height:1.6;">
             <i class="fas fa-info-circle" style="color:#00aaff;margin-right:6px"></i>
-            Plan to arrive by <strong style="color:#e8ffe8">8:30 AM</strong>. Registration desk opens at 8:30 AM at the ECE Department entrance. Bring your college ID card.
+            Plan to arrive by <strong style="color:#e8ffe8">8:30 AM</strong>.  Bring your college ID card.
           </div>
         </div>
       </div>
     </div>
     <div class="fade-right">
-      <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7228.491586914224!2d78.59478010096025!3d10.678767656905551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baa63d82dd6a5e3%3A0x38be13a41bef7d48!2sGovernment%20College%20of%20Engineering%20-!5e0!3m2!1sen!2sin!4v1774587703870!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+     <div class="map-wrap"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7228.491586914224!2d78.59478010096025!3d10.678767656905551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baa63d82dd6a5e3%3A0x38be13a41bef7d48!2sGovernment%20College%20of%20Engineering%20-!5e0!3m2!1sen!2sin!4v1774587703870!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
     </div>
   </div>
+  
 </section>
 
 <!-- ═══ REGISTER ═══ -->
@@ -2051,8 +2211,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
             <input type="text" class="form-inp" id="r-name" placeholder="Your full name">
           </div>
           <div class="form-grp">
-            <label class="form-lbl">Roll Number *</label>
-            <input type="text" class="form-inp" id="r-roll" placeholder="e.g. 23ECE001">
+            <label class="form-lbl">Year of Study *</label>
+            <select class="form-sel form-inp" id="r-year">
+              <option value="">Select Year</option>
+              <option>I Year</option><option>II Year</option><option>III Year</option><option>IV Year</option>
+            </select>
           </div>
         </div>
         <div class="form-row">
@@ -2076,17 +2239,20 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
         </div>
         <div class="form-row">
           <div class="form-grp">
-            <label class="form-lbl">Year of Study *</label>
-            <select class="form-sel form-inp" id="r-year">
-              <option value="">Select Year</option>
-              <option>I Year</option><option>II Year</option><option>III Year</option><option>IV Year</option>
-            </select>
-          </div>
-          <div class="form-grp">
             <label class="form-lbl">Gender</label>
             <select class="form-sel form-inp" id="r-gender">
               <option value="">Select</option>
               <option>Male</option><option>Female</option><option>Prefer not to say</option>
+            </select>
+          </div>
+          <div class="form-grp">
+            <label class="form-lbl">Team Size *</label>
+            <select class="form-sel form-inp" id="r-teamsize" onchange="updateTeamMembers()">
+              <option value="1">Solo (1 member) — ₹200</option>
+              <option value="2">2 Members — ₹400</option>
+              <option value="3">3 Members — ₹600</option>
+              <option value="4">4 Members — ₹800</option>
+              <option value="5">4+1 Members (Max) — ₹800</option>
             </select>
           </div>
         </div>
@@ -2104,7 +2270,21 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           <label class="form-lbl">WhatsApp Number (if different)</label>
           <input type="tel" class="form-inp" id="r-whatsapp" placeholder="+91 XXXXX XXXXX (optional)">
         </div>
-        <button class="btn-submit" onclick="goStep2()" style="margin-top:0.5rem">
+
+        <!-- ── TEAM MEMBERS SECTION ── -->
+        <div id="teamMembersSection" style="display:none;margin-top:1rem">
+          <div class="form-section-hdr" style="margin-top:0">
+            <div class="form-section-icon"><i class="fas fa-users"></i></div>
+            <div class="form-section-title">Team Members</div>
+          </div>
+          <div class="team-amount-badge" id="teamAmountBadge">
+            <i class="fas fa-rupee-sign"></i> Total Amount: <span id="teamAmountDisplay">₹200</span>
+            <span class="team-amount-note" id="teamAmountNote"></span>
+          </div>
+          <div id="teamMembersWrap"></div>
+        </div>
+
+        <button class="btn-submit" onclick="goStep2()" style="margin-top:1rem">
           Next — Choose Events &nbsp;→
         </button>
       </div>
@@ -2117,43 +2297,43 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
         </div>
         <div class="chk-grid">
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="PPT Presentation (Rath)">
+            <input type="checkbox" name="ev" value="RATHX PRASENTA (Rath)">
             <span class="chk-box"></span>
-            <span class="chk-label">🦁 PPT Presentation <small>Rath</small></span>
+            <span class="chk-label"> RATHX PRASENTA <small>Rath</small></span>
           </label>
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="Project Expo (Jury Rigg)">
+            <input type="checkbox" name="ev" value="JURYRIGG EXPO (Jury Rigg)">
             <span class="chk-box"></span>
-            <span class="chk-label">🔧 Project Expo <small>Jury Rigg</small></span>
+            <span class="chk-label"> JURYRIGG EXPO <small>Jury Rigg</small></span>
           </label>
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="Tech Auction (XLR8)">
+            <input type="checkbox" name="ev" value="XLR8 AUCTION (XLR8)">
             <span class="chk-box"></span>
-            <span class="chk-label">💨 Tech Auction <small>XLR8</small></span>
+            <span class="chk-label"> XLR8 AUCTION <small>XLR8</small></span>
           </label>
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="Circuit Debugging (Grey Matter)">
+            <input type="checkbox" name="ev" value="GALVANIC DEBUG (Grey Matter)">
             <span class="chk-box"></span>
-            <span class="chk-label">🧠 Circuit Debugging <small>Grey Matter</small></span>
+            <span class="chk-label"> GALVANIC DEBUG <small>Grey Matter</small></span>
           </label>
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="Tech Quiz (Upgrade)">
+            <input type="checkbox" name="ev" value="UPGRAGE QUIZ (Upgrade)">
             <span class="chk-box"></span>
-            <span class="chk-label">⚡ Tech Quiz <small>Upgrade</small></span>
+            <span class="chk-label"> UPGRADE QUIZ <small>Upgrade</small></span>
           </label>
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="Blind Link (Ditto)">
+            <input type="checkbox" name="ev" value="DITTO TECH RUSH (Ditto)">
             <span class="chk-box"></span>
-            <span class="chk-label">🌀 Blind Link <small>Ditto</small></span>
+            <span class="chk-label"> DITTO TECH RUSH <small>Ditto</small></span>
           </label>
           <label class="ev-chk">
-            <input type="checkbox" name="ev" value="WolfHunt (Blutzwolfer)">
+            <input type="checkbox" name="ev" value="WOLFHUNT (Blutzwolfer)">
             <span class="chk-box"></span>
-            <span class="chk-label">🐺 WolfHunt <small>Blutzwolfer</small></span>
+            <span class="chk-label"> WOLFHUNT <small>Blutzwolfer</small></span>
           </label>
         </div>
 
-        <!-- Fee note — flat ₹200 per person -->
+        <!-- Fee note — dynamic per team size -->
         <div class="fee-summary" id="feeSummary" style="margin-top:1.2rem">
           <div>
             <div class="fee-summary-label">Registration Fee</div>
@@ -2161,11 +2341,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           </div>
           <div style="text-align:right">
             <div class="fee-summary-label">Amount</div>
-            <div class="fee-summary-amount">₹200 <span style="font-size:0.6rem;font-family:'Share Tech Mono',monospace;color:rgba(200,240,200,0.5)">/person</span></div>
+            <div class="fee-summary-amount" id="step2AmountDisplay">₹200</div>
           </div>
           <div class="fee-summary-note">
             <i class="fas fa-info-circle" style="color:var(--omni-green);margin-right:6px"></i>
-            Flat ₹200 registration fee per person — covers all selected events.
+            ₹200/person · Max ₹800 for teams of 4+ · Covers all selected events.
           </div>
         </div>
 
@@ -2245,7 +2425,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           </div>
           <div style="text-align:right">
             <div class="fee-summary-label">Amount Payable</div>
-            <div class="fee-summary-amount">₹200</div>
+            <div class="fee-summary-amount" id="payAmountDisplay">₹200</div>
           </div>
         </div>
 
@@ -2280,6 +2460,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
       <div class="success-summary" id="successSummary"></div>
       <div class="success-msg" style="margin-top:1rem">A confirmation will be sent to your email. It's Hero Time on <strong>April 10, 2026</strong>! 🚀</div>
       <br><a href="#events" class="btn-outline" style="display:inline-block;margin-top:1.5rem">← Back to Aliens</a>
+      <br><button onclick="exportRegistrations()" class="btn-add-member" style="margin-top:1rem;display:inline-flex"><i class="fas fa-download" style="margin-right:6px"></i>Download Registrations (CSV/Excel)</button>
     </div>
   </div>
 </section>
@@ -2287,17 +2468,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand">
-      <span class="footer-brand-title">ZENTRONIX'26</span>
-      <p>Annual national-level technical symposium — Department of Electronics &amp; Communication Engineering. It's Hero Time. Every year.</p>
-      <div class="social-links">
-        <a href="#" class="soc-link"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="soc-link"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="soc-link"><i class="fab fa-youtube"></i></a>
-        <a href="#" class="soc-link"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="soc-link"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
     <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#events">Events</a></li><li><a href="#timeline">Schedule</a></li><li><a href="#register">Register</a></li></ul></div><div></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="/cdn-cgi/l/email-protection#3b415e554f4954555243090d155c585e487b5c565a525715585456">Email us</a></li><li><a href="tel:+919965498980">+91 9965498980(Akif)</a><li><a href="tel:+919361707745">+91 9361707745(Kishore)</a><li><a href="tel:+91 9025505423">+91 9025505423(Ananthi)</a></li><li><a href="#contact">Location</a></li><li><a href="#about">Coordinators</a></li></ul></div>
   </div>
@@ -2307,7 +2477,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══ OMNITRIX LOADER ═══ */
 const loaderTexts = ['INITIALIZING...','SCANNING DNA...','ALIEN FOUND...','TRANSFORMING...','HERO TIME!'];
 let lt = 0;
@@ -2447,14 +2617,14 @@ setInterval(tick, 1000); tick();
   /* ── Event data ── */
   const events = [
     { emoji:'', time:'09:15–10:00 AM', name:'Inauguration & Welcome',      desc:'Grand opening, lamp lighting, HOD address.',          venue:'Main Auditorium' },
-    { emoji:'', time:'10:00–1:00 AM', name:' PPT Presentation',     desc:'Prelim round. Top teams advance to finals.',          venue:'Seminar Hall A' },
-    { emoji:'', time:'10:00–1:00 PM',  name:'Project Expo',     desc:'Live prototype demo. Break it, build it!',            venue:'Exhibition Hall' },
-    { emoji:'', time:'10:00–11:30 PM',  name:'Tech Auction',          desc:'Speed-bid for tech, then face the final challenge.',  venue:'Seminar Hall B' }, 
-    { emoji:'', time:'11:30 AM–12:30', name:' Circuit Debug',    desc:'Find and fix faults in real PCBs. Two levels.',       venue:'Electronics Lab' },
-    { emoji:'', time:'12:30–1:30 PM', name:' Lunch Break',      desc:'Clockwork pauses time! Fuel up & network.',           venue:'College Canteen' },
-    { emoji:'', time:'1:30 AM–3 PM', name:' Tech Quiz',          desc:'30-Q MCQ blitz. Top 6 into rapid-fire finale.',       venue:'Lab Block Rm 201' },
-    { emoji:'', time:'10:30 AM–3 PM', name:' Blind Coding',  desc:'Screen off, pure logic. Code without seeing.',        venue:'CS Lab Block C' },
-    { emoji:'', time:'3:00–4:00 PM',  name:'Treasure Hunt',     desc:'Decode campus-wide clues. First team wins!',          venue:'Entire Campus' },
+    { emoji:'', time:'10:00–1:00 AM', name:' RATHX PRASENTA',     desc:'Prelim round. Top teams advance to finals.',          venue:'Conference Hall' },
+    { emoji:'', time:'10:00–1:00 PM',  name:'JURYRIGG EXPO',     desc:'Live prototype demo. Break it, build it!',            venue:'Drawing Hall' },
+    { emoji:'', time:'10:00–11:30 PM',  name:'XLR8 AUCTION',          desc:'Speed-bid for tech, then face the final challenge.',  venue:'Electronics Lab' }, 
+    { emoji:'', time:'11:30 AM–12:30', name:' GALVANIC DEBUG',    desc:'Find and fix faults in real PCBs. Two levels.',       venue:'IV Year Class' },
+    { emoji:'', time:'12:30–1:30 PM', name:' LUNCH BREAK',      desc:'Clockwork pauses time! Fuel up & network.',           venue:'Main Auditorium' },
+    { emoji:'', time:'1:30 AM–3 PM', name:' UPGRAGE QUIZ',          desc:'30-Q MCQ blitz. Top 6 into rapid-fire finale.',       venue:'DSP/VLSI Lab' },
+    { emoji:'', time:'10:30 AM–3 PM', name:' DITTO TECH RUSH',  desc:'Screen off, pure logic. Code without seeing.',        venue:'Electronics Lab' },
+    { emoji:'', time:'3:00–4:00 PM',  name:'WOLFHUNT',     desc:'Decode campus-wide clues. First team wins!',          venue:'Entire Campus' },
     { emoji:'', time:'After 4:00 PM',  name:'Clockwork Rewinds — Valediction', desc:'Winners crowned, prizes distributed. Hero time!', venue:'Main Auditorium' },
   ];
 
@@ -2637,51 +2807,51 @@ fadeEls.forEach(el => obs.observe(el));
     {
       alien:'RATH', species:'Appoplexian · Omnitrix Alien',
       img:'rath.png', color:'#ff6600',
-      event:'PPT Presentation',
+      event:'RATHX PRASENTA',
       desc:'Innovate. Present. Inspire. Showcase your ideas and explore the power of technology through impactful Paper Presentation.',
-      team:'1–2 Members'
+      
     },
     {
       alien:'JURY RIGG', species:'Planchaküle · Omnitrix Alien',
       img:'juryrigg.png', color:'#00aaff',
-      event:'Project Expo',
+      event:'JURYRIGG EXPO',
       desc:'Students showcase innovative ideas through working models, prototypes, and hardware/software projects.',
-      team:'2–4 Members'
+      
     },
     {
       alien:'UPGRADE', species:'Galvanic Mechamorph · Omnitrix Alien',
       img:'upgrade.png', color:'#aa00ff',
-      event:'Tech Quiz',
+      event:'UPGRAGE QUIZ',
       desc:'Each team gets 10 balloons — burst 6 to reveal ECE questions, answer them to advance, then pick special-effect cards. Top teams burst remaining 4 balloons.',
-      team:'2 Members'
+      
     },
     {
       alien:'GREY MATTER', species:'Galvan · Omnitrix Alien',
       img:'graymatter.png', color:'#00ff41',
-      event:'Circuit Debugging',
+      event:'GALVANIC DEBUG',
       desc:'Test your problem-solving skill by analyzing and fixing faulty circuit diagrams with only paper and pen within the time limit.',
-      team:'1–2 Members'
+      
     },
     {
       alien:'XLR8', species:'Kineceleran · Omnitrix Alien',
       img:'xlr8.png', color:'#00aaff',
-      event:'Tech Auction',
-      desc:'Speed-bid for tech components and outsmart your rivals! Lightning-fast decisions and smart strategy win the day.',
-      team:'3–5 Members'
+      event:'XLR8 AUCTION',
+      desc:'Step into an exciting auction arena where electronic circuits are up for grabs! Teams will bid smartly to secure circuits and race against time to solve them.It’s all about quick thinking, sharp skills, and smart decisions. The team that solves the most circuits correctly within the time wins the game. ',
+      
     },
     {
       alien:'DITTO', species:'Splixson · Omnitrix Alien',
       img:'ditto.png', color:'#00ff41',
-      event:'Blind Link',
+      event:'DITTO TECH RUSH',
       desc:'See it. Say it. Build it! One teammate describes the circuit diagram while the others build it from scratch — no peeking!',
-      team:'2–3 Members'
+      
     },
     {
       alien:'BLUTZWOLFER', species:'Loboan · Omnitrix Alien',
       img:'benwolf-removebg-preview.png', color:'#00ff41',
-      event:'WolfHunt',
-      desc:'Decode technical clues spread across campus and race to find the hidden treasure before rival teams!',
-      team:'3–5 Members'
+      event:'WOLFHUNT',
+      desc:'Sean it explone it find it. one team members is Find the hidden things',
+      
     },
   ];
 
@@ -2790,8 +2960,7 @@ fadeEls.forEach(el => obs.observe(el));
     document.getElementById('detailAlienName').textContent = ev.alien;
     document.getElementById('detailEventTitle').textContent = '⚡ ' + ev.event;
     document.getElementById('detailDesc').textContent = ev.desc;
-    document.getElementById('detailMeta').innerHTML = `
-      <span class="meta-tag meta-team"><i class="fas fa-users"></i> ${ev.team}</span>`;
+   
 
     // Hide rules section entirely
     const rulesBtn = document.getElementById('detailRulesBtn');
@@ -2857,13 +3026,16 @@ function goStep2() {
   const dept    = document.getElementById('r-dept').value;
   const phone   = document.getElementById('r-phone').value.trim();
   const email   = document.getElementById('r-email').value.trim();
-  const roll    = document.getElementById('r-roll').value.trim();
-  if (!name || !college || !dept || !phone || !email || !roll) {
+  if (!name || !college || !dept || !phone || !email) {
     alert('⚠️ Please fill all required fields!'); return;
   }
   if (!/^\S+@\S+\.\S+$/.test(email)) { alert('⚠️ Invalid email address!'); return; }
   if (!/^[0-9]{10}$/.test(phone.replace(/[\s\+\-]/g,''))) { alert('⚠️ Enter a valid 10-digit phone number!'); return; }
   setStep(2);
+  // Sync amount display in step 2
+  const amt = getRegistrationAmount();
+  const s2a = document.getElementById('step2AmountDisplay');
+  if (s2a) s2a.textContent = '₹' + amt;
   updateSelectedEvents();
 }
 
@@ -2871,17 +3043,33 @@ function goStep3() {
   const evs = [...document.querySelectorAll('input[name="ev"]:checked')];
   if (evs.length === 0) { alert('⚠️ Please select at least one alien event!'); return; }
   setStep(3);
+  const amount = getRegistrationAmount();
+  const size = parseInt(document.getElementById('r-teamsize').value) || 1;
 
   // Show selected events in step 3 recap
   const names = evs.map(c => c.value.split('(')[0].trim()).join(', ');
   const nameEl = document.getElementById('r-name');
   document.getElementById('payEventList2').textContent = (nameEl ? nameEl.value.trim() : '') + ' — ' + names;
 
-  // Generate QR only once
+  // Update payment step header and amount display
+  const payHdr = document.querySelector('#regStep3 .form-section-title');
+  if (payHdr) payHdr.textContent = 'Pay via UPI — ₹' + amount + (size === 5 ? ' (4+1 capped)' : size > 1 ? ' for ' + size + ' members' : ' per person');
+
+  const payAmountEl = document.getElementById('payAmountDisplay');
+  if (payAmountEl) payAmountEl.textContent = '₹' + amount;
+
+  const upiLinkEl = document.getElementById('upiMobileBtn');
+  if (upiLinkEl) {
+    upiLinkEl.href = `upi://pay?pa=rishirishi1962005@oksbi&pn=ZENTRONIX26&am=${amount}&cu=INR&tn=ZENTRONIX26 Registration`;
+    upiLinkEl.innerHTML = `<i class="fas fa-mobile-alt"></i> Pay ₹${amount} — Open UPI App`;
+  }
+
+  // Generate QR only once; regenerate if amount changed
   const qrDiv = document.getElementById('upiQrCode');
-  if (qrDiv && !qrDiv._generated) {
-    qrDiv._generated = true;
-    const upiString = 'upi://pay?pa=rishirishi1962005@oksbi&pn=ZENTRONIX26&am=200&cu=INR&tn=ZENTRONIX26 Registration';
+  if (qrDiv && qrDiv._lastAmount !== amount) {
+    qrDiv._lastAmount = amount;
+    qrDiv.innerHTML = '';
+    const upiString = `upi://pay?pa=rishirishi1962005@oksbi&pn=ZENTRONIX26&am=${amount}&cu=INR&tn=ZENTRONIX26 Registration`;
     try {
       new QRCode(qrDiv, {
         text: upiString,
@@ -2904,25 +3092,56 @@ function updateSelectedEvents() {
 }
 document.querySelectorAll('input[name="ev"]').forEach(cb => cb.addEventListener('change', updateSelectedEvents));
 
-function addTeamMember() {
-  if (teamMemberCount >= 4) { alert('Maximum 4 team members allowed!'); return; }
-  teamMemberCount++;
+function updateTeamMembers() {
+  const size = parseInt(document.getElementById('r-teamsize').value) || 1;
+  const section = document.getElementById('teamMembersSection');
   const wrap = document.getElementById('teamMembersWrap');
-  const div  = document.createElement('div');
-  div.className = 'team-member-row'; div.id = 'tm-' + teamMemberCount;
-  div.innerHTML = `<span class="team-member-label">Member ${teamMemberCount+1}</span>
-    <input type="text" class="form-inp" placeholder="Full name" style="flex:1">
-    <input type="text" class="form-inp" placeholder="Roll number" style="flex:1">
-    <button class="btn-remove-member" onclick="removeTeamMember(${teamMemberCount})" title="Remove"><i class="fas fa-times"></i></button>`;
-  wrap.appendChild(div);
-  if (teamMemberCount >= 4) document.getElementById('addMemberBtn').style.display = 'none';
+  const badge = document.getElementById('teamAmountBadge');
+  const amountDisplay = document.getElementById('teamAmountDisplay');
+  const noteEl = document.getElementById('teamAmountNote');
+
+  // Calculate amount (₹200/person, max ₹800 for 4+)
+  const billable = Math.min(size, 4);
+  const amount = billable * 200;
+  amountDisplay.textContent = '₹' + amount;
+  if (size === 5) {
+    noteEl.textContent = ' (4+1 — capped at ₹800)';
+  } else {
+    noteEl.textContent = size > 1 ? ' (₹200 × ' + size + ' members)' : '';
+  }
+
+  if (size <= 1) {
+    section.style.display = 'none';
+    wrap.innerHTML = '';
+    return;
+  }
+  section.style.display = 'block';
+  wrap.innerHTML = '';
+  for (let i = 2; i <= size; i++) {
+    const div = document.createElement('div');
+    div.className = 'team-member-row';
+    div.id = 'tm-' + i;
+    div.innerHTML = `<span class="team-member-label">Member ${i}</span>
+      <div style="flex:1"><input type="text" class="form-inp" id="tm-name-${i}" placeholder="Full name" style="margin-bottom:0.5rem">
+      <input type="text" class="form-inp" id="tm-dept-${i}" placeholder="Department & Year"></div>`;
+    wrap.appendChild(div);
+  }
 }
 
-function removeTeamMember(id) {
-  const el = document.getElementById('tm-' + id);
-  if (el) el.remove();
-  teamMemberCount = Math.max(1, teamMemberCount - 1);
-  document.getElementById('addMemberBtn').style.display = '';
+function getTeamData() {
+  const size = parseInt(document.getElementById('r-teamsize').value) || 1;
+  const members = [];
+  for (let i = 2; i <= size; i++) {
+    const n = document.getElementById('tm-name-' + i);
+    const d = document.getElementById('tm-dept-' + i);
+    members.push({ name: n ? n.value.trim() : '', dept: d ? d.value.trim() : '' });
+  }
+  return members;
+}
+
+function getRegistrationAmount() {
+  const size = parseInt(document.getElementById('r-teamsize').value) || 1;
+  return Math.min(size, 4) * 200;
 }
 
 function copyUpiId() {
@@ -2946,19 +3165,64 @@ function doRegister() {
   const name    = document.getElementById('r-name').value.trim();
   const college = document.getElementById('r-college').value.trim();
   const email   = document.getElementById('r-email').value.trim();
+  const phone   = document.getElementById('r-phone').value.trim();
+  const dept    = document.getElementById('r-dept').value;
+  const year    = document.getElementById('r-year').value;
+  const gender  = document.getElementById('r-gender').value;
+  const size    = parseInt(document.getElementById('r-teamsize').value) || 1;
+  const amount  = getRegistrationAmount();
   const evs     = [...document.querySelectorAll('input[name="ev"]:checked')].map(c => c.value.split('(')[0].trim());
+  const members = getTeamData();
+  const ts      = new Date().toLocaleString('en-IN');
+
+  const record = { name, college, email, phone, dept, year, gender, teamSize: size, members, events: evs.join('; '), amount, txnId: txn, timestamp: ts };
+
+  // Save to localStorage for export
+  try {
+    const existing = JSON.parse(localStorage.getItem('zentronix26_registrations') || '[]');
+    existing.push(record);
+    localStorage.setItem('zentronix26_registrations', JSON.stringify(existing));
+  } catch(e) {}
+
+  // Build member rows for summary
+  let memberRows = '';
+  if (members.length > 0) {
+    memberRows = members.map((m, i) => `<div class="success-summary-row"><span class="ss-key">Member ${i+2}</span><span class="ss-val">${m.name}${m.dept ? ' — ' + m.dept : ''}</span></div>`).join('');
+  }
 
   document.getElementById('successSummary').innerHTML = `
     <div class="success-summary-row"><span class="ss-key">Name</span><span class="ss-val">${name}</span></div>
     <div class="success-summary-row"><span class="ss-key">College</span><span class="ss-val">${college}</span></div>
     <div class="success-summary-row"><span class="ss-key">Email</span><span class="ss-val">${email}</span></div>
+    <div class="success-summary-row"><span class="ss-key">Team Size</span><span class="ss-val">${size} member${size>1?'s':''}</span></div>
+    ${memberRows}
     <div class="success-summary-row"><span class="ss-key">Events</span><span class="ss-val">${evs.join(', ')}</span></div>
-    <div class="success-summary-row"><span class="ss-key">Amount Paid</span><span class="ss-val" style="color:var(--omni-green)">₹200</span></div>
+    <div class="success-summary-row"><span class="ss-key">Amount Paid</span><span class="ss-val" style="color:var(--omni-green)">₹${amount}</span></div>
     <div class="success-summary-row"><span class="ss-key">Txn ID</span><span class="ss-val" style="font-family:Share Tech Mono,monospace;font-size:0.85em">${txn}</span></div>`;
 
   document.getElementById('regForm').style.display = 'none';
   const sb = document.getElementById('successBox');
   sb.classList.add('show'); sb.style.display = 'block';
+}
+
+// Export all registrations to CSV / Excel-compatible
+function exportRegistrations() {
+  try {
+    const data = JSON.parse(localStorage.getItem('zentronix26_registrations') || '[]');
+    if (!data.length) { alert('No registrations saved yet.'); return; }
+    const headers = ['Name','College','Email','Phone','Dept','Year','Gender','Team Size','Team Members','Events','Amount','Txn ID','Timestamp'];
+    const rows = data.map(r => [
+      r.name, r.college, r.email, r.phone, r.dept, r.year, r.gender, r.teamSize,
+      (r.members||[]).map(m=>m.name+(m.dept?' ('+m.dept+')':'')).join(' | '),
+      r.events, r.amount, r.txnId, r.timestamp
+    ].map(v => '"'+(v||'').toString().replace(/"/g,'""')+'"').join(','));
+    const csv = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob([csv], {type:'text/csv'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'zentronix26_registrations.csv';
+    a.click();
+  } catch(e) { alert('Export failed: ' + e.message); }
 }
 
 /* ═══ SMOOTH SCROLL ═══ */
@@ -2967,9 +3231,163 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const id = a.getAttribute('href');
     if (id === '#') return;
     const t = document.querySelector(id);
-    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 68, behavior: 'smooth' }); }
+    if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
   });
 });
+
+/* ═══ INTERSECTION OBSERVER — fade-in elements ═══ */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in,.fade-left,.fade-right').forEach(el => observer.observe(el));
+
+/* ═══ MOBILE ANIMATION OBSERVER ═══ */
+const mobObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, idx) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => { entry.target.classList.add('mob-visible'); }, idx * 80);
+      mobObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.ev-mob-item, .orb-mobile-item, .coord-item').forEach(el => mobObserver.observe(el));
+
+/* ═══ NAVBAR SCROLL ═══ */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ═══ LOADER SEQUENCE ═══ */
+(function() {
+  const loader = document.getElementById('omnitrix-loader');
+  const loaderText = document.getElementById('loaderText');
+  const ticks = ['INITIALIZING','SCANNING','UNLOCKING','TRANSFORMING','IT\'S HERO TIME'];
+  let ti = 0;
+  const interval = setInterval(() => {
+    ti++;
+    if (ti < ticks.length) loaderText.textContent = ticks[ti];
+    else clearInterval(interval);
+  }, 550);
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => { loader.style.display = 'none'; }, 900);
+  }, 3100);
+})();
+
+/* ═══ CURSOR ═══ */
+(function() {
+  const cursor = document.getElementById('oCursor');
+  const ring   = document.getElementById('oCursorRing');
+  if (!cursor || !ring) return;
+  if ('ontouchstart' in window) { cursor.style.display='none'; ring.style.display='none'; document.body.style.cursor='auto'; return; }
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+    ring.style.left   = e.clientX + 'px'; ring.style.top   = e.clientY + 'px';
+  });
+  document.querySelectorAll('a,button,.ev-chk,.dial-node,.orb-node').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.style.transform = 'translate(-50%,-50%) scale(1.5)');
+    el.addEventListener('mouseleave', () => ring.style.transform = 'translate(-50%,-50%) scale(1)');
+  });
+})();
+
+/* ═══ COUNTDOWN ═══ */
+(function() {
+  const target = new Date('2026-04-10T09:00:00');
+  function tick() {
+    const now  = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='00'; });
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+    const pad = n => String(n).padStart(2,'0');
+    ['cd-d','cd-h','cd-m','cd-s'].forEach((id,i) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = pad([d,h,m,s][i]);
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ═══ HAMBURGER / MOBILE MENU ═══ */
+function closeMob() { document.getElementById('mobileMenu').classList.remove('open'); }
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+/* ═══ CANVAS PARTICLE BG ═══ */
+(function() {
+  const canvas = document.getElementById('bgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 60; i++) {
+    particles.push({ x: Math.random()*1920, y: Math.random()*1080, vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3, r:Math.random()*1.5+.3, a:Math.random() });
+  }
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.a += 0.008;
+      if (p.x<0) p.x=W; if (p.x>W) p.x=0;
+      if (p.y<0) p.y=H; if (p.y>H) p.y=0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = 'rgba(0,255,65,' + (0.12+0.08*Math.sin(p.a)) + ')';
+      ctx.fill();
+    });
+    for (let i=0;i<particles.length;i++) {
+      for (let j=i+1;j<particles.length;j++) {
+        const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if (dist<120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle='rgba(0,255,65,' + (0.04*(1-dist/120)) + ')';
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ═══ OMNITRIX TICK MARKS (LOADER) ═══ */
+(function() {
+  const svg = document.querySelector('#omnitrix-loader .omni-ticks svg');
+  if (!svg) return;
+  const g = svg.querySelector('#ticks') || svg;
+  const count = 24;
+  for (let i = 0; i < count; i++) {
+    const angle = (i / count) * 360;
+    const rad   = angle * Math.PI / 180;
+    const cx = 130, cy = 130, r1 = 120, r2 = i % 6 === 0 ? 108 : 114;
+    const x1 = cx + r1 * Math.sin(rad), y1 = cy - r1 * Math.cos(rad);
+    const x2 = cx + r2 * Math.sin(rad), y2 = cy - r2 * Math.cos(rad);
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+    line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+    line.setAttribute('stroke', i % 6 === 0 ? '#00ff41' : '#003310');
+    line.setAttribute('stroke-width', i % 6 === 0 ? '2.5' : '1.5');
+    g.appendChild(line);
+  }
+})();
+
 </script>
 </body>
 </html>
