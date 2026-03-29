@@ -1441,6 +1441,91 @@ footer{position:relative;z-index:1;background:#000;border-top:2px solid rgba(0,2
   .about-coord-section{margin-top:3rem}
 }
 
+/* ═══ SCREENSHOT UPLOAD ZONE ═══ */
+.screenshot-upload-wrap {}
+.screenshot-drop-zone {
+  border: 2px dashed rgba(0,255,65,0.25);
+  border-radius: 10px;
+  background: rgba(0,255,65,0.03);
+  cursor: pointer;
+  transition: all 0.3s;
+  overflow: hidden;
+  min-height: 110px;
+  display: flex; align-items: center; justify-content: center;
+}
+.screenshot-drop-zone:hover {
+  border-color: var(--omni-green);
+  background: rgba(0,255,65,0.06);
+  box-shadow: 0 0 20px rgba(0,255,65,0.1);
+}
+.screenshot-drop-zone.has-image { border-style: solid; border-color: var(--omni-green); min-height: 160px; }
+.sdz-idle { text-align: center; padding: 1.5rem; }
+.sdz-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+.sdz-text { font-family: 'Orbitron', sans-serif; font-size: 0.72rem; letter-spacing: 2px; color: var(--omni-green); text-transform: uppercase; margin-bottom: 0.3rem; }
+.sdz-sub  { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: rgba(0,255,65,0.35); letter-spacing: 1px; }
+.sdz-preview { position: relative; width: 100%; }
+.sdz-preview img { width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; display: block; }
+.sdz-remove {
+  position: absolute; top: 8px; right: 8px;
+  background: rgba(255,60,60,0.8); border: none; color: #fff;
+  font-size: 0.7rem; padding: 4px 10px; border-radius: 20px; cursor: pointer;
+  font-family: 'Share Tech Mono', monospace; letter-spacing: 1px;
+  transition: background 0.2s;
+}
+.sdz-remove:hover { background: #ff3c3c; }
+
+/* AI scan bar */
+.ai-scan-bar {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-family: 'Share Tech Mono', monospace; font-size: 0.72rem;
+  letter-spacing: 2px; color: var(--omni-green);
+  background: rgba(0,255,65,0.05); border: 1px solid rgba(0,255,65,0.2);
+  border-radius: 8px; padding: 0.7rem 1rem;
+  animation: shimmer 2s linear infinite;
+}
+
+/* AI result card */
+.ai-result-card {
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(0,255,65,0.2);
+  margin-top: 0.8rem;
+  animation: amountPop 0.4s ease;
+}
+.ai-result-header {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  font-family: 'Orbitron', sans-serif; font-size: 0.68rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  background: rgba(0,255,65,0.06); border-bottom: 1px solid rgba(0,255,65,0.1);
+  color: var(--omni-green);
+}
+.ai-result-body-success { padding: 0.8rem 1rem; font-size: 0.82rem; line-height: 1.7; }
+.ai-result-body-fail    { padding: 0.8rem 1rem; font-size: 0.82rem; line-height: 1.7; color: rgba(255,200,200,0.8); }
+.ai-extracted-row { display: flex; justify-content: space-between; align-items: center; padding: 0.3rem 0; border-bottom: 1px solid rgba(0,255,65,0.06); }
+.ai-extracted-row:last-child { border-bottom: none; }
+.ai-ext-key { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 1px; color: #888; text-transform: uppercase; }
+.ai-ext-val { font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; color: #e8ffe8; font-weight: 600; }
+.ai-ext-val.highlight { color: var(--omni-green); font-size: 0.95rem; text-shadow: 0 0 8px rgba(0,255,65,0.4); }
+
+/* ═══ TXN ID VALIDATION STATES ═══ */
+.form-inp.txn-valid   { border-color: var(--omni-green) !important; box-shadow: 0 0 0 3px rgba(0,255,65,0.12), 0 0 15px rgba(0,255,65,0.15) !important; }
+.form-inp.txn-invalid { border-color: #ff4444 !important; box-shadow: 0 0 0 3px rgba(255,60,60,0.1) !important; }
+.form-inp.txn-checking { border-color: #ffaa00 !important; box-shadow: 0 0 0 3px rgba(255,170,0,0.1) !important; }
+
+/* ═══ PAYMENT STEPS GUIDE ═══ */
+.pay-steps { display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem; }
+.pay-step  {
+  display:flex; align-items:center; gap:0.8rem;
+  font-size:0.82rem; color:rgba(200,240,200,0.7); line-height:1.4;
+}
+.pay-step-num {
+  width:22px; height:22px; border-radius:50%; flex-shrink:0;
+  background:rgba(0,255,65,0.1); border:1px solid rgba(0,255,65,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Orbitron',sans-serif; font-size:0.6rem; font-weight:700; color:var(--omni-green);
+}
+.pay-step-done .pay-step-num { background:var(--omni-green); color:#000; }
+
 /* ═══ REGISTRATION SPINNER ═══ */
 .reg-spinner {
   display: inline-block;
@@ -1468,6 +1553,36 @@ footer{position:relative;z-index:1;background:#000;border-top:2px solid rgba(0,2
 
 /* ═══ REG-ID row highlight ═══ */
 .reg-id-row { background: rgba(0,255,65,0.05); border-radius: 6px; padding: 0.5rem 0.6rem !important; margin-bottom: 0.3rem; }
+.reg-id-val { color:var(--omni-green); font-family:'Orbitron',sans-serif; letter-spacing:2px; font-size:1rem; font-weight:700; text-shadow:0 0 10px rgba(0,255,65,0.4); }
+
+/* ═══ REGISTRATION CLOSED BANNER ═══ */
+.reg-closed-banner {
+  background: linear-gradient(135deg, #1a0000, #0d0000);
+  border: 2px solid rgba(255,60,60,0.4);
+  border-radius: 14px; padding: 3rem 2rem; text-align: center;
+  box-shadow: 0 0 40px rgba(255,60,60,0.15);
+  position: relative; overflow: hidden;
+}
+.reg-closed-banner::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, transparent, #ff3c3c, transparent);
+}
+.reg-closed-icon { font-size: 3rem; margin-bottom: 1rem; display:block; animation: facePulse 2s ease infinite; }
+.reg-closed-title { font-family:'Orbitron',sans-serif; font-size:1.5rem; font-weight:900; color:#ff3c3c; margin-bottom:0.8rem; text-shadow: 0 0 20px rgba(255,60,60,0.5); }
+.reg-closed-msg { color: rgba(255,200,200,0.75); font-size:1rem; line-height:1.7; margin-bottom:1.2rem; }
+.reg-closed-date { font-family:'Share Tech Mono',monospace; font-size:0.78rem; letter-spacing:3px; color:rgba(255,100,100,0.6); text-transform:uppercase; }
+
+/* ═══ DEADLINE COUNTDOWN in register section ═══ */
+.reg-deadline-bar {
+  display:flex; align-items:center; justify-content:center; gap:1rem; flex-wrap:wrap;
+  background: rgba(255,170,0,0.05); border:1px solid rgba(255,170,0,0.2);
+  border-radius:8px; padding:0.7rem 1.2rem; margin-bottom:2rem;
+  font-family:'Share Tech Mono',monospace; font-size:0.72rem; letter-spacing:2px;
+  color:#ffaa00; text-transform:uppercase;
+}
+.reg-deadline-bar .dl-num { font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:700; color:#ffaa00; }
+.reg-deadline-bar.urgent { border-color:rgba(255,60,60,0.4); color:#ff6666; background:rgba(255,60,60,0.05); }
+.reg-deadline-bar.urgent .dl-num { color:#ff6666; }
 
 /* Scanline overlay */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.03) 0,rgba(0,0,0,0.03) 1px,transparent 1px,transparent 2px)}
@@ -2209,7 +2324,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
     <div class="sec-divider center"></div>
     <p>Slap the Omnitrix and transform into a hero! Fill in your details and select your alien events below.</p>
   </div>
-  <div class="reg-form-box fade-in">
+
+  <!-- Deadline countdown bar -->
+  <div class="reg-deadline-bar fade-in" id="deadlineBar" style="max-width:780px;margin:0 auto 2rem">
+    <span>⏳ Registration closes in:</span>
+    <span><span class="dl-num" id="dl-d">--</span> Days</span>
+    <span><span class="dl-num" id="dl-h">--</span> Hrs</span>
+    <span><span class="dl-num" id="dl-m">--</span> Min</span>
+    <span><span class="dl-num" id="dl-s">--</span> Sec</span>
+  </div>
+
+  <div class="reg-form-box fade-in" id="regFormBox">
     <div id="regForm">
 
       <!-- Progress Steps -->
@@ -2437,15 +2562,62 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           </div>
         </div>
 
-        <!-- Transaction ID input -->
-        <div class="form-grp" style="margin-top:1.5rem">
-          <label class="form-lbl">UPI Transaction ID / UTR Number *</label>
-          <input type="text" class="form-inp" id="r-txnid"
-            placeholder="e.g. UPI123456789012"
-            style="letter-spacing:1px;font-family:'Share Tech Mono',monospace">
-          <div style="font-size:0.75rem;color:rgba(200,240,200,0.5);margin-top:0.4rem">
-            Find this in your UPI app under payment history after successful payment.
+        <!-- Payment steps guide -->
+        <div class="pay-steps" style="margin-bottom:1.2rem">
+          <div class="pay-step pay-step-done"><span class="pay-step-num">✓</span><span>Scanned QR or copied UPI ID above</span></div>
+          <div class="pay-step pay-step-done"><span class="pay-step-num">✓</span><span>Paid <strong id="payStepAmount" style="color:var(--omni-green)">₹200</strong> via GPay / PhonePe / Paytm / BHIM</span></div>
+          <div class="pay-step"><span class="pay-step-num">3</span><span>Open your UPI app → Transactions / History → Copy the <strong style="color:#e8ffe8">12-digit UTR / Transaction ID</strong></span></div>
+          <div class="pay-step"><span class="pay-step-num">4</span><span>Paste it below and click Register ✅</span></div>
+        </div>
+
+        <!-- Screenshot Upload + AI Extraction -->
+        <div class="form-grp screenshot-upload-wrap" style="margin-top:1.5rem">
+          <label class="form-lbl">📸 Payment Screenshot *</label>
+          <div class="screenshot-drop-zone" id="screenshotDropZone" onclick="document.getElementById('screenshotInput').click()">
+            <div class="sdz-idle" id="sdzIdle">
+              <div class="sdz-icon">📱</div>
+              <div class="sdz-text">Tap to upload payment screenshot</div>
+              <div class="sdz-sub">GPay · PhonePe · Paytm · Bank — any UPI receipt</div>
+            </div>
+            <div class="sdz-preview" id="sdzPreview" style="display:none">
+              <img id="screenshotPreviewImg" src="" alt="Payment screenshot">
+              <button class="sdz-remove" onclick="removeScreenshot(event)">✕ Remove</button>
+            </div>
           </div>
+          <input type="file" id="screenshotInput" accept="image/*" style="display:none" onchange="handleScreenshot(this)">
+
+          <!-- AI Scan status -->
+          <div id="aiScanStatus" style="display:none;margin-top:0.8rem">
+            <div class="ai-scan-bar" id="aiScanBar">
+              <span class="reg-spinner" style="border-color:rgba(0,255,65,0.2);border-top-color:var(--omni-green)"></span>
+              <span id="aiScanText">AI scanning payment receipt...</span>
+            </div>
+          </div>
+
+          <!-- AI result card -->
+          <div class="ai-result-card" id="aiResultCard" style="display:none">
+            <div class="ai-result-header">
+              <span id="aiResultIcon">🤖</span>
+              <span id="aiResultTitle">AI Payment Scan Result</span>
+            </div>
+            <div id="aiResultBody"></div>
+          </div>
+        </div>
+
+        <!-- Transaction ID input with live validation -->
+        <div class="form-grp" style="margin-top:0.5rem">
+          <label class="form-lbl">UPI Transaction ID / UTR Number *
+            <span style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:rgba(0,255,65,0.4);margin-left:8px;letter-spacing:1px">(auto-filled from screenshot)</span>
+          </label>
+          <div style="position:relative">
+            <input type="text" class="form-inp" id="r-txnid"
+              placeholder="Auto-filled · or type manually"
+              style="letter-spacing:1px;font-family:'Share Tech Mono',monospace;padding-right:44px;text-transform:uppercase"
+              oninput="validateTxnId(this)" autocomplete="off">
+            <span id="txnStatusIcon" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1.1rem"></span>
+          </div>
+          <div id="txnErrorMsg" style="display:none;font-size:0.75rem;color:#ff6666;margin-top:0.4rem;font-family:'Share Tech Mono',monospace;letter-spacing:1px"></div>
+          <div id="txnVerifiedMsg" style="display:none;font-size:0.75rem;color:var(--omni-green);margin-top:0.4rem;font-family:'Share Tech Mono',monospace;letter-spacing:1px"></div>
         </div>
 
         <!-- Amount recap -->
@@ -2465,7 +2637,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
           <label class="decl-chk-label">
             <input type="checkbox" id="r-declare">
             <span class="decl-chk-box"></span>
-            <span>I confirm that all information is accurate, I have completed the ₹200 UPI payment, and I agree to abide by the rules and regulations of ZENTRONIX'26.</span>
+            <span>I confirm that I have completed the UPI payment for the amount shown above, the Transaction ID entered is genuine, and all information provided is accurate. I agree to abide by the rules of ZENTRONIX'26.</span>
           </label>
         </div>
 
@@ -2491,7 +2663,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;b
       <div class="success-summary" id="successSummary"></div>
       <div class="success-msg" style="margin-top:1rem">A confirmation will be sent to your email. It's Hero Time on <strong>April 10, 2026</strong>! 🚀</div>
       <br><a href="#events" class="btn-outline" style="display:inline-block;margin-top:1.5rem">← Back to Aliens</a>
-      <br><button onclick="exportRegistrations()" class="btn-add-member" style="margin-top:1rem;display:inline-flex"><i class="fas fa-download" style="margin-right:6px"></i>Download Registrations (CSV/Excel)</button>
     </div>
   </div>
 </section>
@@ -2615,6 +2786,52 @@ document.getElementById('hamburger').addEventListener('click', () => {
   document.getElementById('mobileMenu').classList.toggle('open');
 });
 function closeMob() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+/* ═══ REGISTRATION DEADLINE COUNTDOWN ═══ */
+(function() {
+  const CLOSE = new Date('2026-04-09T23:59:59');
+  const bar   = document.getElementById('deadlineBar');
+  const box   = document.getElementById('regFormBox');
+
+  function checkDeadline() {
+    const now  = new Date();
+    const diff = CLOSE - now;
+
+    if (diff <= 0) {
+      // Registration closed — replace form box with closed banner
+      if (box) {
+        box.innerHTML = `
+          <div class="reg-closed-banner">
+            <span class="reg-closed-icon">🔒</span>
+            <div class="reg-closed-title">REGISTRATION CLOSED</div>
+            <div class="reg-closed-msg">
+              The registration window for <strong style="color:#ff3c3c">ZENTRONIX'26</strong> has ended.<br>
+              Thank you to all who registered — we'll see you on April 10, 2026! 🚀
+            </div>
+            <div class="reg-closed-date">Deadline was: April 9, 2026 · 11:59 PM</div>
+          </div>`;
+      }
+      if (bar) bar.style.display = 'none';
+      clearInterval(dlInterval);
+      return;
+    }
+
+    // Show live countdown
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const pad = n => String(n).padStart(2, '0');
+    const set = (id, v) => { const el=document.getElementById(id); if(el) el.textContent=pad(v); };
+    set('dl-d', d); set('dl-h', h); set('dl-m', m); set('dl-s', s);
+
+    // Turn red if less than 24 hrs remaining
+    if (bar) bar.classList.toggle('urgent', diff < 86400000);
+  }
+
+  checkDeadline();
+  const dlInterval = setInterval(checkDeadline, 1000);
+})();
 
 /* ═══ COUNTDOWN ═══ */
 function tick() {
@@ -3088,6 +3305,8 @@ function goStep3() {
 
   const payAmountEl = document.getElementById('payAmountDisplay');
   if (payAmountEl) payAmountEl.textContent = '₹' + amount;
+  const payStepAmt = document.getElementById('payStepAmount');
+  if (payStepAmt) payStepAmt.textContent = '₹' + amount;
 
   const upiLinkEl = document.getElementById('upiMobileBtn');
   if (upiLinkEl) {
@@ -3195,23 +3414,45 @@ function copyUpiId() {
       • Execute as: Me  |  Who has access: Anyone
    4. Copy the Web App URL and paste it below replacing the placeholder
    ──────────────────────────────────────────────────────────────────── */
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAvd_SLte9ScaQ7QzB44pDgtyAr4Q1VIJO8wCviKbaVXGoLRCk1bEJKv0AC7tHF4SU/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz4mmaVOIafJUgv1UTdXQsXo2S8-5QLFRA4RWHBpqtQuEFGyWQz3n46ZqyGITbSOmo8/exec';
 
 /* ── APPS SCRIPT CODE (paste into your Google Apps Script editor) ──────
 
+// ─────────────────────────────────────────────────────────────────────
+// SETUP (one-time):
+//   1. Go to Google Drive → New → Folder → name it "ZTX26_Screenshots"
+//   2. Open the folder, copy the ID from the URL:
+//      drive.google.com/drive/folders/  ← COPY THIS PART
+//   3. Paste it as the value of SCREENSHOT_FOLDER_ID below
+var SCREENSHOT_FOLDER_ID = '10x4T8-Ur4gsXcdk2T6El25m62ZI_BRAg';
+// ─────────────────────────────────────────────────────────────────────
+
 function doGet(e) {
   try {
-    var p = e.parameter;
-    if (!p || !p.name) {
-      return ContentService.createTextOutput(JSON.stringify({status:'ok',message:'ZENTRONIX26 API live'}))
-        .setMimeType(ContentService.MimeType.JSON);
+    var p  = e.parameter || {};
+    var cb = p.callback  || null;   // JSONP callback name from browser
+
+    var result;
+
+    if (p.action === 'saveScreenshot') {
+      result = handleScreenshotUpload(p);       // screenshot upload call
+
+    } else if (p.name) {
+      saveRow(p);                               // registration row call
+      result = {status:'ok'};
+
+    } else {
+      result = {status:'ok', message:'ZENTRONIX26 API live'};  // ping
     }
-    saveRow(p);
-    return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
-      .setMimeType(ContentService.MimeType.JSON);
+
+    var json   = JSON.stringify(result);
+    var output = cb ? cb + '(' + json + ');' : json;
+    var mime   = cb ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON;
+    return ContentService.createTextOutput(output).setMimeType(mime);
+
   } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({status:'error',msg:err.toString()}))
-      .setMimeType(ContentService.MimeType.JSON);
+    var errOut = JSON.stringify({status:'error', msg:err.toString()});
+    return ContentService.createTextOutput(errOut).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -3227,40 +3468,486 @@ function doPost(e) {
   }
 }
 
+function handleScreenshotUpload(p) {
+  try {
+    if (!p.imgBase64 || !p.regId) return {status:'error', msg:'Missing fields'};
+    if (!SCREENSHOT_FOLDER_ID || SCREENSHOT_FOLDER_ID === 'YOUR_DRIVE_FOLDER_ID_HERE')
+      return {status:'error', msg:'SCREENSHOT_FOLDER_ID not set'};
+
+    var mimeType = p.mimeType || 'image/jpeg';
+    var ext      = mimeType.split('/')[1].replace('jpeg','jpg');
+    var filename = 'screenshot_' + p.regId + '.' + ext;
+    var decoded  = Utilities.base64Decode(p.imgBase64);
+    var blob     = Utilities.newBlob(decoded, mimeType, filename);
+    var folder   = DriveApp.getFolderById(SCREENSHOT_FOLDER_ID);
+    var file     = folder.createFile(blob);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    var driveUrl = file.getUrl();
+
+    // Find the matching row by Reg ID and write the Drive link into col 19 (Screenshot Link)
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var rows  = sheet.getDataRange().getValues();
+    for (var i = 1; i < rows.length; i++) {
+      if (rows[i][0] === p.regId) {
+        sheet.getRange(i + 1, 19).setValue(driveUrl);
+        break;
+      }
+    }
+    return {status:'ok', driveUrl: driveUrl};
+  } catch(err) {
+    return {status:'error', msg:err.toString()};
+  }
+}
+
 function saveRow(data) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Reg ID','Name','College','Email','Phone','Dept','Year',
-      'Gender','Team Size','Member 2','Member 3','Member 4','Member 5',
-      'Events','Amount (Rs)','Txn ID','Timestamp']);
+    sheet.appendRow([
+      'Reg ID','All Reg IDs','Name','College','Email','Phone','Dept','Year',
+      'Gender','Team Size','Member 2 (ID+Name)','Member 3 (ID+Name)','Member 4 (ID+Name)','Member 5 (ID+Name)',
+      'Events','Amount (Rs)','Txn ID','Screenshot Status','Screenshot Link','Timestamp'
+    ]);
   }
+  // Screenshot Link (col 19) starts empty — filled in by handleScreenshotUpload after upload
   sheet.appendRow([
-    data.regId||'', data.name||'', data.college||'', data.email||'', data.phone||'',
+    data.regId||'', data.allRegIds||'', data.name||'', data.college||'', data.email||'', data.phone||'',
     data.dept||'', data.year||'', data.gender||'', data.teamSize||'',
     data.m2||'', data.m3||'', data.m4||'', data.m5||'',
-    data.events||'', data.amount||'', data.txnId||'', data.timestamp||''
+    data.events||'', data.amount||'', data.txnId||'',
+    data.screenshotStatus||'', '', data.timestamp||''
   ]);
 }
 
    ─────────────────────────────────────────────────────────────────── */
 
-function generateRegId() {
-  // Format: ZTX26-XXXX where XXXX = padded counter stored in localStorage
+/* ═══ REGISTRATION DEADLINE ═══
+   Set CLOSE_DATE to midnight before event day.
+   Change to a future date to re-open registrations. */
+const CLOSE_DATE = new Date('2026-04-09T23:59:59');
+
+function isRegistrationClosed() {
+  return new Date() > CLOSE_DATE;
+}
+
+/* ═══ REG-ID GENERATOR ═══
+   Each individual member gets their own unique ID.
+   Counter stored in Google Sheet via getNextCounter().
+   Falls back to localStorage counter if Sheet unreachable. */
+function generateRegIds(memberCount) {
+  // Get base counter from localStorage
+  let base;
   try {
-    let counter = parseInt(localStorage.getItem('ztx26_counter') || '0') + 1;
-    localStorage.setItem('ztx26_counter', counter);
-    return 'ZTX26-' + String(counter).padStart(4, '0');
+    base = parseInt(localStorage.getItem('ztx26_counter') || '0') + 1;
+    localStorage.setItem('ztx26_counter', base + memberCount - 1);
   } catch(e) {
-    // Fallback: timestamp-based if localStorage blocked
-    return 'ZTX26-' + Date.now().toString(36).toUpperCase().slice(-5);
+    base = parseInt(Date.now().toString().slice(-5));
+  }
+  // Generate one ID per member
+  const ids = [];
+  for (let i = 0; i < memberCount; i++) {
+    ids.push('ZTX26-' + String(base + i).padStart(4, '0'));
+  }
+  return ids; // [leader_id, m2_id, m3_id, ...]
+}
+
+/* ── Compress screenshot to ≤150 KB before sending ── */
+function compressScreenshot(base64DataUrl) {
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    img.onload = function() {
+      const MAX = 900;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else       { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      // Try quality 0.7 first; if still too big drop to 0.4
+      let out = canvas.toDataURL('image/jpeg', 0.7);
+      if (out.length > 200000) out = canvas.toDataURL('image/jpeg', 0.4);
+      resolve(out);
+    };
+    img.onerror = () => resolve(base64DataUrl); // fallback: use original
+    img.src = base64DataUrl;
+  });
+}
+
+/* ── Generic JSONP helper ── */
+function jsonpCall(url, params, timeoutMs) {
+  return new Promise((resolve) => {
+    const cbName = '_gasCB_' + Date.now() + '_' + Math.floor(Math.random()*9999);
+    const tid = setTimeout(() => { cleanup(); resolve({status:'timeout'}); }, timeoutMs || 8000);
+
+    function cleanup() {
+      clearTimeout(tid);
+      delete window[cbName];
+      const s = document.getElementById(cbName);
+      if (s) s.remove();
+    }
+
+    window[cbName] = function(resp) { cleanup(); resolve(resp || {}); };
+
+    const qs = new URLSearchParams(params);
+    qs.set('callback', cbName);
+
+    const sc = document.createElement('script');
+    sc.id  = cbName;
+    sc.src = url + '?' + qs.toString();
+    sc.onerror = () => { cleanup(); resolve({status:'error'}); };
+    document.head.appendChild(sc);
+  });
+}
+
+async function pushToSheet(record) {
+  if (!SHEET_URL) return 'offline';
+
+  // ── Step 1: save registration row (no base64 in this call) ──
+  const rowParams = {};
+  Object.keys(record).forEach(k => {
+    rowParams[k] = record[k] != null ? String(record[k]) : '';
+  });
+
+  const rowResp = await jsonpCall(SHEET_URL, rowParams, 8000);
+  if (rowResp.status !== 'ok') return 'error';
+
+  // ── Step 2: upload screenshot to Drive (separate JSONP call with compressed base64) ──
+  if (window._screenshotBase64 && record.regId) {
+    try {
+      const compressed = await compressScreenshot(window._screenshotBase64);
+      // base64 portion only (strip data URI prefix)
+      const b64 = compressed.split(',')[1];
+      const mimeType = compressed.split(';')[0].split(':')[1] || 'image/jpeg';
+
+      const imgResp = await jsonpCall(SHEET_URL, {
+        action:    'saveScreenshot',
+        regId:     record.regId,
+        imgBase64: b64,
+        mimeType:  mimeType
+      }, 15000);  // longer timeout — Drive write takes a few seconds
+
+      // imgResp.driveUrl is stored server-side on the same row — nothing more needed here
+    } catch(e) { /* screenshot upload failure is non-fatal */ }
+  }
+
+  return 'synced';
+}
+
+/* ═══ TXN ID VALIDATION ═══ */
+/* ═══ SCREENSHOT UPLOAD + AI VERIFICATION ═══ */
+window._screenshotUploaded = false;
+window._screenshotVerified = false;
+window._screenshotBase64   = null;
+
+function handleScreenshot(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) {
+    alert('Please upload an image file (JPG, PNG, etc.)'); return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Image too large — please use a screenshot under 5MB.'); return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64 = e.target.result; // data:image/jpeg;base64,....
+    window._screenshotBase64 = base64;
+    window._screenshotUploaded = true;
+
+    // Show preview
+    const zone = document.getElementById('screenshotDropZone');
+    const idle = document.getElementById('sdzIdle');
+    const preview = document.getElementById('sdzPreview');
+    const img = document.getElementById('screenshotPreviewImg');
+    img.src = base64;
+    idle.style.display = 'none';
+    preview.style.display = 'block';
+    zone.classList.add('has-image');
+
+    // Start AI scan
+    scanScreenshotWithAI(base64, file.type || 'image/jpeg');
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeScreenshot(e) {
+  e.stopPropagation();
+  window._screenshotUploaded = false;
+  window._screenshotVerified = false;
+  window._screenshotBase64   = null;
+
+  document.getElementById('screenshotInput').value = '';
+  document.getElementById('sdzIdle').style.display = 'block';
+  document.getElementById('sdzPreview').style.display = 'none';
+  document.getElementById('screenshotDropZone').classList.remove('has-image');
+  document.getElementById('aiScanStatus').style.display = 'none';
+  document.getElementById('aiResultCard').style.display = 'none';
+
+  // Clear txn field
+  const txnInput = document.getElementById('r-txnid');
+  txnInput.value = '';
+  txnInput.classList.remove('txn-valid','txn-invalid');
+  document.getElementById('txnErrorMsg').style.display = 'none';
+  document.getElementById('txnVerifiedMsg').style.display = 'none';
+  document.getElementById('txnStatusIcon').textContent = '';
+}
+
+async function scanScreenshotWithAI(base64, mimeType) {
+  const statusDiv = document.getElementById('aiScanStatus');
+  const scanBar   = document.getElementById('aiScanBar');
+  const resultCard= document.getElementById('aiResultCard');
+  const resultHdr = document.getElementById('aiResultTitle');
+  const resultIcon= document.getElementById('aiResultIcon');
+  const resultBody= document.getElementById('aiResultBody');
+
+  statusDiv.style.display = 'block';
+  resultCard.style.display = 'none';
+  document.getElementById('aiScanText').textContent = 'AI scanning payment receipt...';
+
+  // Extract pure base64 (remove data URI prefix)
+  const pureBase64 = base64.split(',')[1];
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: { type: 'base64', media_type: mimeType, data: pureBase64 }
+            },
+            {
+              type: 'text',
+              text: `This is a UPI payment screenshot. Extract the following and reply ONLY as JSON, nothing else:
+{
+  "is_payment_receipt": true/false,
+  "txn_id": "the transaction ID or UTR number (null if not found)",
+  "amount": "amount paid in rupees (null if not found)",
+  "status": "SUCCESS or FAILED or PENDING (null if unclear)",
+  "upi_app": "GPay/PhonePe/Paytm/BHIM/Bank/other",
+  "paid_to": "recipient UPI ID or name if visible (null if not)",
+  "date": "payment date if visible (null if not)"
+}`
+            }
+          ]
+        }]
+      })
+    });
+
+    const data = await response.json();
+    const rawText = data.content?.[0]?.text || '';
+
+    // Parse JSON from AI response
+    let parsed;
+    try {
+      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+      parsed = JSON.parse(jsonMatch ? jsonMatch[0] : rawText);
+    } catch(e) {
+      throw new Error('Could not read AI response');
+    }
+
+    statusDiv.style.display = 'none';
+    resultCard.style.display = 'block';
+
+    if (!parsed.is_payment_receipt) {
+      resultIcon.textContent = '⚠️';
+      resultHdr.textContent  = 'Not a Payment Screenshot';
+      resultCard.style.borderColor = 'rgba(255,170,0,0.3)';
+      resultCard.querySelector('.ai-result-header').style.background = 'rgba(255,170,0,0.06)';
+      resultCard.querySelector('.ai-result-header').style.color = '#ffaa00';
+      resultBody.className = 'ai-result-body-fail';
+      resultBody.innerHTML = 'The uploaded image does not appear to be a UPI payment receipt. Please upload a clear screenshot of your payment confirmation.';
+      window._screenshotVerified = false;
+      return;
+    }
+
+    if (parsed.status === 'FAILED') {
+      resultIcon.textContent = '❌';
+      resultHdr.textContent  = 'Payment Failed';
+      resultCard.style.borderColor = 'rgba(255,60,60,0.3)';
+      resultCard.querySelector('.ai-result-header').style.background = 'rgba(255,60,60,0.06)';
+      resultCard.querySelector('.ai-result-header').style.color = '#ff6666';
+      resultBody.className = 'ai-result-body-fail';
+      resultBody.innerHTML = 'Your payment screenshot shows a <strong style="color:#ff6666">FAILED</strong> transaction. Please complete the payment and upload the success receipt.';
+      window._screenshotVerified = false;
+      return;
+    }
+
+    // SUCCESS — auto-fill Txn ID
+    resultIcon.textContent = '✅';
+    resultHdr.textContent  = 'Payment Verified by AI';
+    resultCard.style.borderColor = 'rgba(0,255,65,0.3)';
+    resultCard.querySelector('.ai-result-header').style.background = 'rgba(0,255,65,0.07)';
+    resultCard.querySelector('.ai-result-header').style.color = 'var(--omni-green)';
+
+    let rows = '';
+    if (parsed.txn_id)  rows += `<div class="ai-extracted-row"><span class="ai-ext-key">Transaction ID</span><span class="ai-ext-val highlight">${parsed.txn_id}</span></div>`;
+    if (parsed.amount)  rows += `<div class="ai-extracted-row"><span class="ai-ext-key">Amount Paid</span><span class="ai-ext-val">₹${parsed.amount}</span></div>`;
+    if (parsed.status)  rows += `<div class="ai-extracted-row"><span class="ai-ext-key">Status</span><span class="ai-ext-val" style="color:var(--omni-green)">${parsed.status} ✓</span></div>`;
+    if (parsed.upi_app) rows += `<div class="ai-extracted-row"><span class="ai-ext-key">UPI App</span><span class="ai-ext-val">${parsed.upi_app}</span></div>`;
+    if (parsed.paid_to) rows += `<div class="ai-extracted-row"><span class="ai-ext-key">Paid To</span><span class="ai-ext-val">${parsed.paid_to}</span></div>`;
+    if (parsed.date)    rows += `<div class="ai-extracted-row"><span class="ai-ext-key">Date</span><span class="ai-ext-val">${parsed.date}</span></div>`;
+
+    resultBody.className = 'ai-result-body-success';
+    resultBody.innerHTML = rows || '<div style="color:rgba(0,255,65,0.6)">Payment details extracted successfully.</div>';
+
+    // Auto-fill Txn ID input
+    if (parsed.txn_id) {
+      const txnInput = document.getElementById('r-txnid');
+      txnInput.value = parsed.txn_id.toUpperCase().replace(/\s/g,'');
+      validateTxnId(txnInput);
+    }
+
+    window._screenshotVerified = true;
+
+  } catch(err) {
+    statusDiv.style.display = 'none';
+    resultCard.style.display = 'block';
+    resultIcon.textContent = '⚠️';
+    resultHdr.textContent  = 'AI Scan Unavailable';
+    resultCard.style.borderColor = 'rgba(255,170,0,0.25)';
+    resultCard.querySelector('.ai-result-header').style.color = '#ffaa00';
+    resultBody.className = 'ai-result-body-fail';
+    resultBody.innerHTML = 'Could not scan automatically. Please <strong style="color:#e8ffe8">type your Transaction ID manually</strong> in the field below.';
+    window._screenshotVerified = false;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   UPI TRANSACTION ID PATTERNS (real formats used by each app)
+   ─────────────────────────────────────────────────────────────
+   GPay    : 12 digits           e.g. 425612345678
+   PhonePe : P + 20 alphanumeric e.g. P2504101234567890ABCD
+   Paytm   : 16 digits           e.g. 4256123456789012
+   BHIM    : 12 digits           e.g. 321012345678
+   Bank UTR: BANKCODE + 18 digits e.g. SBIN026041012345678
+             OR purely numeric 22 digits
+   iMobile : alphanumeric 12-22  e.g. CIB2504101234
+   ──────────────────────────────────────────────────────────── */
+const TXN_PATTERNS = [
+  { name: 'GPay / BHIM / Bank',  regex: /^\d{12}$/ },
+  { name: 'Paytm',               regex: /^\d{16}$/ },
+  { name: 'PhonePe',             regex: /^P[A-Z0-9]{18,22}$/ },
+  { name: 'Bank UTR (NEFT/IMPS)',regex: /^[A-Z]{4}[A-Z0-9]{2}\d{16,18}$/ },
+  { name: 'Bank UTR (numeric)',  regex: /^\d{18,22}$/ },
+  { name: 'iMobile / other',     regex: /^[A-Z]{2,5}\d{6,18}$/ },
+];
+
+function detectUpiApp(val) {
+  for (const p of TXN_PATTERNS) {
+    if (p.regex.test(val)) return p.name;
+  }
+  return null;
+}
+
+function checkTxnId(val) {
+  if (!val) return { valid: false, msg: 'Please enter the Transaction ID from your UPI app.' };
+
+  // Basic format: alphanumeric only, no spaces/symbols
+  if (!/^[A-Z0-9]+$/.test(val)) {
+    return { valid: false, msg: 'Only letters (A-Z) and numbers allowed — no spaces or special characters.' };
+  }
+
+  // Length check: UPI IDs are always 10–22 characters
+  if (val.length < 10) {
+    return { valid: false, msg: 'Too short — UPI Transaction IDs are at least 10 characters. Please check again.' };
+  }
+  if (val.length > 25) {
+    return { valid: false, msg: 'Too long — please enter only the Transaction ID / UTR number.' };
+  }
+
+  // Match against known UPI patterns
+  const appName = detectUpiApp(val);
+  if (!appName) {
+    // Soft warning — don't hard-block since patterns vary, but flag it
+    // Still allow if 10-22 chars alphanumeric
+    if (val.length >= 10 && val.length <= 22) {
+      // Accepted with generic warning
+    }
+  }
+
+  // Duplicate check — prevent same Txn ID being used twice
+  try {
+    const existing = JSON.parse(localStorage.getItem('zentronix26_registrations') || '[]');
+    const dup = existing.find(r => r.txnId && r.txnId.toUpperCase() === val);
+    if (dup) return { valid: false, msg: 'This Transaction ID is already registered. Each UPI payment can only be used once.' };
+  } catch(e) {}
+
+  return { valid: true, app: appName };
+}
+
+function validateTxnId(input) {
+  const val = input.value.trim().toUpperCase();
+  input.value = val;
+  const errEl  = document.getElementById('txnErrorMsg');
+  const okEl   = document.getElementById('txnVerifiedMsg');
+  const iconEl = document.getElementById('txnStatusIcon');
+
+  if (!val) {
+    input.classList.remove('txn-valid', 'txn-invalid');
+    errEl.style.display = 'none';
+    okEl.style.display  = 'none';
+    iconEl.textContent  = '';
+    return;
+  }
+
+  const result = checkTxnId(val);
+
+  if (result.valid) {
+    input.classList.add('txn-valid');
+    input.classList.remove('txn-invalid');
+    errEl.style.display = 'none';
+    okEl.innerHTML = result.app
+      ? '✅ Valid Transaction ID detected &nbsp;·&nbsp; <span style="color:rgba(0,255,65,0.6)">' + result.app + '</span>'
+      : '✅ Transaction ID verified — proceed to complete registration';
+    okEl.style.display = 'block';
+    iconEl.textContent = '✅';
+  } else {
+    input.classList.add('txn-invalid');
+    input.classList.remove('txn-valid');
+    errEl.textContent   = '⚠️ ' + result.msg;
+    errEl.style.display = 'block';
+    okEl.style.display  = 'none';
+    iconEl.textContent  = val.length < 3 ? '' : '❌';
   }
 }
 
 async function doRegister() {
+  // ── Check deadline ──
+  if (isRegistrationClosed()) {
+    alert('⚠️ Registration is closed! The deadline was April 9, 2026.');
+    return;
+  }
+
   const declared = document.getElementById('r-declare').checked;
   if (!declared) { alert('⚠️ Please accept the declaration to proceed!'); return; }
-  const txn = document.getElementById('r-txnid').value.trim();
-  if (!txn) { alert('⚠️ Please enter your UPI Transaction ID after completing payment!'); return; }
+
+  // Screenshot required
+  if (!window._screenshotUploaded) {
+    alert('⚠️ Please upload your UPI payment screenshot first!');
+    btn.disabled = false;
+    btn.innerHTML = '🟢 SLAP THE OMNITRIX — REGISTER';
+    return;
+  }
+
+  const txn = document.getElementById('r-txnid').value.trim().toUpperCase();
+  const txnResult = checkTxnId(txn);
+  if (!txnResult.valid) {
+    document.getElementById('txnErrorMsg').textContent = '⚠️ ' + txnResult.msg;
+    document.getElementById('txnErrorMsg').style.display = 'block';
+    document.getElementById('txnVerifiedMsg').style.display = 'none';
+    document.getElementById('r-txnid').focus();
+    btn.disabled = false;
+    btn.innerHTML = '🟢 SLAP THE OMNITRIX — REGISTER';
+    return;
+  }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
@@ -3278,72 +3965,72 @@ async function doRegister() {
   const evs     = [...document.querySelectorAll('input[name="ev"]:checked')].map(c => c.value.split('(')[0].trim());
   const members = getTeamData();
   const ts      = new Date().toLocaleString('en-IN');
-  const regId   = generateRegId();
 
-  // Build flat member columns for sheet (up to 4 extra members)
+  // ── Generate one unique Reg ID per member ──
+  const allIds   = generateRegIds(size);           // [ZTX26-0001, ZTX26-0002, ...]
+  const leaderRegId = allIds[0];
+  const memberIds   = allIds.slice(1);             // IDs for extra members
+
+  // ── Build member columns with their individual IDs ──
   const mCols = {};
-  members.forEach((m, i) => { mCols['m' + (i+2)] = m.name + (m.dept ? ' (' + m.dept + ')' : ''); });
+  members.forEach((m, i) => {
+    mCols['m' + (i+2)] = (memberIds[i] ? '[' + memberIds[i] + '] ' : '') + m.name + (m.dept ? ' (' + m.dept + ')' : '');
+  });
+
+  const screenshotNote = window._screenshotVerified
+    ? 'AI-verified ✓' : (window._screenshotUploaded ? 'Uploaded (pending review)' : 'Not uploaded');
 
   const record = {
-    regId, name, college, email, phone, dept, year, gender,
-    teamSize: size, events: evs.join('; '), amount, txnId: txn, timestamp: ts,
+    regId: leaderRegId,
+    allRegIds: allIds.join(', '),
+    name, college, email, phone, dept, year, gender,
+    teamSize: size, events: evs.join('; '), amount, txnId: txn,
+    screenshotStatus: screenshotNote,
+    timestamp: ts,
     ...mCols
   };
 
-  // 1. Save locally first (always works)
+  // 1. Save locally
   try {
     const existing = JSON.parse(localStorage.getItem('zentronix26_registrations') || '[]');
     existing.push(record);
     localStorage.setItem('zentronix26_registrations', JSON.stringify(existing));
   } catch(e) {}
 
-  // 2. Push to Google Sheet via GET query params (most reliable — no CORS issue)
-  let sheetStatus = 'offline';
-  if (SHEET_URL) {
-    try {
-      const params = new URLSearchParams();
-      Object.keys(record).forEach(k => {
-        params.append(k, record[k] != null ? String(record[k]) : '');
-      });
-      const fullUrl = SHEET_URL + '?' + params.toString();
+  // 2. Push to Google Sheet
+  const sheetStatus = await pushToSheet(record);
 
-      // Method: hidden Image tag — fires GET, bypasses CORS 100%
-      await new Promise((resolve) => {
-        const img = new Image();
-        img.onload = img.onerror = () => resolve();
-        img.src = fullUrl;
-        setTimeout(resolve, 5000); // timeout safety
-      });
-      sheetStatus = 'synced';
-    } catch(e) {
-      sheetStatus = 'error';
-    }
-  }
+  // 3. Build success summary — each member shows their own ID
+  const leaderRow = `
+    <div class="success-summary-row reg-id-row">
+      <span class="ss-key">Your Reg ID</span>
+      <span class="ss-val reg-id-val">${leaderRegId}</span>
+    </div>`;
 
-  // 3. Build member rows for success summary
   let memberRows = '';
   if (members.length > 0) {
-    memberRows = members.map((m, i) => `<div class="success-summary-row"><span class="ss-key">Member ${i+2}</span><span class="ss-val">${m.name}${m.dept ? ' — ' + m.dept : ''}</span></div>`).join('');
+    memberRows = members.map((m, i) => `
+      <div class="success-summary-row reg-id-row" style="opacity:0.85">
+        <span class="ss-key">Member ${i+2} — ${m.name || 'Member'}</span>
+        <span class="ss-val reg-id-val" style="font-size:0.9rem">${memberIds[i] || ''}</span>
+      </div>`).join('');
   }
 
   const syncBadge = sheetStatus === 'synced'
     ? `<div class="sync-badge synced"><i class="fas fa-check-circle"></i> Saved to Google Sheets</div>`
     : sheetStatus === 'offline'
-    ? `<div class="sync-badge offline"><i class="fas fa-save"></i> Saved locally — will sync when Sheet URL is configured</div>`
-    : `<div class="sync-badge error"><i class="fas fa-exclamation-circle"></i> Sheet sync failed — saved locally. Contact organizer with Txn ID.</div>`;
+    ? `<div class="sync-badge offline"><i class="fas fa-save"></i> Saved locally</div>`
+    : `<div class="sync-badge error"><i class="fas fa-exclamation-circle"></i> Sheet sync failed — contact organizer with Txn ID.</div>`;
 
   document.getElementById('successSummary').innerHTML = `
-    <div class="success-summary-row reg-id-row">
-      <span class="ss-key">Registration ID</span>
-      <span class="ss-val" style="color:var(--omni-green);font-family:'Orbitron',sans-serif;letter-spacing:2px;font-size:1rem">${regId}</span>
-    </div>
+    ${leaderRow}
+    ${memberRows}
     <div class="success-summary-row"><span class="ss-key">Name</span><span class="ss-val">${name}</span></div>
     <div class="success-summary-row"><span class="ss-key">College</span><span class="ss-val">${college}</span></div>
     <div class="success-summary-row"><span class="ss-key">Email</span><span class="ss-val">${email}</span></div>
     <div class="success-summary-row"><span class="ss-key">Team Size</span><span class="ss-val">${size} member${size>1?'s':''}</span></div>
-    ${memberRows}
     <div class="success-summary-row"><span class="ss-key">Events</span><span class="ss-val">${evs.join(', ')}</span></div>
-    <div class="success-summary-row"><span class="ss-key">Amount Paid</span><span class="ss-val" style="color:var(--omni-green)">₹${amount}</span></div>
+    <div class="success-summary-row"><span class="ss-key">Amount Paid</span><span class="ss-val" style="color:var(--omni-green)">&#8377;${amount}</span></div>
     <div class="success-summary-row"><span class="ss-key">Txn ID</span><span class="ss-val" style="font-family:Share Tech Mono,monospace;font-size:0.85em">${txn}</span></div>
     ${syncBadge}`;
 
