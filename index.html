@@ -3195,7 +3195,7 @@ function copyUpiId() {
       • Execute as: Me  |  Who has access: Anyone
    4. Copy the Web App URL and paste it below replacing the placeholder
    ──────────────────────────────────────────────────────────────────── */
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAvd_SLte9ScaQ7QzB44pDgtyAr4Q1VIJO8wCviKbaVXGoLRCk1bEJKv0AC7tHF4SU/exec?name=Test&college=GCE&email=test@test.com&regId=ZTX26-TEST';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAvd_SLte9ScaQ7QzB44pDgtyAr4Q1VIJO8wCviKbaVXGoLRCk1bEJKv0AC7tHF4SU/exec';
 
 /* ── APPS SCRIPT CODE (paste into your Google Apps Script editor) ──────
 
@@ -3297,32 +3297,26 @@ async function doRegister() {
     localStorage.setItem('zentronix26_registrations', JSON.stringify(existing));
   } catch(e) {}
 
-  // 2. Push to Google Sheet — no-cors mode to avoid CORS block
+  // 2. Push to Google Sheet via GET query params (most reliable — no CORS issue)
   let sheetStatus = 'offline';
-  if (SHEET_URL && SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+  if (SHEET_URL) {
     try {
-      // Use no-cors + text/plain to skip preflight — Apps Script reads e.postData.contents
-      await fetch(SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(record)
+      const params = new URLSearchParams();
+      Object.keys(record).forEach(k => {
+        params.append(k, record[k] != null ? String(record[k]) : '');
       });
-      sheetStatus = 'synced'; // no-cors can't read response body — assume ok if no throw
+      const fullUrl = SHEET_URL + '?' + params.toString();
+
+      // Method: hidden Image tag — fires GET, bypasses CORS 100%
+      await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = img.onerror = () => resolve();
+        img.src = fullUrl;
+        setTimeout(resolve, 5000); // timeout safety
+      });
+      sheetStatus = 'synced';
     } catch(e) {
-      // Final fallback: hidden iframe GET request
-      try {
-        const params = new URLSearchParams();
-        Object.keys(record).forEach(k => params.append(k, record[k] != null ? record[k] : ''));
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = SHEET_URL + '?' + params.toString();
-        document.body.appendChild(iframe);
-        setTimeout(() => document.body.removeChild(iframe), 6000);
-        sheetStatus = 'synced';
-      } catch(e2) {
-        sheetStatus = 'error';
-      }
+      sheetStatus = 'error';
     }
   }
 
